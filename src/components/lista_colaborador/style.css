@@ -1,0 +1,20 @@
+.coluna_grid_80 {
+  width: 80px;
+}
+
+.coluna_grid_150 {
+  width: 150px;
+}
+
+.coluna_grid_200 {
+  width: 200px;
+}
+
+.icone_acao{
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.icone_acao_vermelho{
+  color: red;
+}
