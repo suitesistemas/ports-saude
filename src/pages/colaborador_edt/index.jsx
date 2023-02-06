@@ -90,7 +90,7 @@ function Colaborador_Edt(){
           {/*dsc_foto*/}
            <div className="row">
             <div className="col-sm-3">
-              <img className="mt-margem-foto" src={"http://localhost:3001/upload/users/" + dscimagem} alt="Ports Saude" />              
+              <img className="mt-margem-foto" src={"http://localhost:3001/users/" + dscimagem} alt="Ports Saude" />              
             </div>
             
             <div className="col-sm-9 d-flex justify-content-left align-items-center text-left">

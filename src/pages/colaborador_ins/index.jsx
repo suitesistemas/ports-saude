@@ -115,7 +115,7 @@ function Colaborador_Ins(){
             <h3 className="">Cadastro de Colaborador - Inserindo...</h3>
           </div>
           <div>
-            <img className="mt-margem-foto" src={"http://localhost:3001/upload/users/" + dscimagem} alt="Ports Saude" />
+            <img className="mt-margem-foto" src={"http://localhost:3001/users/" + dscimagem} alt="Ports Saude" />
             <input  type="file" name="image" onChange={e => setImage(e.target.files[0])}/>
             <button type="submit" className="btn btn-primary btn-acao">Salvar</button>
             {status.type === 'sucess'? <p style={{color: "green"}}>{status.mensagem}</p> : ''}
