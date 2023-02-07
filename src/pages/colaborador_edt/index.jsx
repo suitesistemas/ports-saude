@@ -19,14 +19,14 @@ function Colaborador_Edt(){
   const[cidade,        setCidade]         = useState('');
   const[logradouro,    setLogradouro]     = useState('');
   const[numlogradouro, setNumLogradouro]  = useState(''); 
-  const [datcadastro,   setDatCadastro]    = useState('');
-  const [datnascimento, setDatNascimento]  = useState('');
+  const [datcadastro,   setDatCadastro]   = useState('');
+  const [datnascimento, setDatNascimento] = useState('');
   const[flgsexo,       setFlgSexo]        = useState(''); 
   const[flguf,         setFlgUf]          = useState('');
   const[dscimagem,     setDscImagem]      = useState('logo.jpg');
 
   //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-  const apiUrl = "http://15.229.119.177:3001";
+  const apiUrl = "https://15.229.119.177:3001";
   //const apiUrl = "http://localhost:3001";
 
   let {cod_pessoa} = useParams();
