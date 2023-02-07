@@ -5,6 +5,10 @@ import Axios             from "axios";
 import './style.css';
 import api  from '../../config/configApi';
 
+//const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
+const apiUrl = "http://15.229.119.177:3001";
+//const apiUrl = "http://localhost:3001";
+
 function Colaborador_Ins(){
   const [referencia,    setReferencia]     = useState('');
   const [nomepessoa,    setNomePessoa]     = useState('');
@@ -47,7 +51,7 @@ function Colaborador_Ins(){
       }
     }
     
-    await api.post("/upload-image", formData, headers)
+    await api.post(apiUrl + "/upload-image", formData, headers)
     .then((response) => {      
       setStatus({
         type: 'sucess',
@@ -71,7 +75,7 @@ function Colaborador_Ins(){
 
 //Inserindo registo no BD
   const Cadastrar = async e =>{
-    Axios.post("http://localhost:3001/colaborador/inserir",
+    Axios.post(apiUrl + "/colaborador/inserir",
     {
       dsc_referencia:     referencia,
       dsc_nome_pessoa:    nomepessoa,
@@ -115,13 +119,16 @@ function Colaborador_Ins(){
             <h3 className="">Cadastro de Colaborador - Inserindo...</h3>
           </div>
           <div>
-            <img className="mt-margem-foto" src={"http://localhost:3001/users/" + dscimagem} alt="Ports Saude" />
+            <img className="mt-margem-foto" src={apiUrl + "/users/" + dscimagem} alt="Ports Saude" />
             <input  type="file" name="image" onChange={e => setImage(e.target.files[0])}/>
             <button type="submit" className="btn btn-primary btn-acao">Salvar</button>
             {status.type === 'sucess'? <p style={{color: "green"}}>{status.mensagem}</p> : ''}
             {status.type === 'error'?  <p style={{color: "red"}}  >{status.mensagem}</p> : ''}
           </div>
         </form>
+          <div className="container-fluid titulo justify-content-between text-center">
+            <h3 className="">Cadastro de Colaborador - Inserindo...</h3>
+          </div>
       </div>
     
       <div>

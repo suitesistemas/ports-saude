@@ -25,10 +25,14 @@ function Colaborador_Edt(){
   const[flguf,         setFlgUf]          = useState('');
   const[dscimagem,     setDscImagem]      = useState('logo.jpg');
 
+  //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
+  const apiUrl = "http://15.229.119.177:3001";
+  //const apiUrl = "http://localhost:3001";
+
   let {cod_pessoa} = useParams();
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/colaborador/listar/" + cod_pessoa).then((response) =>{
+    Axios.get(apiUrl + "/colaborador/listar/" + cod_pessoa).then((response) =>{
       setReferencia(   response.data[0].dsc_referencia);
       setNomePessoa(   response.data[0].dsc_nome_pessoa);
       setNomeFantasia( response.data[0].dsc_nome_fantasia);
@@ -51,7 +55,7 @@ function Colaborador_Edt(){
   const navigate = useNavigate();
 
   function Editar(){
-    Axios.put("http://localhost:3001/colaborador/editar/" + cod_pessoa,
+    Axios.put(apiUrl + "/colaborador/editar/" + cod_pessoa,
     {
       dsc_referencia:     referencia,
       dsc_nome_pessoa:    nomepessoa,
@@ -90,7 +94,7 @@ function Colaborador_Edt(){
           {/*dsc_foto*/}
            <div className="row">
             <div className="col-sm-3">
-              <img className="mt-margem-foto" src={"http://localhost:3001/users/" + dscimagem} alt="Ports Saude" />              
+              <img className="mt-margem-foto" src={apiUrl + "/users/" + dscimagem} alt="Ports Saude" />              
             </div>
             
             <div className="col-sm-9 d-flex justify-content-left align-items-center text-left">
