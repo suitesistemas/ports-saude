@@ -6,7 +6,7 @@ import './style.css';
 import api  from '../../config/configApi';
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-const apiUrl = "http://15.229.119.177:3001";
+const apiUrl = "https://15.229.119.177:3001";
 //const apiUrl = "http://localhost:3001";
 
 function Colaborador_Ins(){
