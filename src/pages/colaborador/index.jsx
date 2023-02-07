@@ -15,7 +15,7 @@ function Colaborador(){
   const navigate = useNavigate();
 
   useEffect(() => {
-    Axios.get("https://clownfish-app-9z37n.ondigitalocean.app/colaborador/colaborador/listar")
+    Axios.get("http://15.229.119.177:3001/colaborador/listar")
     .then((response) =>{
       setColaborador(response.data);
     })
