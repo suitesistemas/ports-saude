@@ -22,7 +22,7 @@ function Colaborador(){
   }, []);
 
   useEffect(() => {
-    Axios.get("https://clownfish-app-9z37n.ondigitalocean.app/colaborador/colaborador/listar")
+    Axios.get("http://15.229.119.177:3001/colaborador/colaborador/listar")
     .then((response) =>{
       setColaborador(response.data);
     })
@@ -38,14 +38,14 @@ function Colaborador(){
   }
 
   function Excluir(cod_pessoa){
-    Axios.delete("https://clownfish-app-9z37n.ondigitalocean.app/colaborador/colaborador/excluir/" + cod_pessoa)
+    Axios.delete("https://15.229.119.177:3001/colaborador/colaborador/excluir/" + cod_pessoa)
 
     setConfirmado(false);
     setExcluido(cod_pessoa);    
   };
 
   function Pesquisar(){    
-      Axios.get('https://clownfish-app-9z37n.ondigitalocean.app/colaborador/colaborador/listar')
+      Axios.get('https://15.229.119.177:3001/colaborador/colaborador/listar')
       .then((response) =>{
         setColaborador(response.data);
     })
