@@ -26,7 +26,7 @@ function Colaborador(){
   }, []);
 
   useEffect(() => {
-    Axios.get(apiUrl + "/colaborador/colaborador/listar")
+    Axios.get(apiUrl + "/colaborador/listar")
     .then((response) =>{
       setColaborador(response.data);
     })
@@ -42,7 +42,7 @@ function Colaborador(){
   }
 
   function Excluir(cod_pessoa){
-    Axios.delete(apiUrl + "/colaborador/colaborador/excluir/" + cod_pessoa)
+    Axios.delete(apiUrl + "/colaborador/excluir/" + cod_pessoa)
 
     setConfirmado(false);
     setExcluido(cod_pessoa);    

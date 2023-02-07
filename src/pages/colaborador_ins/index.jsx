@@ -51,7 +51,7 @@ function Colaborador_Ins(){
       }
     }
     
-    await api.post(apiUrl + "/upload-image", formData, headers)
+    await api.post("/upload-image", formData, headers)
     .then((response) => {      
       setStatus({
         type: 'sucess',
