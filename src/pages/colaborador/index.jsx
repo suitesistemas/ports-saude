@@ -5,6 +5,11 @@ import {useNavigate}                from 'react-router-dom';
 import Axios                        from "axios";
 import SweetAlert                   from "react-bootstrap-sweetalert";
 
+//http://15.229.119.177:3001
+
+const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
+//const apiUrl = "http://15.229.119.177:3001";
+
 function Colaborador(){
   const [colaborador, setColaborador] = useState();  
   const [busca, setBusca]             = useState();
@@ -15,7 +20,7 @@ function Colaborador(){
   const navigate = useNavigate();
 
   useEffect(() => {
-    Axios.get("http://15.229.119.177:3001/colaborador/listar")
+    Axios.get(apiUrl + "/colaborador/listar")
     .then((response) =>{
       setColaborador(response.data);
     })
