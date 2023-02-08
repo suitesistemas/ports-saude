@@ -35,18 +35,19 @@ function Colaborador(){
   };
 
   async function Excluindo(cod_pessoa){
-    let resultado = await Axios.delete(apiUrl + "/colaborador/excluir/" + cod_pessoa);
+    let resultado = await Axios.delete(apiUrl + "/pessoa/excluir/" + cod_pessoa);
     return resultado;
   };
 
-  function Excluir(cod_pessoa){    
-    Excluindo(cod_pessoa).then((response) =>{      
-    });
-    setExcluido(cod_pessoa);
+  function Excluir(cod_pessoa){
+    let codigo = cod_pessoa;    
+    Excluindo(cod_pessoa).then((response) =>{
+      setExcluido(codigo);
+    });    
   };
 
   function Pesquisar(){    
-      Axios.get(apiUrl + "/colaborador/colaborador/listar")
+      Axios.get(apiUrl + "/colaborador/listar")
       .then((response) =>{
         setBusca(filtro);
     })
@@ -74,7 +75,7 @@ function Colaborador(){
         </div>
       </div>
         
-      <ListaColaborador colaboradores={colaborador} clickExcluir={Excluir}/>
+      <ListaColaborador colaborador={colaborador} clickExcluir={Excluir}/>
     </div>  
   </>
 }

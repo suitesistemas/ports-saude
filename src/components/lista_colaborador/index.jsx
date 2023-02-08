@@ -19,8 +19,8 @@ function ListaColaborador(props){
   
     <tbody>
   {/*Itens*/}
-    {typeof props.colaboradores !== 'undefined' &&
-            props.colaboradores.map(function (colaborador){      
+    {typeof props.colaborador !== 'undefined' &&
+            props.colaborador.map(function (colaborador){      
       return <tr key={colaborador.cod_pessoa}>
              <th scope="row">{colaborador.cod_pessoa}</th>
              <td>{colaborador.dsc_referencia}</td>

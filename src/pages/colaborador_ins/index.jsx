@@ -35,7 +35,7 @@ function Colaborador_Ins(){
 
 //Inserindo registo no BD
   const Cadastrar = async e =>{
-    Axios.post(apiUrl + "/colaborador/inserir",
+    Axios.post(apiUrl + "/pessoa/inserir",
     {
       dsc_referencia:     referencia,
       dsc_nome_pessoa:    nomepessoa,

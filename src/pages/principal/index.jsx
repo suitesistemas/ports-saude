@@ -1,9 +1,9 @@
 import Menu from "../../components/menu/index.jsx";
 
 function Principal(){
-  const colaboradores = [{id_colaborador: 1, dsc_nome: 'Colaborador 001', dsc_apelido: 'Apelido 001', dsc_cpf: '000.000.000-00', dsc_fone: '9 9000-0000'}, 
-                         {id_colaborador: 2, dsc_nome: 'Colaborador 002', dsc_apelido: 'Apelido 002', dsc_cpf: '111.111.111-11', dsc_fone: '9 9111-1111'}, 
-                         {id_colaborador: 3, dsc_nome: 'Colaborador 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
+  const colaborador = [{id_colaborador: 1, dsc_nome: 'Colaborador 001', dsc_apelido: 'Apelido 001', dsc_cpf: '000.000.000-00', dsc_fone: '9 9000-0000'}, 
+                       {id_colaborador: 2, dsc_nome: 'Colaborador 002', dsc_apelido: 'Apelido 002', dsc_cpf: '111.111.111-11', dsc_fone: '9 9111-1111'}, 
+                       {id_colaborador: 3, dsc_nome: 'Colaborador 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
   return <>
     <Menu/>
     
@@ -56,8 +56,8 @@ function Principal(){
           
           <tbody>
           {
-            typeof colaboradores !== 'undefined' &&
-                   colaboradores.map(function (colaborador){
+            typeof colaborador !== 'undefined' &&
+                   colaborador.map(function (colaborador){
               return <tr key={colaborador.id_colaborador}>
                 <th scope="row">{colaborador.id_colaborador}</th>
                 <td>{colaborador.dsc_nome}</td>

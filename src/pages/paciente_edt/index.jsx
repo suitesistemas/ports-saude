@@ -9,7 +9,7 @@ import Axios from "axios";
 const apiUrl = "https://15.229.119.177:3001";
 //const apiUrl = "http://localhost:3002";
 
-function Colaborador_Edt(){
+function Paciente_Edt(){
   const[referencia,    setReferencia]    = useState('');
   const[nomepessoa,    setNomePessoa]    = useState('');
   const[nomefantasia,  setNomeFantasia]  = useState('');
@@ -85,8 +85,8 @@ function Colaborador_Edt(){
       dat_cadastro:       datcadastro,
       dat_nascimento:     datnascimento,
       flg_usuario:        'N',
-      flg_paciente:       'N',
-      flg_colaborador:    'S',
+      flg_paciente:       'S',
+      flg_colaborador:    'N',
       flg_fornecedor:     'N',
       flg_sexo:           flgsexo,
       flg_uf:             flguf,
@@ -113,7 +113,7 @@ function Colaborador_Edt(){
             </div>
             
             <div className="col-sm-9 d-flex justify-content-left align-items-center text-left">
-              <h3  className = "text-center">Cadastro de Colaborador - Editando...</h3>
+              <h3  className = "text-center">Cadastro de Paciente - Editando...</h3>
             </div>
           </div>
 
@@ -228,7 +228,7 @@ function Colaborador_Edt(){
 
         {
         confirmado ?
-          navigate('/colaborador') : null
+          navigate('/paciente') : null
         }
        
         </form>
@@ -237,4 +237,4 @@ function Colaborador_Edt(){
   </div>
 }
 
-export default Colaborador_Edt;
+export default Paciente_Edt;

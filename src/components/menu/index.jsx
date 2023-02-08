@@ -12,19 +12,19 @@ function Menu(){
                                             
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <Link to="/"className="btn btn-outline-light me-3" aria-current="page"><i className="fas fa-home"></i>Início</Link>
+                    <Link to="/principal"className="btn btn-outline-light me-3" aria-current="page"><i className="fas fa-home"></i>Início</Link>
                     </li>
                     <li className="nav-item">
-                    <Link to="/colaborador" className="btn btn-outline-light me-3"><i className="fa-regular fa-users-medical"></i>Colaboradores</Link> {/*Trocar fa-colaboradores*/}
+                    <Link to="/colaborador" className="btn btn-outline-light me-3"><i className="fa-regular fa-users-medical"></i>Colaboradores</Link>
                     </li>
                     <li className="nav-item">
-                    <Link to="/paciente" className="btn btn-outline-light me-3"><i className="#"></i>Pacientes</Link> {/*Trocar fa-pacientes*/}                    
+                    <Link to="/paciente" className="btn btn-outline-light me-3"><i className="#"></i>Pacientes</Link>
                     </li>                 
                 </ul>
 
                 <div className="btn-group">
                     <button type="button" className="btn btn-outline-light me-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="fas fa-user"></i>Dempsey Sousa
+                        <i className="fas fa-user"></i>adm
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">                    
                         <li><Link to="/#"     className="dropdown-item">Meus Perfil</Link></li>

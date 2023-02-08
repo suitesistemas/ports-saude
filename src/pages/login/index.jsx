@@ -12,8 +12,8 @@ function Login(){
   const [mensagem, setMensagem] = useState('');  
 
   function ProcessaLogin(){
-    if((email === 'dempseyalex@yahoo.com.br') && (senha === '1')) {           
-      navigate('/')
+    if((email === 'adm') && (senha === '1')) {           
+      navigate('/principal')
     }else{            
       setMensagem('Email ou senha inválida');
     }
