@@ -5,34 +5,44 @@ import './style.css';
 
 import Axios from "axios";
 
-function Colaborador_Edt(){
-  const[referencia,    setReferencia]     = useState('');
-  const[nomepessoa,    setNomePessoa]     = useState('');
-  const[nomefantasia,  setNomeFantasia]   = useState('');
-  const[cpfcnpj,       setCpfCnpj]        = useState('');
-  const[ddd01,         setDdd01]          = useState('37');
-  const[fone01,        setFone01]         = useState('');
-  const[dddcelular01,  setDddCelular01]   = useState('37');
-  const[celular01,     setCelular01]      = useState('');  
-  const[cep,           setCep]            = useState('');
-  const[bairro,        setBairro]         = useState('');
-  const[cidade,        setCidade]         = useState('');
-  const[logradouro,    setLogradouro]     = useState('');
-  const[numlogradouro, setNumLogradouro]  = useState(''); 
-  const [datcadastro,   setDatCadastro]   = useState('');
-  const [datnascimento, setDatNascimento] = useState('');
-  const[flgsexo,       setFlgSexo]        = useState(''); 
-  const[flguf,         setFlgUf]          = useState('');
-  const[dscimagem,     setDscImagem]      = useState('logo.jpg');
+//const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
+//const apiUrl = "https://15.229.119.177:3001";
+const apiUrl = "http://localhost:3002";
 
-  //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-  const apiUrl = "https://15.229.119.177:3001";
-  //const apiUrl = "http://localhost:3001";
+function Colaborador_Edt(){
+  const[referencia,    setReferencia]    = useState('');
+  const[nomepessoa,    setNomePessoa]    = useState('');
+  const[nomefantasia,  setNomeFantasia]  = useState('');
+  const[cpfcnpj,       setCpfCnpj]       = useState('');
+  const[ddd01,         setDdd01]         = useState('37');
+  const[fone01,        setFone01]        = useState('');
+  const[dddcelular01,  setDddCelular01]  = useState('37');
+  const[celular01,     setCelular01]     = useState('');  
+  const[cep,           setCep]           = useState('');
+  const[bairro,        setBairro]        = useState('');
+  const[cidade,        setCidade]        = useState('');
+  const[logradouro,    setLogradouro]    = useState('');
+  const[numlogradouro, setNumLogradouro] = useState(''); 
+  const[datcadastro,   setDatCadastro]   = useState('');
+  const[datnascimento, setDatNascimento] = useState('');
+  const[flgsexo,       setFlgSexo]       = useState(''); 
+  const[flguf,         setFlgUf]         = useState('');
+  const[dscimagem,     setDscImagem]     = useState('logo.jpg');
+
+  const [confirmado, setConfirmado] = useState(false);  
 
   let {cod_pessoa} = useParams();
 
+  function formataData(data){
+    return data.substring(0, 10)
+  }
+
+  async function listar(){
+    return await Axios.get(apiUrl + "/colaborador/listar/" + cod_pessoa);;
+  }
+
   useEffect(() => {
-    Axios.get(apiUrl + "/colaborador/listar/" + cod_pessoa).then((response) =>{
+    listar().then((response) => {
       setReferencia(   response.data[0].dsc_referencia);
       setNomePessoa(   response.data[0].dsc_nome_pessoa);
       setNomeFantasia( response.data[0].dsc_nome_fantasia);
@@ -45,11 +55,14 @@ function Colaborador_Edt(){
       setBairro(       response.data[0].dsc_bairro);
       setCidade(       response.data[0].dsc_cidade);
       setLogradouro(   response.data[0].dsc_logradouro);
-      setNumLogradouro(response.data[0].num_logradouro);
+      setNumLogradouro(response.data[0].num_logradouro);      
       setFlgSexo(      response.data[0].flg_sexo);
       setFlgUf(        response.data[0].flg_uf);
-      setDscImagem(    response.data[0].dsc_imagem);
-    })
+      
+    //formatar datas
+      setDatCadastro(  formataData(response.data[0].dat_cadastro));
+      setDatNascimento(formataData(response.data[0].dat_nascimento));      
+    })      
   }, []);
 
   const navigate = useNavigate();
@@ -69,6 +82,8 @@ function Colaborador_Edt(){
       dsc_bairro:         bairro,
       dsc_cidade:         cidade,
       dsc_logradouro:     logradouro,
+      dat_cadastro:       datcadastro,
+      dat_nascimento:     datnascimento,
       flg_usuario:        'N',
       flg_paciente:       'N',
       flg_colaborador:    'S',
@@ -82,7 +97,7 @@ function Colaborador_Edt(){
       console.log(response);
     });
 
-    navigate('/colaborador');
+    setConfirmado(true);    
   }
 
   return <div>
@@ -108,10 +123,10 @@ function Colaborador_Edt(){
             <input onChange={(e)=>setReferencia(e.target.value)} value={referencia} type="text" name="dsc_referencia" id="dsc_referencia" className="form-control mt-margem-input-ref"/>
           {/*Edit Data Cadastro*/}  
           <label htmlFor="dat_cadasro" className="mt-margem">Cadastro</label>
-            <input onChange={(e)=>setDatCadastro(e.target.value)} type="date" name="dat_cadastro" id="dat_cadastro" className="form-control"/>
+            <input onChange={(e)=>setDatCadastro(e.target.value)} value={datcadastro} type="date" name="dat_cadastro" id="dat_cadastro" className="form-control"/>
           {/*Edit Data Nascimento*/}
             <label htmlFor="dat_nascimento" className="mt-margem">Nascimento</label>
-            <input onChange={(e)=>setDatNascimento(e.target.value)} type="date" name="dat_nascimento" id="dat_nascimento" className="form-control"/>
+            <input onChange={(e)=>setDatNascimento(e.target.value)} value={datnascimento} type="date" name="dat_nascimento" id="dat_nascimento" className="form-control"/>
           {/*Edit Cpf Cnpj */}          
             <label htmlFor="dsc_cpf_cnpj"  className="mt-margem">Cnpj Cpf:</label>
             <input onChange={(e)=>setCpfCnpj(e.target.value)} value={cpfcnpj} type="text" name="dsc_cpf_cnpj" id="dsc_cpf_cnpj" className="form-control"/>          
@@ -210,6 +225,11 @@ function Colaborador_Edt(){
           <br/ >
           <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
         </div>
+
+        {
+        confirmado ?
+          navigate('/colaborador') : null
+        }
        
         </form>
       </div>

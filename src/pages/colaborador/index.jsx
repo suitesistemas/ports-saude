@@ -3,18 +3,16 @@ import ListaColaborador             from '../../components/lista_colaborador/ind
 import React, {useState, useEffect} from 'react';
 import {useNavigate}                from 'react-router-dom';
 import Axios                        from "axios";
-import SweetAlert                   from "react-bootstrap-sweetalert";
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-const apiUrl = "https://15.229.119.177:3001";
-//const apiUrl = "http://localhost:3001";
+//const apiUrl = "https://15.229.119.177:3001";
+const apiUrl = "http://localhost:3002";
 
 function Colaborador(){
-  const [colaborador, setColaborador] = useState();  
-  const [busca, setBusca]             = useState();
-  const [Excluido, setExcluido]       = useState();
-  const [confirmado, setConfirmado]   = useState(false);
-  const [regexcluido, setRegExcluido] = useState();
+  const [colaborador, setColaborador] = useState();
+  const [filtro,      setFiltro]      = useState();
+  const [busca,       setBusca]       = useState();
+  const [excluido,    setExcluido]    = useState();  
 
   const navigate = useNavigate();
 
@@ -30,30 +28,29 @@ function Colaborador(){
     .then((response) =>{
       setColaborador(response.data);
     })
-  }, [Excluido]);
+  }, [excluido, busca]);
 
   function Novo(){
     navigate('/colaborador/inserir');
-  }
+  };
 
-  function Excluindo(cod_pessoa){
-    setRegExcluido(cod_pessoa);
-    setConfirmado(true);
-  }
+  async function Excluindo(cod_pessoa){
+    let resultado = await Axios.delete(apiUrl + "/colaborador/excluir/" + cod_pessoa);
+    return resultado;
+  };
 
-  function Excluir(cod_pessoa){
-    Axios.delete(apiUrl + "/colaborador/excluir/" + cod_pessoa)
-
-    setConfirmado(false);
-    setExcluido(cod_pessoa);    
+  function Excluir(cod_pessoa){    
+    Excluindo(cod_pessoa).then((response) =>{      
+    });
+    setExcluido(cod_pessoa);
   };
 
   function Pesquisar(){    
       Axios.get(apiUrl + "/colaborador/colaborador/listar")
       .then((response) =>{
-        setColaborador(response.data);
+        setBusca(filtro);
     })
-  }
+  };
 
   return <> 
     <Menu/>
@@ -71,39 +68,13 @@ function Colaborador(){
 
         <div className="col-8">
           <div className="input-group mb-3">
-            <input onChange={(e) => setBusca(e.target.value)} type="text" className="form-control mt-margembutton" placeholder="Nome" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+            <input onChange={(e) => setFiltro(e.target.value)} type="text" className="form-control mt-margembutton" placeholder="Nome" aria-label="Recipient's username" aria-describedby="button-addon2"/>
             <button onClick={Pesquisar} className="btn btn-outline-primary mt-margembutton" type="button" id="button-addon2">Pesquisar</button>
           </div>
         </div>
       </div>
         
-      <ListaColaborador colaboradores={colaborador} clickExcluir={Excluindo}/>
-
-      {
-        confirmado ?
-          <SweetAlert
-            warning
-            showCancel
-            showCloseButton
-              
-            confirmBtnText    = "Sim"
-            confirmBtnBsStyle = "danger"
-              
-            cancelBtnText    = "Não"
-            cancelBtnBsStyle = "light"
-
-            title = "Exclusão!"
-
-            onConfirm= {() => Excluir(regexcluido)}
-            onCancel = {() => setConfirmado(false)}
-              
-            focusCancelBtn
-            reverseButtons = {true}
-            > Deseja excluir o registro? 
-          </SweetAlert> : null
-      }
-
-      {/*{Pesquisar()};*/}
+      <ListaColaborador colaboradores={colaborador} clickExcluir={Excluir}/>
     </div>  
   </>
 }
