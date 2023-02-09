@@ -43,21 +43,22 @@ function Colaborador_Edt(){
 
   useEffect(() => {
     listar().then((response) => {
-      setReferencia(   response.data[0].dsc_referencia);
-      setNomePessoa(   response.data[0].dsc_nome_pessoa);
-      setNomeFantasia( response.data[0].dsc_nome_fantasia);
-      setCpfCnpj(      response.data[0].dsc_cpf_cnpj);
-      setDdd01(        response.data[0].dsc_ddd_01);
-      setFone01(       response.data[0].dsc_fone_01);
-      setDddCelular01( response.data[0].dsc_ddd_celular_01);
-      setCelular01(    response.data[0].dsc_celular_01);
-      setCep(          response.data[0].dsc_cep);
-      setBairro(       response.data[0].dsc_bairro);
-      setCidade(       response.data[0].dsc_cidade);
-      setLogradouro(   response.data[0].dsc_logradouro);
-      setNumLogradouro(response.data[0].num_logradouro);      
-      setFlgSexo(      response.data[0].flg_sexo);
-      setFlgUf(        response.data[0].flg_uf);
+      setReferencia(     response.data[0].dsc_referencia);
+      setNomePessoa(     response.data[0].dsc_nome_pessoa);
+      setNomeFantasia(   response.data[0].dsc_nome_fantasia);
+      setRgInscEstadual( response.data[0].dsc_rg_insc_estadual);
+      setCpfCnpj(        response.data[0].dsc_cpf_cnpj);
+      setDdd01(          response.data[0].dsc_ddd_01);
+      setFone01(         response.data[0].dsc_fone_01);
+      setDddCelular01(   response.data[0].dsc_ddd_celular_01);
+      setCelular01(      response.data[0].dsc_celular_01);
+      setCep(            response.data[0].dsc_cep);
+      setBairro(         response.data[0].dsc_bairro);
+      setCidade(         response.data[0].dsc_cidade);
+      setLogradouro(     response.data[0].dsc_logradouro);
+      setNumLogradouro(  response.data[0].num_logradouro);      
+      setFlgSexo(        response.data[0].flg_sexo);
+      setFlgUf(          response.data[0].flg_uf);
       
     //formatar datas
       setDatCadastro(  formataData(response.data[0].dat_cadastro));
@@ -70,27 +71,28 @@ function Colaborador_Edt(){
   function Editar(){
     Axios.put(apiUrl + "/pessoa/editar/" + cod_pessoa,
     {
-      dsc_referencia:     referencia,
-      dsc_nome_pessoa:    nomepessoa,
-      dsc_nome_fantasia:  nomefantasia,
-      dsc_cpf_cnpj:       cpfcnpj,
-      dsc_ddd_01:         ddd01,
-      dsc_fone_01:        fone01,
-      dsc_ddd_celular_01: dddcelular01,
-      dsc_celular_01:     celular01,
-      dsc_cep:            cep,
-      dsc_bairro:         bairro,
-      dsc_cidade:         cidade,
-      dsc_logradouro:     logradouro,
-      dat_cadastro:       datcadastro,
-      dat_nascimento:     datnascimento,
-      flg_usuario:        'N',
-      flg_paciente:       'N',
-      flg_colaborador:    'S',
-      flg_fornecedor:     'N',
-      flg_sexo:           flgsexo,
-      flg_uf:             flguf,
-      num_logradouro:     numlogradouro   
+      dsc_referencia:       referencia,
+      dsc_nome_pessoa:      nomepessoa,
+      dsc_nome_fantasia:    nomefantasia,
+      dsc_rg_insc_estadual: RgInscEstadual,
+      dsc_cpf_cnpj:         cpfcnpj,
+      dsc_ddd_01:           ddd01,
+      dsc_fone_01:          fone01,
+      dsc_ddd_celular_01:   dddcelular01,
+      dsc_celular_01:       celular01,
+      dsc_cep:              cep,
+      dsc_bairro:           bairro,
+      dsc_cidade:           cidade,
+      dsc_logradouro:       logradouro,
+      dat_cadastro:         datcadastro,
+      dat_nascimento:       datnascimento,
+      flg_usuario:          'N',
+      flg_paciente:         'N',
+      flg_colaborador:      'S',
+      flg_fornecedor:       'N',
+      flg_sexo:             flgsexo,
+      flg_uf:               flguf,
+      num_logradouro:       numlogradouro   
     })
     
     .then((response)=>{
@@ -120,16 +122,19 @@ function Colaborador_Edt(){
           <div className="input-group mt-margem">
           {/*Edit Referencia*/}  
             <label htmlFor="dsc_referencia" className="mt-margem">Referência :</label>
-            <input onChange={(e)=>setReferencia(e.target.value)} value={referencia} type="text" name="dsc_referencia" id="dsc_referencia" className="form-control mt-margem-input-ref"/>
+            <input onChange={(e)=>setReferencia(e.target.value)} value={referencia} type="text" name="dsc_referencia" id="dsc_referencia" className="form-control1 mt-margem-input-ref"/>
           {/*Edit Data Cadastro*/}  
-          <label htmlFor="dat_cadasro" className="mt-margem">Cadastro</label>
+            <label htmlFor="dat_cadasro" className="mt-margem">Cadastro:</label>
             <input onChange={(e)=>setDatCadastro(e.target.value)} value={datcadastro} type="date" name="dat_cadastro" id="dat_cadastro" className="form-control"/>
           {/*Edit Data Nascimento*/}
-            <label htmlFor="dat_nascimento" className="mt-margem">Nascimento</label>
+            <label htmlFor="dat_nascimento" className="mt-margem">Nascimento:</label>
             <input onChange={(e)=>setDatNascimento(e.target.value)} value={datnascimento} type="date" name="dat_nascimento" id="dat_nascimento" className="form-control"/>
-          {/*Edit Cpf Cnpj */}          
-            <label htmlFor="dsc_cpf_cnpj"  className="mt-margem">Cnpj Cpf:</label>
-            <input onChange={(e)=>setCpfCnpj(e.target.value)} value={cpfcnpj} type="text" name="dsc_cpf_cnpj" id="dsc_cpf_cnpj" className="form-control"/>          
+          {/*Edit CPF CNPJ */}          
+            <label htmlFor="dsc_cpf_cnpj"  className="mt-margem">Cnpj/Cpf:</label>
+            <input onChange={(e)=>setCpfCnpj(e.target.value)} value={cpfcnpj} type="text" name="dsc_cpf_cnpj" id="dsc_cpf_cnpj" className="form-control"/>
+          {/*Edit RG IE */}          
+            <label htmlFor="dsc_rg_insc_estadual"  className="mt-margem">Rg/Ie:</label>
+            <input onChange={(e)=>setCpfCnpj(e.target.value)} value={cpfcnpj} type="text" name="dsc_rg_insc_estadual" id="dsc_rg_insc_estadual" className="form-control"/>
           </div>
         
           <div className="input-group mt-margem">
