@@ -5,8 +5,8 @@ import {useNavigate}                from 'react-router-dom';
 import Axios                        from "axios";
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "https://15.229.119.177:3001";
-const apiUrl = "http://localhost:3002";
+const apiUrl = "https://15.229.119.177:3001";
+//const apiUrl = "http://localhost:3002";
 
 function Pessoa(){
   const [pessoa,          setPessoa]        = useState();  
