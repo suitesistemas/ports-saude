@@ -1,25 +1,18 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import Principal        from './pages/principal/index.jsx';
-import Colaborador      from './pages/colaborador/index.jsx';
-import Colaborador_Ins  from './pages/colaborador_ins/index.jsx';
-import Colaborador_Edt  from './pages/colaborador_edt/index.jsx';
-import Login            from './pages/login/index.jsx';
-import Paciente         from './pages/paciente/index.jsx';
-import Paciente_Ins     from './pages/paciente_ins/index.jsx';
-import Paciente_Edt     from './pages/paciente_edt/index.jsx';
+import Principal    from './pages/principal/index.jsx';
+import Pessoa       from './pages/pessoa/index.jsx';
+import Pessoa_Ins   from './pages/pessoa_ins/index.jsx';
+import Pessoa_Edt   from './pages/pessoa_edt/index.jsx';
+import Login        from './pages/login/index.jsx';
 
 function Rotas(){
     return <BrowserRouter>
         <Routes>
-            <Route path="/"                                element={<Login           />} />
-            <Route path="/login"                           element={<Login           />} />
-            <Route path="/principal"                       element={<Principal       />} />            
-            <Route path="/colaborador"                     element={<Colaborador     />} />
-            <Route path="/colaborador/inserir"             element={<Colaborador_Ins />} />
-            <Route path="/colaborador/editar/:cod_pessoa"  element={<Colaborador_Edt />} />
-            <Route path="/paciente"                        element={<Paciente        />} />
-            <Route path="/paciente/inserir"                element={<Paciente_Ins    />} />
-            <Route path="/paciente/editar/:cod_pessoa"     element={<Paciente_Edt    />} />           
+            <Route path="/"                          element={<Login      />} /> {/*login*/}
+            <Route path="/principal"                 element={<Principal  />} />            
+            <Route path="/pessoa"                    element={<Pessoa     />} />
+            <Route path="/pessoa/inserir"            element={<Pessoa_Ins />} />
+            <Route path="/pessoa/editar/:cod_pessoa" element={<Pessoa_Edt />} /> 
         </Routes>
     </BrowserRouter>    
 }

@@ -15,11 +15,8 @@ function Menu(){
                     <Link to="/principal"className="btn btn-outline-light me-3" aria-current="page"><i className="fas fa-home"></i>Início</Link>
                     </li>
                     <li className="nav-item">
-                    <Link to="/colaborador" className="btn btn-outline-light me-3"><i className="fa-regular fa-users-medical"></i>Colaboradores</Link>
-                    </li>
-                    <li className="nav-item">
-                    <Link to="/paciente" className="btn btn-outline-light me-3"><i className="#"></i>Pacientes</Link>
-                    </li>                 
+                    <Link to="/pessoa" className="btn btn-outline-light me-3"><i className="fa-regular fa-users-medical"></i>Pessoas</Link>
+                    </li>                                     
                 </ul>
 
                 <div className="btn-group">
@@ -30,7 +27,7 @@ function Menu(){
                         <li><Link to="/#"     className="dropdown-item">Meus Perfil</Link></li>
                         <li><Link to="/#"     className="dropdown-item">Configurações</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link to="/login" className="dropdown-item">Sair</Link></li>
+                        <li><Link to="/" className="dropdown-item">Sair</Link></li> {/*login*/}
                     </ul>
                 </div>
             </div>

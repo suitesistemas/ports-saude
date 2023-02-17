@@ -35,7 +35,7 @@ function Login(){
 
       {/*Edit Email*/}
         <div className="form-floating">
-          <input onChange={AlterarEmail} type="email" className="form-control" name="flg_dsc_email" id="flg_dsc_email" placeholder="E-mail"/>
+          <input onChange={AlterarEmail} type="email" className="form-control" name="flg_dsc_email" id="flg_dsc_email" placeholder="E-mail" autoFocus/>
           <label htmlFor="floatingInput">E-mail</label>
         </div>
 

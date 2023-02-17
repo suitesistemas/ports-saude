@@ -1,9 +1,9 @@
 import Menu from "../../components/menu/index.jsx";
 
 function Principal(){
-  const colaborador = [{id_colaborador: 1, dsc_nome: 'Colaborador 001', dsc_apelido: 'Apelido 001', dsc_cpf: '000.000.000-00', dsc_fone: '9 9000-0000'}, 
-                       {id_colaborador: 2, dsc_nome: 'Colaborador 002', dsc_apelido: 'Apelido 002', dsc_cpf: '111.111.111-11', dsc_fone: '9 9111-1111'}, 
-                       {id_colaborador: 3, dsc_nome: 'Colaborador 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
+  const pessoa = [{id_pessoa: 1, dsc_nome: 'Pessoa 001', dsc_apelido: 'Apelido 001', dsc_cpf: '000.000.000-00', dsc_fone: '9 9000-0000'}, 
+                  {id_pessoa: 2, dsc_nome: 'Pessoa 002', dsc_apelido: 'Apelido 002', dsc_cpf: '111.111.111-11', dsc_fone: '9 9111-1111'}, 
+                  {id_pessoa: 3, dsc_nome: 'Pessoa 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
   return <>
     <Menu/>
     
@@ -16,7 +16,7 @@ function Principal(){
         <div className="col-md-3">
           <div className="card">
             <div className="card-header">
-              Colaboradores cadastrados
+              Pessoas cadastrados
             </div>
             <div className="card-body text-center">
               <h2 className="card-title">9</h2>
@@ -56,14 +56,14 @@ function Principal(){
           
           <tbody>
           {
-            typeof colaborador !== 'undefined' &&
-                   colaborador.map(function (colaborador){
-              return <tr key={colaborador.id_colaborador}>
-                <th scope="row">{colaborador.id_colaborador}</th>
-                <td>{colaborador.dsc_nome}</td>
-                <td>{colaborador.dsc_apelido}</td>
-                <td>{colaborador.dsc_cpf}</td>
-                <td>{colaborador.dsc_fone}</td>
+            typeof pessoa !== 'undefined' &&
+                   pessoa.map(function (pessoa){
+              return <tr key={pessoa.id_pessoa}>
+                <th scope="row">{pessoa.id_pessoa}</th>
+                <td>{pessoa.dsc_nome}</td>
+                <td>{pessoa.dsc_apelido}</td>
+                <td>{pessoa.dsc_cpf}</td>
+                <td>{pessoa.dsc_fone}</td>
               </tr>
             })
           }

@@ -14,12 +14,20 @@ body{
   margin-top: 70px;
 }
 
+.mt-page-10{
+  margin-top: 10px;
+}
+
 .mt-margembutton{
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
   width: 200px;
   height: 40px;
+}
+
+.mt-margembutton_30{
+  max-width: 150px;
 }
 
 .mt-margem{
@@ -68,4 +76,14 @@ body{
 .btn-acao{
   margin: 20px 20px 0px 20px;
   min-width: 200px;
+ }
+
+ .btn-adicionar{
+  left: 10px; 
+ }
+
+ footer{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;  
  }
