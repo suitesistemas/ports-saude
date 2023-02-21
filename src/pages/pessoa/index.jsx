@@ -1,11 +1,11 @@
-import Menu                         from "../../components/menu/index.jsx";
-import ListaPessoa                  from '../../components/lista_pessoa/index';
-import React, {useState, useEffect} from 'react';
-import {useNavigate}                from 'react-router-dom';
-import Axios                        from "axios";
+import Menu                                       from "../../components/menu/index.jsx";
+import ListaPessoa                                from '../../components/lista_pessoa/index';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate }                            from 'react-router-dom';
+import Axios                                      from "axios";
+import { AuthContext }                            from "../../context/auth.jsx";
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "https://15.229.119.177:3001";
 //const apiUrl = "http://localhost:3002";
 const apiUrl = "https://portsonline.com.br";
 
@@ -15,6 +15,9 @@ function Pessoa(){
   const [flg_tipo_pessoa, setFlgTipoPessoa] = useState('T'); //Todos 
 
   const navigate = useNavigate();
+
+  const {logado} = useContext(AuthContext);
+  console.log(logado);
 
 //Inicio - lista todos  
   useEffect(() => {
@@ -88,10 +91,13 @@ function Pessoa(){
     };
   };
 
-  return <> 
-    <Menu/>
+  return <>
+    {logado?    
+      <Menu/>
+    :null} 
 
-    <div className="container-fluid titulo justify-content-between mt-page">
+    {logado?    
+      <div className="container-fluid titulo justify-content-between mt-page">
       <h3 className = "text-center">Pessoas</h3>
 
       <div className="row">
@@ -121,7 +127,8 @@ function Pessoa(){
       </div>
         
       <ListaPessoa pessoa={pessoa} clickExcluir={Excluir}/>
-    </div>  
+      </div>
+    :null}
   </>
 }
 

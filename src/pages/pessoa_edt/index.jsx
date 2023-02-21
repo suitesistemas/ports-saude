@@ -1,12 +1,10 @@
-import Menu                         from '../../components/menu/index.jsx';
-import React, {useState, useEffect} from 'react';
-import {useNavigate, useParams}     from 'react-router-dom';
-import './style.css';
-import Axios                        from "axios";
-import ListaContato                 from '../../components/lista_contato/index.jsx';
+import Menu                                       from '../../components/menu/index.jsx';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, useParams }                 from 'react-router-dom';
+import Axios                                      from "axios";
+import ListaContato                               from '../../components/lista_contato/index.jsx';
+import { AuthContext }                            from "../../context/auth.jsx";
 
-//const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "https://15.229.119.177:3001";
 //const apiUrl = "http://localhost:3002";
 const apiUrl = "https://portsonline.com.br";
 
@@ -28,11 +26,11 @@ function Pessoa_Edt(){
   const[datcadastro,       setDatCadastro]      = useState('');
   const[datnascimento,     setDatNascimento]    = useState('');
   const[flg_tipo_pessoa,   setFlgTipoPessoa]    = useState('');
-  const[flg_tipo_cadastro, setFlgTipoCadastro]  = useState();
+  const[flg_tipo_cadastro, setFlgTipoCadastro]  = useState('');
   const[flg_usuario,       setFlgUsuario]       = useState('N');
   const[flgsexo,           setFlgSexo]          = useState(''); 
   const[flguf,             setFlgUf]            = useState('');
-  const[dsc_cidade_natal,  setDscCidadeNatal]   = useState();
+  const[dsc_cidade_natal,  setDscCidadeNatal]   = useState('');
 
   const[lblcpfcnpj, setLblCpfCnpj] = useState('CPF:');
   const[lblrgie,    setLblRgIe]    = useState('RG:');
@@ -74,6 +72,9 @@ function Pessoa_Edt(){
   const[mem_dados_resguardado,    setMemDadosResguardado]    = useState('');  
 
   let {cod_pessoa} = useParams();
+
+  const {logado} = useContext(AuthContext);
+  console.log(logado);
 
   function fun_formataData(lData){
     return lData.substring(0, 10)
@@ -313,16 +314,19 @@ function Pessoa_Edt(){
   })}
 
   return <div>
-    <Menu/>
+    {logado?    
+      <Menu/>
+    :null}
 
-    <div className="container-fluid mt-page">
+    {logado?    
+      <div className="container-fluid mt-page">
       <div>
-        <form>          
+        <form>
           <div>
             <h3  className = "text-center">Cadastro de Pessoa - Editando...</h3>
           </div>
 
-        {/*Page tabs*/}
+        {/*Page tabs - Titulos Abas*/}
           <ul className="nav nav-tabs" id="myTab" role="tablist">
           {/*Aba Dados*/}  
             <li className="nav-item" role="presentation">
@@ -338,7 +342,7 @@ function Pessoa_Edt(){
               : null
             }
 
-            {/*Aba Específicos*/} 
+          {/*Aba Específicos*/} 
             {
               flg_tipo_cadastro === "P" ? //Paciente 
               <li className="nav-item" role="presentation">
@@ -347,7 +351,7 @@ function Pessoa_Edt(){
               : null
             }
 
-            {/*Aba Resguardados*/} 
+          {/*Aba Resguardados*/} 
             {
               flg_tipo_cadastro === "P" ? //Paciente 
               <li className="nav-item" role="presentation">
@@ -356,7 +360,7 @@ function Pessoa_Edt(){
               : null
             } 
 
-            {/*Aba Social*/} 
+          {/*Aba Social*/} 
             {
               flg_tipo_cadastro === "P" ? //Paciente 
               <li className="nav-item" role="presentation">
@@ -366,6 +370,7 @@ function Pessoa_Edt(){
             }  
           </ul>
 
+         {/*Page tabs - Conteudos Abas*/}  
           <div className="tab-content" id="myTabContent">
 
           {/*Aba - Dados*/}  
@@ -396,7 +401,7 @@ function Pessoa_Edt(){
                 <label htmlFor="dat_nascimento" className="mt-margem">Nascimento:</label>
                 <input onChange={(e)=>setDatNascimento(e.target.value)} value={datnascimento} type="date" name="dat_nascimento" id="dat_nascimento" className="form-control"/>              
               </div>
-
+            
             {/*Tipo Pessoa, Cpf Cnpj, RG IE, Sexo*/}  
               <div className="input-group mt-margem">
               {/*Tipo Pessoa*/}
@@ -418,9 +423,9 @@ function Pessoa_Edt(){
                   <option value="F">Feminino</option>
                 </select>
               </div>
-            
+
             {/*Nome Pessoa, Nome Fantasia*/}  
-              <div className="input-group mt-margem">
+              < div className="input-group mt-margem">
               {/*Nome Pessoa*/}
                 <label htmlFor="dsc_nome_pessoa" className="mt-margem">Nome Pessoa:</label>
                 <input onChange={(e)=>setNomePessoa(e.target.value)} value={nomepessoa} type="text" name="dsc_nome_pessoa" id="dsc_nome_pessoa" className='form-control'/> 
@@ -428,7 +433,7 @@ function Pessoa_Edt(){
                 <label htmlFor="dsc_nome_fantasia" className="mt-margem">Nome Fantasia:</label>
                 <input onChange={(e)=>setNomeFantasia(e.target.value)} value={nomefantasia} type="text" name="dsc_nome_fantasia" id="dsc_nome_fantasia" className="form-control"/>
               </div>
-          
+
             {/* Ddd e Fone 001, Ddd e Celular 001, Cep*/}  
               <div className="input-group mt-margem">
               {/*DDD 01*/}  
@@ -451,7 +456,7 @@ function Pessoa_Edt(){
             {/*Uf, Cidade, Bairro*/}  
               <div className="input-group mt-margem">
               {/*UF*/}
-              <label htmlFor="flg_uf" className="mt-margem">UF:</label>
+                <label htmlFor="flg_uf" className="mt-margem">UF:</label>
                 <select className="form-control mt-margem mt-margem-input-seq" onChange={(e)=>setFlgUf(e.target.value)} value={flguf} name="flg_uf" id="flg_uf">
                   <option value="MG">MG</option>
                   <option value="AC">AC</option>
@@ -498,8 +503,9 @@ function Pessoa_Edt(){
               {/*Numero*/}  
                 <label htmlFor="num_logradouro" className="mt-margem">nº:</label>
                 <input onChange={(e)=>setNumLogradouro(e.target.value)} value={numlogradouro} type="text" name="num_logradouro" id="num_logradouro" className="form-control mt-margem-input-seq"/> 
-              </div>            
-            </div>
+              </div>    
+
+            </div> {/*Fecha Aba - Dados*/}
 
           {/*Aba - Contatos*/}
             <div className="tab-pane fade" id="contatos-tab-pane" role="tabpanel" aria-labelledby="contatos-tab" tabIndex="1">
@@ -594,8 +600,8 @@ function Pessoa_Edt(){
               </div>
 
               <div className="input-group mt-margem">
-               {/*Frequenta Religião ?*/}
-               <label  htmlFor="flg_frequenta_religiao" className="mt-margem">Frequenta Religião:</label>
+              {/*Frequenta Religião ?*/}
+              <label  htmlFor="flg_frequenta_religiao" className="mt-margem">Frequenta Religião:</label>
                 <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgFrequentaReligiao(e.target.value)} value={flg_frequenta_religiao} name="flg_frequenta_religiao" id="flg_frequenta_religiao">
                   <option key="S" value="S">Sim </option>
                   <option key="N" value="N">Não </option>                  
@@ -610,7 +616,7 @@ function Pessoa_Edt(){
                   <option key="N" value="N">Não </option>                  
                 </select>
 
-               {/*Quantos Filhos*/}
+              {/*Quantos Filhos*/}
                 <label htmlFor="int_quant_filho" className="mt-margem">Quantos:</label>
                 <input onChange={(e)=>setIntQuantFilho(e.target.value)} value={int_quant_filho} type="text" name="int_quant_filho" id="int_quant_filho" className="form-control mt-margem-input-seq"/>
 
@@ -656,8 +662,8 @@ function Pessoa_Edt(){
                 </select>              
               </div>
 
-            </div> {/*Fecha Aba - Especificos*/} 
-            
+            </div> {/*Fecha Aba - Especificos*/}
+
           {/*Aba - Resguardados*/}    
             <div className="tab-pane fade" id="resguardado-tab-pane" role="tabpanel" aria-labelledby="resguardado-tab" tabIndex="3">
 
@@ -669,9 +675,11 @@ function Pessoa_Edt(){
 
             </div> {/*Fecha Aba - Resguardados*/}
 
-          {/*Aba - Social*/}    
-            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="4">...</div> {/*Fecha Aba - Social*/}
-          </div>        
+            {/*Aba - Social*/}    
+            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="4">...
+            </div> {/*Fecha Aba - Social*/}
+          </div>
+
         </form>
 
       {/*Rodape*/}  
@@ -692,9 +700,10 @@ function Pessoa_Edt(){
             navigate('/pessoa') : null
         }
        
-        
+        </div>
       </div>
-    </div>
+    :null}
+    
   </div>
 }
 

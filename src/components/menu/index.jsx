@@ -1,7 +1,16 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/auth';
 
 function Menu(){
+    
+    const {setLogado} = useContext(AuthContext);
+    
+    function Logout(){
+      setLogado(false);
+      localStorage.removeItem("logado");      
+    }
+
     return <nav className="navbar fixed-top navbar-expand-md navbar-dark bg-primary ps-3 pe-3">
         <div className="container-fluid">        
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +36,7 @@ function Menu(){
                         <li><Link to="/#"     className="dropdown-item">Meus Perfil</Link></li>
                         <li><Link to="/#"     className="dropdown-item">Configurações</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link to="/" className="dropdown-item">Sair</Link></li> {/*login*/}
+                        <li><Link to="/" onClick={Logout} className="dropdown-item">Sair</Link></li> {/*login*/}
                     </ul>
                 </div>
             </div>

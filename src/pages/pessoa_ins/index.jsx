@@ -1,12 +1,10 @@
-import Menu              from '../../components/menu/index.jsx';
-import React, {useState, useEffect} from 'react';
-import {useNavigate}     from 'react-router-dom';
-import './style.css';
-import Axios             from "axios";
+import Menu                            from '../../components/menu/index.jsx';
+import React, { useState, useContext } from 'react';
+import { useNavigate }                 from 'react-router-dom';
+import Axios                           from "axios";
+import { AuthContext }                 from "../../context/auth.jsx";
 
-//const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "https://15.229.119.177:3001";
-//const apiUrl = "http://localhost:3002";
+//const apiUrl = "http://localhost:5000";
 const apiUrl = "https://portsonline.com.br";
 
 function Pessoa_Ins(){  
@@ -38,6 +36,9 @@ function Pessoa_Ins(){
   const [confirmado, setConfirmado] = useState(false);
 
   const navigate = useNavigate();
+
+  const {logado} = useContext(AuthContext);
+  console.log(logado);
   
   function fun_mascaraCpfCnpj(lValor){
     var lResultado = '';
@@ -95,6 +96,7 @@ function Pessoa_Ins(){
       dsc_cep:              cep,
       dsc_bairro:           bairro,
       dsc_cidade:           cidade,
+      dsc_cidade_natal:     '', //sendo preenchida no editar pessoa
       dsc_logradouro:       logradouro,
       dat_cadastro:         datcadastro,
       dat_nascimento:       datnascimento,
@@ -117,9 +119,12 @@ function Pessoa_Ins(){
   }
 
   return <div>
-    <Menu/>
+    {logado?    
+      <Menu/>
+    :null}
 
-    <div className="container-fluid mt-page">
+    {logado?    
+      <div className="container-fluid mt-page">
       <form>
         <div >
           <h3 className = "text-center">Cadastro de Pessoa - Inserindo...</h3>
@@ -267,7 +272,9 @@ function Pessoa_Ins(){
       confirmado ?
         navigate('/pessoa') : null
       }      
-    </div>
+      </div>
+    :null}
+
   </div>
 }
 

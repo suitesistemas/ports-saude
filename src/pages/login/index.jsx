@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {useNavigate}     from 'react-router-dom';
-import Logo              from '../../assets/logo.jpg';
-import Fundo             from '../../assets/fundo-login.jpg';
+import React, {useState, useContext} from 'react';
+import {useNavigate}                 from 'react-router-dom';
+import Logo                          from '../../assets/logo.jpg';
+import Fundo                         from '../../assets/fundo-login.jpg';
+import {AuthContext}                 from '../../context/auth.jsx';
 import './style.css';
 
 function Login(){
@@ -9,22 +10,20 @@ function Login(){
 
   const [email, setEmail]       = useState('');
   const [senha, setSenha]       = useState('');
-  const [mensagem, setMensagem] = useState('');  
+  const [mensagem, setMensagem] = useState('');
+  
+  const {setLogado} = useContext(AuthContext); 
 
   function ProcessaLogin(){
-    if((email === 'adm') && (senha === '1')) {           
+    if((email === 'adm') && (senha === '1')) {
+      localStorage.setItem("logado", "S");
+      setLogado(true);           
       navigate('/principal')
     }else{            
+      localStorage.setItem("logado", "N");
+      setLogado(false);
       setMensagem('Email ou senha inválida');
     }
-  }
-
-  function AlterarEmail(event){
-    setEmail(event.target.value);  
-  }
-
-  function AlterarSenha(event){ {/*substituido por Arow Function*/}
-    setSenha(event.target.value);  
   }
 
   return <div className="row">
@@ -35,7 +34,7 @@ function Login(){
 
       {/*Edit Email*/}
         <div className="form-floating">
-          <input onChange={AlterarEmail} type="email" className="form-control" name="flg_dsc_email" id="flg_dsc_email" placeholder="E-mail" autoFocus/>
+          <input onChange={(e)=>setEmail(e.target.value)} type="email" className="form-control" name="flg_dsc_email" id="flg_dsc_email" placeholder="E-mail" autoFocus/>
           <label htmlFor="floatingInput">E-mail</label>
         </div>
 

@@ -1,13 +1,22 @@
 import Menu from "../../components/menu/index.jsx";
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth.jsx";
 
 function Principal(){
   const pessoa = [{id_pessoa: 1, dsc_nome: 'Pessoa 001', dsc_apelido: 'Apelido 001', dsc_cpf: '000.000.000-00', dsc_fone: '9 9000-0000'}, 
                   {id_pessoa: 2, dsc_nome: 'Pessoa 002', dsc_apelido: 'Apelido 002', dsc_cpf: '111.111.111-11', dsc_fone: '9 9111-1111'}, 
                   {id_pessoa: 3, dsc_nome: 'Pessoa 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
+  
+  const {logado} = useContext(AuthContext);
+  console.log(logado);
+  
   return <>
-    <Menu/>
-    
-    <div className="container-fluid mt-page justify-content-between">
+    {logado?
+      <Menu/>
+    :null}
+
+    {logado?
+      <div className="container-fluid mt-page justify-content-between">
       <div className="m-2 mt-4">
         <h3>Dashboard</h3>            
       </div>
@@ -72,11 +81,12 @@ function Principal(){
       </div>
 
     {/*Rodape*/}
-    <div>
+      <div>
         <br/ >
         <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
       </div>
-    </div>
+      </div>
+    :null}
   </>
 }
 
