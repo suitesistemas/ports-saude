@@ -38,7 +38,6 @@ function Pessoa_Ins(){
   const navigate = useNavigate();
 
   const {logado} = useContext(AuthContext);
-  console.log(logado);
   
   function fun_mascaraCpfCnpj(lValor){
     var lResultado = '';
@@ -67,7 +66,6 @@ function Pessoa_Ins(){
 //Tipo Pessoa (Física ou Juríca)  
   function fun_tipopessoa(lValor){
     setFlgTipoPessoa(lValor);
-    console.log('tipo:' + {flg_tipo_pessoa});
 
     if (lValor === "F"){
       setLblCpfCnpj('CPF:');

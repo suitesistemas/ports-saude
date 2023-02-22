@@ -8,7 +8,6 @@ function Principal(){
                   {id_pessoa: 3, dsc_nome: 'Pessoa 003', dsc_apelido: 'Apelido 003', dsc_cpf: '222.222.222-22', dsc_fone: '9 9222-2222'}];
   
   const {logado} = useContext(AuthContext);
-  console.log(logado);
   
   return <>
     {logado?

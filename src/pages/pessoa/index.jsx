@@ -17,7 +17,6 @@ function Pessoa(){
   const navigate = useNavigate();
 
   const {logado} = useContext(AuthContext);
-  console.log(logado);
 
 //Inicio - lista todos  
   useEffect(() => {

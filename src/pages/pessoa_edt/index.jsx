@@ -5,7 +5,7 @@ import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
 
-//const apiUrl = "http://localhost:3002";
+//const apiUrl = "http://localhost:5000";
 const apiUrl = "https://portsonline.com.br";
 
 function Pessoa_Edt(){
@@ -36,6 +36,11 @@ function Pessoa_Edt(){
   const[lblrgie,    setLblRgIe]    = useState('RG:');
 
   const [confirmado, setConfirmado] = useState(false);
+
+//Variaveis do usuario
+  const[dsc_usuario,                setDscUsuario]               = useState('');
+  const[dsc_senha,                  setDscSenha]                 = useState('');
+  const[flg_visualizar_resguardado, setFlgVisualizarResguardado] = useState('');
   
 //Variaveis do contato  
   const[contato,               setContato]             = useState();
@@ -69,12 +74,11 @@ function Pessoa_Edt(){
   const[flg_paciente_interditado, setFlgPacienteInterditado] = useState('N');  
   const[int_quant_filho,          setIntQuantFilho]          = useState(0);
   const[int_quant_filho_vivo,     setIntQuantFilhoVivo]      = useState(0);
-  const[mem_dados_resguardado,    setMemDadosResguardado]    = useState('');  
+  const[mem_dados_resguardado,    setMemDadosResguardado]    = useState('');
 
   let {cod_pessoa} = useParams();
 
   const {logado} = useContext(AuthContext);
-  console.log(logado);
 
   function fun_formataData(lData){
     return lData.substring(0, 10)
@@ -141,6 +145,7 @@ function Pessoa_Edt(){
       setLogradouro(     response.data[0].dsc_logradouro);
       setNumLogradouro(  response.data[0].num_logradouro);
       setFlgTipoCadastro(response.data[0].flg_tipo_cadastro);
+      setFlgUsuario(     response.data[0].flg_usuario);
       setFlgTipoPessoa(  response.data[0].flg_tipo_pessoa);
       setFlgSexo(        response.data[0].flg_sexo);
       setFlgUf(          response.data[0].flg_uf);
@@ -151,6 +156,21 @@ function Pessoa_Edt(){
       
       fun_tipopessoa( response.data[0].flg_tipo_pessoa);
       })      
+  }, []);
+
+//Listar dados Usuario (Dados Usuario)
+  async function fun_listar_usuario(){
+    return await Axios.get(apiUrl + "/pessoa/usuario/listar/" + cod_pessoa);
+  };
+
+  useEffect(() => {
+    fun_listar_usuario().then((response) =>{
+      if (response.data.length > 0) {
+        setDscUsuario(              response.data[0].dsc_usuario);
+        setDscSenha(                response.data[0].dsc_senha);
+        setFlgVisualizarResguardado(response.data[0].flg_visualizar_resguardado);
+      }
+    })
   }, []);
 
 //Listar dados Paciente (Dados Especificos)
@@ -273,34 +293,47 @@ function Pessoa_Edt(){
     })    
     .then((response)=>{
       fun_editar_paciente().then((response)=>{
-        setConfirmado(true);      
+        fun_editar_usuario().then((response)=>{
+          setConfirmado(true);      
+        });
       });      
+    });
+  }
+
+//Dados Usuario
+  async function fun_editar_usuario(){
+    return await Axios.put(apiUrl + "/pessoa/usuario/editar/" + cod_pessoa,
+    {
+      fky_pessoa:                 cod_pessoa,
+      dsc_usuario:                dsc_usuario,
+      dsc_senha:                  dsc_senha,
+      flg_visualizar_resguardado: flg_visualizar_resguardado
     });
   }
 
 //Dados Paciente
   async function fun_editar_paciente(){
     return await Axios.put(apiUrl + "/pessoa/paciente/editar/" + cod_pessoa,
-      {
-        fky_pessoa:               cod_pessoa,
-        dsc_filiacao_pai:         dsc_filiacao_pai,
-        dsc_filiacao_mae:         dsc_filiacao_mae,
-        dsc_religiao:             dsc_religiao,
-        dsc_tipo_renda:           dsc_tipo_renda,
-        dsc_cidade_ant:           dsc_cidade_ant,
-        dat_residencia_cidade:    dat_residencia_cidade,
-        dbl_valor_renda:          dbl_valor_renda,
-        fky_curador:              fky_curador,      
-        flg_estado_civil:         pac_flg_estado_civil,      
-        flg_frequenta_religiao:   flg_frequenta_religiao,      
-        flg_possui_filho:         flg_possui_filho,
-        flg_possui_casa_propria:  flg_possui_casa_propria,
-        flg_possui_renda:         flg_possui_renda,
-        flg_paciente_interditado: flg_paciente_interditado,
-        int_quant_filho:          int_quant_filho,
-        int_quant_filho_vivo:     int_quant_filho_vivo,      
-        mem_dados_resguardado:    mem_dados_resguardado
-      });
+    {
+      fky_pessoa:               cod_pessoa,
+      dsc_filiacao_pai:         dsc_filiacao_pai,
+      dsc_filiacao_mae:         dsc_filiacao_mae,
+      dsc_religiao:             dsc_religiao,
+      dsc_tipo_renda:           dsc_tipo_renda,
+      dsc_cidade_ant:           dsc_cidade_ant,
+      dat_residencia_cidade:    dat_residencia_cidade,
+      dbl_valor_renda:          dbl_valor_renda,
+      fky_curador:              fky_curador,      
+      flg_estado_civil:         pac_flg_estado_civil,      
+      flg_frequenta_religiao:   flg_frequenta_religiao,      
+      flg_possui_filho:         flg_possui_filho,
+      flg_possui_casa_propria:  flg_possui_casa_propria,
+      flg_possui_renda:         flg_possui_renda,
+      flg_paciente_interditado: flg_paciente_interditado,
+      int_quant_filho:          int_quant_filho,
+      int_quant_filho_vivo:     int_quant_filho_vivo,      
+      mem_dados_resguardado:    mem_dados_resguardado
+    });
   }
 
   function Cancelar(){
@@ -319,11 +352,10 @@ function Pessoa_Edt(){
     :null}
 
     {logado?    
-      <div className="container-fluid mt-page">
-      <div>
+      <div className="container-fluid mt-page">      
         <form>
           <div>
-            <h3  className = "text-center">Cadastro de Pessoa - Editando...</h3>
+            <h3  className = "text-center">{nomepessoa}</h3>
           </div>
 
         {/*Page tabs - Titulos Abas*/}
@@ -332,6 +364,15 @@ function Pessoa_Edt(){
             <li className="nav-item" role="presentation">
               <button className="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados-tab-pane" type="button" role="tab" aria-controls="dados-tab-pane" aria-selected="true">Dados</button>
             </li>
+
+          {/*Aba Usuario*/} 
+            {
+              flg_tipo_cadastro === "C" ? //Controlador
+              <li className="nav-item" role="presentation">
+              <button className="nav-link" id="usuario-tab" data-bs-toggle="tab" data-bs-target="#usuario-tab-pane" type="button" role="tab" aria-controls="usuario-tab-pane" aria-selected="false">Usuário</button>
+              </li>
+              : null
+            }  
 
           {/*Aba Contatos*/} 
             {
@@ -353,7 +394,7 @@ function Pessoa_Edt(){
 
           {/*Aba Resguardados*/} 
             {
-              flg_tipo_cadastro === "P" ? //Paciente 
+              flg_tipo_cadastro === "P" && localStorage.getItem("user_flg_visualizar_resguardado") === "S" ? //Paciente 
               <li className="nav-item" role="presentation">
               <button className="nav-link" id="resguardado-tab" data-bs-toggle="tab" data-bs-target="#resguardado-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Resguardados</button>
               </li>
@@ -384,12 +425,6 @@ function Pessoa_Edt(){
                   <option value="C">Colaborador</option>
                   <option value="F">Fornecedor </option>
                   <option value="N">Contato    </option>
-                </select>
-              {/*Usuário (S ou N)*/}
-                <label  htmlFor="flg_usuario" className="mt-margem">Usuário:</label>
-                <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgUsuario(e.target.value)} value={flg_usuario} name="flg_usuario" id="flg_usuario" autoFocus>
-                  <option value="S">Sim</option>
-                  <option value="N">Não</option>
                 </select>
               {/*Referencia*/}  
                 <label htmlFor="dsc_referencia" className="mt-margem">Referência :</label>
@@ -507,8 +542,33 @@ function Pessoa_Edt(){
 
             </div> {/*Fecha Aba - Dados*/}
 
+         {/*Aba - Usuario*/}    
+           <div className="tab-pane fade" id="usuario-tab-pane" role="tabpanel" aria-labelledby="usuario-tab" tabIndex="1">
+           {/*Usuario (S/N), nome, senha, visualizar_resguardado*/}  
+             <div className="input-group mt-margem"> 
+             {/*Usuário (S ou N)*/}
+               <label  htmlFor="flg_usuario" className="mt-margem">Usuário:</label>
+               <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgUsuario(e.target.value)} value={flg_usuario} name="flg_usuario" id="flg_usuario" autoFocus>
+                  <option value="S">Sim</option>
+                 <option value="N">Não</option>
+               </select>
+             {/*Nome*/}  
+               <label htmlFor="dsc_usuario" className="mt-margem">Nome :</label>
+               <input onChange={(e)=>setDscUsuario(e.target.value)} value={dsc_usuario} type="text" name="dsc_usuario" id="dsc_usuario" className="form-control mt-margem-input-ref"/>
+             {/*Senha*/}  
+               <label htmlFor="dsc_senha" className="mt-margem">Senha :</label>
+               <input onChange={(e)=>setDscSenha(e.target.value)} value={dsc_senha} type="password" name="dsc_senha" id="dsc_senha" className="form-control mt-margem-input-ref"/>  
+             {/*Visualizar Resguardado (S ou N)*/}
+               <label  htmlFor="flg_visualizar_resguardado" className="mt-margem">Visualizar Resguardado:</label>
+               <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgVisualizarResguardado(e.target.value)} value={flg_visualizar_resguardado} name="flg_visualizar_resguardado" id="flg_visualizar_resguardado" autoFocus>
+                  <option value="S">Sim</option>
+                 <option value="N">Não</option>
+               </select>  
+             </div>
+           </div> {/*Fecha Aba - Usuario*/}
+
           {/*Aba - Contatos*/}
-            <div className="tab-pane fade" id="contatos-tab-pane" role="tabpanel" aria-labelledby="contatos-tab" tabIndex="1">
+            <div className="tab-pane fade" id="contatos-tab-pane" role="tabpanel" aria-labelledby="contatos-tab" tabIndex="2">
             
             {/*Tipo Contato, Contato, Contato Principal, Estados Civil*/}
               <div className="input-group mt-margem">
@@ -574,7 +634,7 @@ function Pessoa_Edt(){
             </div> {/*Fecha Aba - Contatos*/}
 
           {/*Aba - Especificos*/}  
-            <div className="tab-pane fade" id="especificos-tab-pane" role="tabpanel" aria-labelledby="espeficos-tab" tabIndex="2">
+            <div className="tab-pane fade" id="especificos-tab-pane" role="tabpanel" aria-labelledby="espeficos-tab" tabIndex="3">
 
             {/*Estado Civil, Religião, Freguenta Religiao, Naturalidade, Tempo Cidade*/}
               <div className="input-group mt-margem">
@@ -665,7 +725,7 @@ function Pessoa_Edt(){
             </div> {/*Fecha Aba - Especificos*/}
 
           {/*Aba - Resguardados*/}    
-            <div className="tab-pane fade" id="resguardado-tab-pane" role="tabpanel" aria-labelledby="resguardado-tab" tabIndex="3">
+            <div className="tab-pane fade" id="resguardado-tab-pane" role="tabpanel" aria-labelledby="resguardado-tab" tabIndex="4">
 
             {/*Observacoes  - Dados Resguardados*/}
               <label htmlFor="mem_dados_resguardado" className="mt-margem">Observações:</label>
@@ -676,7 +736,7 @@ function Pessoa_Edt(){
             </div> {/*Fecha Aba - Resguardados*/}
 
             {/*Aba - Social*/}    
-            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="4">...
+            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="5">...
             </div> {/*Fecha Aba - Social*/}
           </div>
 
@@ -698,9 +758,8 @@ function Pessoa_Edt(){
         {
           confirmado ?
             navigate('/pessoa') : null
-        }
-       
-        </div>
+        }       
+        
       </div>
     :null}
     

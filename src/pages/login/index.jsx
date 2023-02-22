@@ -3,7 +3,11 @@ import {useNavigate}                 from 'react-router-dom';
 import Logo                          from '../../assets/logo.jpg';
 import Fundo                         from '../../assets/fundo-login.jpg';
 import {AuthContext}                 from '../../context/auth.jsx';
+import Axios                         from "axios";
 import './style.css';
+
+//const apiUrl = "http://localhost:5000";
+const apiUrl = "https://portsonline.com.br";
 
 function Login(){
   const navigate = useNavigate();
@@ -12,18 +16,36 @@ function Login(){
   const [senha, setSenha]       = useState('');
   const [mensagem, setMensagem] = useState('');
   
-  const {setLogado} = useContext(AuthContext); 
+  const {setLogado} = useContext(AuthContext);
+  
+  function fun_listar_usuario(){
+
+  }
+
+  async function fun_login_usuario(dsc_usuario, dsc_senha){
+    return await Axios.get(apiUrl + "/pessoa/usuario/login/" + dsc_usuario + '/' + dsc_senha);
+  }
 
   function ProcessaLogin(){
-    if((email === 'adm') && (senha === '1')) {
-      localStorage.setItem("logado", "S");
-      setLogado(true);           
-      navigate('/principal')
-    }else{            
-      localStorage.setItem("logado", "N");
-      setLogado(false);
-      setMensagem('Email ou senha inválida');
-    }
+    fun_login_usuario(email, senha).then((response) => {  
+      if(response.data.length > 0) { //Encontrou usuario
+        localStorage.setItem("logado", "S");      
+        setLogado(true);
+
+      //Preferencias do Usuario  
+        if (response.data[0].flg_visualizar_resguardado === "S") {
+          localStorage.setItem("user_flg_visualizar_resguardado", "S");
+        } else{
+          localStorage.setItem("user_flg_visualizar_resguardado", "N");
+        }
+
+        navigate('/principal')
+      }else{            
+        localStorage.setItem("logado", "N");
+        setLogado(false);
+        setMensagem('Email ou senha inválida');
+      }
+    })
   }
 
   return <div className="row">
