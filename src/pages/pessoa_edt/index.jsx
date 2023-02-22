@@ -40,7 +40,7 @@ function Pessoa_Edt(){
 //Variaveis do usuario
   const[dsc_usuario,                setDscUsuario]               = useState('');
   const[dsc_senha,                  setDscSenha]                 = useState('');
-  const[flg_visualizar_resguardado, setFlgVisualizarResguardado] = useState('');
+  const[flg_visualizar_resguardado, setFlgVisualizarResguardado] = useState('S');
   
 //Variaveis do contato  
   const[contato,               setContato]             = useState();
