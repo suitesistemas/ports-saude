@@ -5,8 +5,8 @@ import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
 
-//const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+const apiUrl = "http://localhost:5000";
+//const apiUrl = "https://portsonline.com.br";
 
 function Pessoa_Edt(){
   const[referencia,        setReferencia]       = useState('');
@@ -76,6 +76,9 @@ function Pessoa_Edt(){
   const[int_quant_filho_vivo,     setIntQuantFilhoVivo]      = useState(0);
   const[mem_dados_resguardado,    setMemDadosResguardado]    = useState('');
 
+//Variaveis do paciente - Aba Saude
+  const[num_cartao_sus, setNumCartaoSus] = useState('');
+
   let {cod_pessoa} = useParams();
 
   const {logado} = useContext(AuthContext);
@@ -124,7 +127,7 @@ function Pessoa_Edt(){
 
 //Listar dados Pessoa  
   async function fun_listar_pessoa(){
-    return await Axios.get(apiUrl + "/pessoa/listar/" + cod_pessoa);
+    return await Axios.get(apiUrl + "/pessoa/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   }
 
   useEffect(() => {
@@ -160,7 +163,7 @@ function Pessoa_Edt(){
 
 //Listar dados Usuario (Dados Usuario)
   async function fun_listar_usuario(){
-    return await Axios.get(apiUrl + "/pessoa/usuario/listar/" + cod_pessoa);
+    return await Axios.get(apiUrl + "/pessoa/usuario/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
   useEffect(() => {
@@ -175,7 +178,7 @@ function Pessoa_Edt(){
 
 //Listar dados Paciente (Dados Especificos)
   async function fun_listar_paciente(){
-    return await Axios.get(apiUrl + "/pessoa/paciente/listar/" + cod_pessoa);
+    return await Axios.get(apiUrl + "/pessoa/paciente/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
   useEffect(() => {
@@ -210,7 +213,7 @@ function Pessoa_Edt(){
   }, [listar_contato, excluido_contato]);
 
   async function fun_listar_contato(){
-    return await Axios.get(apiUrl + "/pessoa/contato/listar/" + cod_pessoa);
+    return await Axios.get(apiUrl + "/pessoa/contato/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
 //Listar os Contatos do Combo Box
@@ -223,7 +226,7 @@ function Pessoa_Edt(){
   const navigate = useNavigate();
 
   async function fun_listar_contato_combo(){
-    return await Axios.get(apiUrl + "/contato/listar/");
+    return await Axios.get(apiUrl + "/contato/listar/", {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
 //Excluir Contato  
@@ -236,7 +239,7 @@ function Pessoa_Edt(){
   };
 
   async function fun_excluindocontato(fky_contato){
-    return await Axios.delete(apiUrl + "/pessoa/contato/excluir/" + cod_pessoa + '/' + fky_contato);
+    return await Axios.delete(apiUrl + "/pessoa/contato/excluir/" + cod_pessoa + '/' + fky_contato, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
   function AdicionarContato(){
@@ -259,7 +262,8 @@ function Pessoa_Edt(){
       flg_tipo_contato:      flg_tipo_contato,
       flg_contato_principal: flg_contato_principal,
       flg_estado_civil:      con_flg_estado_civil 
-    });
+    },
+    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
 
     return response;
   }
@@ -290,7 +294,8 @@ function Pessoa_Edt(){
       flg_sexo:             flgsexo,
       flg_uf:               flguf,
       num_logradouro:       numlogradouro   
-    })    
+    },
+    {headers: {cod_conta: localStorage.getItem("cod_conta")}})    
     .then((response)=>{
       fun_editar_paciente().then((response)=>{
         fun_editar_usuario().then((response)=>{
@@ -308,7 +313,8 @@ function Pessoa_Edt(){
       dsc_usuario:                dsc_usuario,
       dsc_senha:                  dsc_senha,
       flg_visualizar_resguardado: flg_visualizar_resguardado
-    });
+    },
+    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   }
 
 //Dados Paciente
@@ -333,7 +339,8 @@ function Pessoa_Edt(){
       int_quant_filho:          int_quant_filho,
       int_quant_filho_vivo:     int_quant_filho_vivo,      
       mem_dados_resguardado:    mem_dados_resguardado
-    });
+    },
+    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   }
 
   function Cancelar(){
@@ -736,7 +743,12 @@ function Pessoa_Edt(){
             </div> {/*Fecha Aba - Resguardados*/}
 
             {/*Aba - Social*/}    
-            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="5">...
+            <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="5">
+              <div className="input-group mt-margem">              
+              {/*Cartão SUS*/}  
+                <label htmlFor="num_cartao_sus" className="mt-margem">nº:</label>
+                <input onChange={(e)=>setNumCartaoSus(e.target.value)} value={num_cartao_sus} type="text" name="num_cartao_sus" id="num_cartao_sus" className="form-control"/> 
+              </div>
             </div> {/*Fecha Aba - Social*/}
           </div>
 

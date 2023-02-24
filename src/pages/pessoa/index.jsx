@@ -6,8 +6,8 @@ import Axios                                      from "axios";
 import { AuthContext }                            from "../../context/auth.jsx";
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "http://localhost:3002";
-const apiUrl = "https://portsonline.com.br";
+const apiUrl = "http://localhost:5000";
+//const apiUrl = "https://portsonline.com.br";
 
 function Pessoa(){
   const [pessoa,          setPessoa]        = useState();  
@@ -20,14 +20,14 @@ function Pessoa(){
 
 //Inicio - lista todos  
   useEffect(() => {
-    Axios.get(apiUrl + "/pessoa/listar")
+    Axios.get(apiUrl + "/pessoa/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
     .then((response) =>{
       setPessoa(response.data);
     })
   }, []);
 
   useEffect(() => {
-    Axios.get(apiUrl + "/pessoa/listar")
+    Axios.get(apiUrl + "/pessoa/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
     .then((response) =>{
       setPessoa(response.data);
     })
@@ -38,7 +38,7 @@ function Pessoa(){
   };
 
   async function Excluindo(cod_pessoa){
-    return await Axios.delete(apiUrl + "/pessoa/excluir/" + cod_pessoa);
+    return await Axios.delete(apiUrl + "/pessoa/excluir/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   };
 
   function Excluir(cod_pessoa){
@@ -51,7 +51,7 @@ function Pessoa(){
   function Pesquisar(){
   //Todos
     if (flg_tipo_pessoa === 'T'){
-      Axios.get(apiUrl + "/pessoa/listar")
+      Axios.get(apiUrl + "/pessoa/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
       .then((response) =>{
         setPessoa(response.data);
       });
@@ -59,7 +59,7 @@ function Pessoa(){
 
   // Pacientes
     else if (flg_tipo_pessoa === 'P'){
-      Axios.get(apiUrl + "/Paciente/listar")
+      Axios.get(apiUrl + "/Paciente/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
       .then((response) =>{
         setPessoa(response.data);    
       });
@@ -67,7 +67,7 @@ function Pessoa(){
     
   //Colaboradores  
     else if (flg_tipo_pessoa === 'C'){
-      Axios.get(apiUrl + "/colaborador/listar")
+      Axios.get(apiUrl + "/colaborador/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
       .then((response) =>{
         setPessoa(response.data);    
       });
@@ -75,7 +75,7 @@ function Pessoa(){
 
   //Fornecedores  
     else if (flg_tipo_pessoa === 'F'){
-      Axios.get(apiUrl + "/fornecedor/listar")
+      Axios.get(apiUrl + "/fornecedor/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
       .then((response) =>{
         setPessoa(response.data);    
       });
@@ -83,7 +83,7 @@ function Pessoa(){
     
   //Contatos  
     else if (flg_tipo_pessoa === 'N'){
-      Axios.get(apiUrl + "/contato/listar")
+      Axios.get(apiUrl + "/contato/listar", {headers: {cod_conta: localStorage.getItem("cod_conta")}})
       .then((response) =>{
         setPessoa(response.data);    
       });

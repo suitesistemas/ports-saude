@@ -6,44 +6,58 @@ import {AuthContext}                 from '../../context/auth.jsx';
 import Axios                         from "axios";
 import './style.css';
 
-//const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+const apiUrl = "http://localhost:5000";
+//const apiUrl = "https://portsonline.com.br";
 
 function Login(){
   const navigate = useNavigate();
 
-  const [email, setEmail]       = useState('');
-  const [senha, setSenha]       = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [dsc_conta,   setDscConta]   = useState('');
+  const [dsc_usuario, setDscUsuario] = useState('');
+  const [dsc_senha,   setDscSenha]   = useState('');
+  const [mensagem,    setMensagem]   = useState('');
   
   const {setLogado} = useContext(AuthContext);
-  
-  function fun_listar_usuario(){
 
+  async function fun_login_conta(dsc_conta){
+    return await Axios.get(apiUrl + "/pessoa/conta/login/" + dsc_conta);
   }
 
   async function fun_login_usuario(dsc_usuario, dsc_senha){
-    return await Axios.get(apiUrl + "/pessoa/usuario/login/" + dsc_usuario + '/' + dsc_senha);
+    return await Axios.get(apiUrl + "/pessoa/usuario/login/" + dsc_usuario + '/' + dsc_senha, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
   }
 
   function ProcessaLogin(){
-    fun_login_usuario(email, senha).then((response) => {  
-      if(response.data.length > 0) { //Encontrou usuario
-        localStorage.setItem("logado", "S");      
-        setLogado(true);
+    console.log(dsc_conta);    
+    fun_login_conta(dsc_conta).then((response) =>{
+      if(response.data.length > 0) { //Encontrou conta
+        localStorage.setItem("cod_conta", response.data[0].cod_conta);
 
-      //Preferencias do Usuario  
-        if (response.data[0].flg_visualizar_resguardado === "S") {
-          localStorage.setItem("user_flg_visualizar_resguardado", "S");
-        } else{
-          localStorage.setItem("user_flg_visualizar_resguardado", "N");
-        }
+        fun_login_usuario(dsc_usuario, dsc_senha).then((response) => {  
+          if(response.data.length > 0) { //Encontrou usuario
+            localStorage.setItem("logado", "S");      
+            setLogado(true);
+  
+          //Preferencias do Usuario  
+            if (response.data[0].flg_visualizar_resguardado === "S") {
+              localStorage.setItem("user_flg_visualizar_resguardado", "S");
+            } else{
+              localStorage.setItem("user_flg_visualizar_resguardado", "N");
+            }
+  
+            navigate('/principal')
+  
+          }else{            
+            localStorage.setItem("logado", "N");
+            setLogado(false);
+            setMensagem('Credenciais de acesso inválidas');
+          }
+        })
 
-        navigate('/principal')
-      }else{            
+      } else{
         localStorage.setItem("logado", "N");
         setLogado(false);
-        setMensagem('Email ou senha inválida');
+        setMensagem('Credenciais de acesso inválidas');
       }
     })
   }
@@ -54,15 +68,21 @@ function Login(){
         <h3 className="mb-4">Administre o Ports Saúde agora mesmo.</h3>
         <h6 className="mb-3">Acesse sua conta</h6>
 
-      {/*Edit Email*/}
+      {/*Conta*/}
         <div className="form-floating">
-          <input onChange={(e)=>setEmail(e.target.value)} type="email" className="form-control" name="flg_dsc_email" id="flg_dsc_email" placeholder="E-mail" autoFocus/>
-          <label htmlFor="floatingInput">E-mail</label>
+          <input onChange={(e)=>setDscConta(e.target.value)} type="txt" className="form-control" name="flg_dsc_conta" id="flg_dsc_conta" placeholder="Conta" autoFocus/>
+          <label htmlFor="floatingInput">Conta</label>
         </div>
 
-      {/*Edit Senha*/}
+      {/*Usuário*/}
         <div className="form-floating">
-          <input onChange={(e)=>setSenha(e.target.value)} type="password" name="flg_dsc_senha" id="flg_dsc_senha" className="form-control" placeholder="Senha"/>
+          <input onChange={(e)=>setDscUsuario(e.target.value)} type="txt" className="form-control" name="dsc_usuario" id="dsc_usuario" placeholder="Usuário" autoFocus/>
+          <label htmlFor="floatingInput">Usuário</label>
+        </div>
+
+      {/*Senha*/}
+        <div className="form-floating">
+          <input onChange={(e)=>setDscSenha(e.target.value)} type="password" name="dsc_senha" id="dsc_senha" className="form-control" placeholder="Senha"/>
           <label htmlFor="floatingInput">Senha</label>
         </div>
 

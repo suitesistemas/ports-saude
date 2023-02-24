@@ -4,8 +4,8 @@ import { useNavigate }                 from 'react-router-dom';
 import Axios                           from "axios";
 import { AuthContext }                 from "../../context/auth.jsx";
 
-//const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+const apiUrl = "http://localhost:5000";
+//const apiUrl = "https://portsonline.com.br";
 
 function Pessoa_Ins(){  
   const [referencia,        setReferencia]      = useState('');
@@ -104,7 +104,8 @@ function Pessoa_Ins(){
       flg_sexo:             flgsexo,
       flg_uf:               flguf,
       num_logradouro:       numlogradouro      
-    })
+    },
+    {headers: {cod_conta: localStorage.getItem("cod_conta")}})
     
     .then((response)=>{      
     });
