@@ -5,8 +5,8 @@ import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
 
-const apiUrl = "http://localhost:5000";
-//const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "http://localhost:5000";
+const apiUrl = "https://portsonline.com.br";
 
 function Pessoa_Edt(){
   const[referencia,        setReferencia]       = useState('');

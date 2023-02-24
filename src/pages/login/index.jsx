@@ -6,8 +6,8 @@ import {AuthContext}                 from '../../context/auth.jsx';
 import Axios                         from "axios";
 import './style.css';
 
-const apiUrl = "http://localhost:5000";
-//const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "http://localhost:5000";
+const apiUrl = "https://portsonline.com.br";
 
 function Login(){
   const navigate = useNavigate();

@@ -6,8 +6,8 @@ import Axios                                      from "axios";
 import { AuthContext }                            from "../../context/auth.jsx";
 
 //const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-const apiUrl = "http://localhost:5000";
-//const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "http://localhost:5000";
+const apiUrl = "https://portsonline.com.br";
 
 function Pessoa(){
   const [pessoa,          setPessoa]        = useState();  
