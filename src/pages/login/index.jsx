@@ -5,9 +5,11 @@ import Fundo                         from '../../assets/fundo-login.jpg';
 import {AuthContext}                 from '../../context/auth.jsx';
 import Axios                         from "axios";
 import './style.css';
+import dns_api                       from '../../config/constante';
 
 //const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "https://portsonline.com.br";
+  const apiUrl = dns_api();
 
 function Login(){
   const navigate = useNavigate();
@@ -23,25 +25,24 @@ function Login(){
     return await Axios.get(apiUrl + "/pessoa/conta/login/" + dsc_conta);
   }
 
-  async function fun_login_usuario(dsc_usuario, dsc_senha){
-    return await Axios.get(apiUrl + "/pessoa/usuario/login/" + dsc_usuario + '/' + dsc_senha, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+  async function fun_login_usuario(dsc_usuario, dsc_senha){    
+    return await Axios.get(apiUrl + "/pessoa/usuario/login/" + localStorage.getItem("cod_conta") + '/' + dsc_usuario + '/' + dsc_senha);
   }
 
   function ProcessaLogin(){
-    console.log(dsc_conta);    
-    fun_login_conta(dsc_conta).then((response) =>{
-      if(response.data.length > 0) { //Encontrou conta
+    fun_login_conta(dsc_conta).then((response) =>{      
+      if (response.data.length > 0) { //Encontrou conta
         localStorage.setItem("cod_conta", response.data[0].cod_conta);
 
-        fun_login_usuario(dsc_usuario, dsc_senha).then((response) => {  
-          if(response.data.length > 0) { //Encontrou usuario
+        fun_login_usuario(dsc_usuario, dsc_senha).then((response) => {
+          if (response.data.length > 0) { //Encontrou usuario
             localStorage.setItem("logado", "S");      
             setLogado(true);
   
           //Preferencias do Usuario  
             if (response.data[0].flg_visualizar_resguardado === "S") {
               localStorage.setItem("user_flg_visualizar_resguardado", "S");
-            } else{
+            } else {
               localStorage.setItem("user_flg_visualizar_resguardado", "N");
             }
   
@@ -54,7 +55,7 @@ function Login(){
           }
         })
 
-      } else{
+      } else {
         localStorage.setItem("logado", "N");
         setLogado(false);
         setMensagem('Credenciais de acesso inválidas');

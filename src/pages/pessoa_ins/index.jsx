@@ -3,9 +3,11 @@ import React, { useState, useContext } from 'react';
 import { useNavigate }                 from 'react-router-dom';
 import Axios                           from "axios";
 import { AuthContext }                 from "../../context/auth.jsx";
+import dns_api                       from '../../config/constante';
 
 //const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "https://portsonline.com.br";
+const apiUrl = dns_api();
 
 function Pessoa_Ins(){  
   const [referencia,        setReferencia]      = useState('');
@@ -80,7 +82,7 @@ function Pessoa_Ins(){
 
 //Dados Pessoa - Inserindo um registro
   const Cadastrar = async e =>{
-    Axios.post(apiUrl + "/pessoa/inserir",
+    Axios.post(apiUrl + "/pessoa/inserir/" + localStorage.getItem("cod_conta"),
     {
       dsc_referencia:       referencia,
       dsc_nome_pessoa:      nomepessoa,
@@ -104,8 +106,7 @@ function Pessoa_Ins(){
       flg_sexo:             flgsexo,
       flg_uf:               flguf,
       num_logradouro:       numlogradouro      
-    },
-    {headers: {cod_conta: localStorage.getItem("cod_conta")}})
+    })
     
     .then((response)=>{      
     });

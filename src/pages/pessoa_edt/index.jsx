@@ -4,9 +4,11 @@ import { useNavigate, useParams }                 from 'react-router-dom';
 import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
+import dns_api                       from '../../config/constante';
 
 //const apiUrl = "http://localhost:5000";
-const apiUrl = "https://portsonline.com.br";
+//const apiUrl = "https://portsonline.com.br";
+const apiUrl = dns_api();
 
 function Pessoa_Edt(){
   const[referencia,        setReferencia]       = useState('');
@@ -127,7 +129,7 @@ function Pessoa_Edt(){
 
 //Listar dados Pessoa  
   async function fun_listar_pessoa(){
-    return await Axios.get(apiUrl + "/pessoa/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.get(apiUrl + "/pessoa/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   }
 
   useEffect(() => {
@@ -163,7 +165,7 @@ function Pessoa_Edt(){
 
 //Listar dados Usuario (Dados Usuario)
   async function fun_listar_usuario(){
-    return await Axios.get(apiUrl + "/pessoa/usuario/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.get(apiUrl + "/pessoa/usuario/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   };
 
   useEffect(() => {
@@ -178,7 +180,7 @@ function Pessoa_Edt(){
 
 //Listar dados Paciente (Dados Especificos)
   async function fun_listar_paciente(){
-    return await Axios.get(apiUrl + "/pessoa/paciente/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.get(apiUrl + "/pessoa/paciente/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   };
 
   useEffect(() => {
@@ -213,7 +215,7 @@ function Pessoa_Edt(){
   }, [listar_contato, excluido_contato]);
 
   async function fun_listar_contato(){
-    return await Axios.get(apiUrl + "/pessoa/contato/listar/" + cod_pessoa, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.get(apiUrl + "/pessoa/contato/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   };
 
 //Listar os Contatos do Combo Box
@@ -226,7 +228,7 @@ function Pessoa_Edt(){
   const navigate = useNavigate();
 
   async function fun_listar_contato_combo(){
-    return await Axios.get(apiUrl + "/contato/listar/", {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.get(apiUrl + "/contato/listar/" + localStorage.getItem("cod_conta"));
   };
 
 //Excluir Contato  
@@ -239,7 +241,7 @@ function Pessoa_Edt(){
   };
 
   async function fun_excluindocontato(fky_contato){
-    return await Axios.delete(apiUrl + "/pessoa/contato/excluir/" + cod_pessoa + '/' + fky_contato, {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    return await Axios.delete(apiUrl + "/pessoa/contato/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_contato);
   };
 
   function AdicionarContato(){
@@ -251,7 +253,7 @@ function Pessoa_Edt(){
   }
 
   async function AdicionandoContato(){    
-    let response = await Axios.post(apiUrl + "/pessoa/contato/inserir",
+    let response = await Axios.post(apiUrl + "/pessoa/contato/inserir/" + localStorage.getItem("cod_conta"),
     {
       fky_pessoa:            cod_pessoa,
       fky_contato:           fky_contato,
@@ -262,15 +264,14 @@ function Pessoa_Edt(){
       flg_tipo_contato:      flg_tipo_contato,
       flg_contato_principal: flg_contato_principal,
       flg_estado_civil:      con_flg_estado_civil 
-    },
-    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    });
 
     return response;
   }
 
 //*Dados Pessoa
   function Editar(){
-    Axios.put(apiUrl + "/pessoa/editar/" + cod_pessoa,
+    Axios.put(apiUrl + "/pessoa/editar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa,
     {
       dsc_referencia:       referencia,
       dsc_nome_pessoa:      nomepessoa,
@@ -294,8 +295,7 @@ function Pessoa_Edt(){
       flg_sexo:             flgsexo,
       flg_uf:               flguf,
       num_logradouro:       numlogradouro   
-    },
-    {headers: {cod_conta: localStorage.getItem("cod_conta")}})    
+    })    
     .then((response)=>{
       fun_editar_paciente().then((response)=>{
         fun_editar_usuario().then((response)=>{
@@ -307,19 +307,18 @@ function Pessoa_Edt(){
 
 //Dados Usuario
   async function fun_editar_usuario(){
-    return await Axios.put(apiUrl + "/pessoa/usuario/editar/" + cod_pessoa,
+    return await Axios.put(apiUrl + "/pessoa/usuario/editar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa,
     {
       fky_pessoa:                 cod_pessoa,
       dsc_usuario:                dsc_usuario,
       dsc_senha:                  dsc_senha,
       flg_visualizar_resguardado: flg_visualizar_resguardado
-    },
-    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    });
   }
 
 //Dados Paciente
   async function fun_editar_paciente(){
-    return await Axios.put(apiUrl + "/pessoa/paciente/editar/" + cod_pessoa,
+    return await Axios.put(apiUrl + "/pessoa/paciente/editar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa,
     {
       fky_pessoa:               cod_pessoa,
       dsc_filiacao_pai:         dsc_filiacao_pai,
@@ -339,8 +338,7 @@ function Pessoa_Edt(){
       int_quant_filho:          int_quant_filho,
       int_quant_filho_vivo:     int_quant_filho_vivo,      
       mem_dados_resguardado:    mem_dados_resguardado
-    },
-    {headers: {cod_conta: localStorage.getItem("cod_conta")}});
+    });
   }
 
   function Cancelar(){
