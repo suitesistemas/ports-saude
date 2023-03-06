@@ -31,7 +31,7 @@ body{
 }
 
 .mt-margem{
-  padding: 10px;
+  padding: 8px 10px;
 }
 
 .mt-margem-input-ref{
@@ -44,6 +44,10 @@ body{
 
 .mt-margem-input-seq{
   max-width: 60px;
+}
+
+.mt-margem-input-valor{
+  max-width: 120px;
 }
 
 .mt-margem-foto{
@@ -86,4 +90,12 @@ body{
   position: absolute;
   bottom: 0px;
   width: 100%;  
+ }
+
+ .form-check-input {
+  cursor: pointer;
+ }
+
+ .form-check-label {
+  cursor: pointer;
  }

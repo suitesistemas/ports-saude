@@ -3,8 +3,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams }                 from 'react-router-dom';
 import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
+import ListaRegistro                              from '../../components/lista_registro/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
-import dns_api                       from '../../config/constante';
+import dns_api                                    from '../../config/constante';
 
 //const apiUrl = "http://localhost:5000";
 //const apiUrl = "https://portsonline.com.br";
@@ -39,12 +40,12 @@ function Pessoa_Edt(){
 
   const [confirmado, setConfirmado] = useState(false);
 
-//Variaveis do usuario
+//Usuario
   const[dsc_usuario,                setDscUsuario]               = useState('');
   const[dsc_senha,                  setDscSenha]                 = useState('');
   const[flg_visualizar_resguardado, setFlgVisualizarResguardado] = useState('S');
   
-//Variaveis do contato  
+//Contato  
   const[contato,               setContato]             = useState();
   const[fky_contato,           setFkyContato]          = useState();
   const[dsc_profissao,         setDscProfissao]        = useState();
@@ -59,7 +60,7 @@ function Pessoa_Edt(){
   const[listar_contato_combo,  setListarContatoCombo] = useState();
   const[excluido_contato,      setExcluidoContato]    = useState();                               
 
-//Variaveis do paciente
+//Paciente
   const[dsc_filiacao_pai,         setDscFiliacaoPai]         = useState('');
   const[dsc_filiacao_mae,         setDscFiliacaoMae]         = useState('');
   const[dsc_religiao,             setDscReligiao]            = useState('');
@@ -78,12 +79,77 @@ function Pessoa_Edt(){
   const[int_quant_filho_vivo,     setIntQuantFilhoVivo]      = useState(0);
   const[mem_dados_resguardado,    setMemDadosResguardado]    = useState('');
 
-//Variaveis do paciente - Aba Saude
-  const[num_cartao_sus, setNumCartaoSus] = useState('');
+//Paciente - Aba Saude
+  const[dsc_plano_saude,            setDscPlanoSaude]           = useState('');
+  const[dsc_paciente_lucido,        setDscPacienteLucido]       = useState('');
+  const[dsc_cirurgia_feita,         setDscCirurgiaFeita]        = useState('');
+  const[dsc_obs_covid_19,           setDscObsCovid19]           = useState('');
+  const[dsc_usa_medicamento,        setDscUsaMedicamento]       = useState('');
+  const[dsc_usou_outra_instituicao, setDscUsouOutraInstituicao] = useState('');
+  const[dsc_condicao_habitual,      setDscCondicaoHabitual]     = useState('');
+  const[dbl_valor_medicamento,      setDblValorMedicamento]     = useState(0);
+  const[dat_teve_covid_19,          setDatTeveCovid19]          = useState('');  
+  const[flg_medicamento_caro,       setFlgMedicamentoCaro]      = useState('N');
+  const[flg_auxilio_banho,          setFlgAuxilioBanho]         = useState(false);
+  const[flg_auxilio_alimentacao,    setFlgAuxilioAlimentacao]   = useState(false);
+  const[flg_auxilio_locomocao,      setFlgAuxilioLocomocao]     = useState(false);
+  const[flg_auxilio_vestimenta,     setFlgAuxilioVestimenta]    = useState(false);
+  const[flg_auxilio_higiene,        setFlgAuxilioHigiene]       = useState(false);
+  const[flg_usa_frauda,             setFlgUsaFrauda]            = useState(false);
+  const[flg_paciente_lucido,        setFlgPacienteLucido]       = useState('N');
+  const[flg_fez_cirurgia,           setFlgFezCirurgia]          = useState('N');
+  const[flg_teve_covid_19,          setFlgTeveCovid19]          = useState('N'); 
+  const[num_cartao_sus,             setNumCartaoSus]            = useState('');
+
+  const[excluido_tratamento,      setExcluidoTratamento]     = useState();
+  const[excluido_doenca,          setExcluidoDoenca]         = useState();
+  const[excluido_vacina,          setExcluidoVacina]         = useState();
+  const[excluido_servico_saude,   setExcluidoServicoSaude]   = useState();
+  const[excluido_programa_social, setExcluidoProgramaSocial] = useState();
+
+  const[listar_tratamento,      setListarTratamento]     = useState();
+  const[listar_doenca,          setListarDoenca]         = useState();
+  const[listar_vacina,          setListarVacina]         = useState();
+  const[listar_servico_saude,   setListarServicoSaude]   = useState();
+  const[listar_programa_social, setListarProgramaSocial] = useState();
+
+  const[listar_especialidade_medico_combo, setListarEspecialidadeMedicoCombo] = useState();
+  const[listar_doenca_combo,               setListarDoencaCombo]              = useState();
+  const[listar_vacina_combo,               setListarVacinaCombo]              = useState();
+  const[listar_servico_saude_combo,        setListarServicoSaudeCombo]        = useState();
+  const[listar_programa_social_combo,      setListarProgramaSocialCombo]      = useState();
+
+//Paciente - Aba Saude - Tratamento 
+  const[tratamento,               setTratamento]             = useState();
+  const[fky_especialidade_medico, setFkyEspecialidadeMedico] = useState();
+
+//Paciente - Aba Saude - Saude 
+  const[saude,     setSaude]    = useState();
+  const[fky_saude, setFkySaude] = useState(); 
+  
+//Paciente - Aba Saude - Doenca 
+  const[doenca,     setDoenca]    = useState();
+  const[fky_doenca, setFkyDoenca] = useState(); 
+  
+//Paciente - Aba Saude - Vacina 
+  const[vacina,     setVacina]    = useState();
+  const[fky_vacina, setFkyVacina] = useState();  
+  const[num_dose,   setNumDose]   = useState();
+  const[dat_dose,   setDatDose]   = useState();
+
+//Paciente - Aba Saude - Servico Saude 
+  const[servico_saude,     setServicoSaude]    = useState();
+  const[fky_servico_saude, setFkyServicoSaude] = useState();  
+
+//Paciente - Aba Saude - Programa Social 
+  const[programa_social,     setProgramaSocial]    = useState();
+  const[fky_programa_social, setFkyProgramaSocial] = useState();  
 
   let {cod_pessoa} = useParams();
 
   const {logado} = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   function fun_formataData(lData){
     return lData.substring(0, 10)
@@ -203,12 +269,35 @@ function Pessoa_Edt(){
         setIntQuantFilho(          response.data[0].int_quant_filho);
         setIntQuantFilhoVivo(      response.data[0].int_quant_filho_vivo);
         setMemDadosResguardado(    response.data[0].mem_dados_resguardado);
+
+      {/*Aba Saude*/}
+        setDscPlanoSaude(          response.data[0].dsc_plano_saude);
+        setDscPacienteLucido(      response.data[0].dsc_paciente_lucido);
+        setDscCirurgiaFeita(       response.data[0].dsc_cirurgia_feita);
+        setDscObsCovid19(          response.data[0].dsc_obs_covid_19);
+        setDscUsaMedicamento(      response.data[0].dsc_usa_medicamento);
+        setDscUsouOutraInstituicao(response.data[0].dsc_usou_outra_instituicao);
+        setDscCondicaoHabitual(    response.data[0].dsc_condicao_habitual);
+        setDblValorMedicamento(    response.data[0].dbl_valor_medicamento);
+        setDatTeveCovid19(         fun_formataData(response.data[0].dat_teve_covid_19));
+        setFlgMedicamentoCaro(     response.data[0].flg_medicamento_caro);
+        setFlgAuxilioBanho(        response.data[0].flg_auxilio_banho);
+        setFlgAuxilioAlimentacao(  response.data[0].flg_auxilio_alimentacao);
+        setFlgAuxilioLocomocao(    response.data[0].flg_auxilio_locomocao);
+        setFlgAuxilioVestimenta(   response.data[0].flg_auxilio_vestimenta);
+        setFlgAuxilioHigiene(      response.data[0].flg_auxilio_higiene);
+        setFlgUsaFrauda(           response.data[0].flg_usa_frauda);
+        setFlgPacienteLucido(      response.data[0].flg_paciente_lucido);
+        setFlgFezCirurgia(         response.data[0].flg_fez_cirurgia);
+        setFlgTeveCovid19(         response.data[0].flg_teve_covid_19);
+        setNumCartaoSus(           response.data[0].num_cartao_sus);
       }
     })
   }, []);
 
 //Listar os Contatos da Pessoa
   useEffect(() => {
+    console.log('entrou contato');
     fun_listar_contato().then((response) =>{     
       setContato(response.data);
   })      
@@ -218,17 +307,105 @@ function Pessoa_Edt(){
     return await Axios.get(apiUrl + "/pessoa/contato/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   };
 
-//Listar os Contatos do Combo Box
+//Listar os Tratamentos da Pessoa
+  useEffect(() => {    
+    fun_listar_tratamento().then((response) =>{      
+      setTratamento(response.data);
+  })      
+  }, [listar_tratamento, excluido_tratamento]);
+
+  async function fun_listar_tratamento(){
+    return await Axios.get(apiUrl + "/pessoa/tratamento/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Listar as Doencas da Pessoa
+  useEffect(() => {    
+    fun_listar_doenca().then((response) =>{      
+      setDoenca(response.data);
+  })      
+  }, [listar_doenca, excluido_doenca]);
+
+  async function fun_listar_doenca(){
+    return await Axios.get(apiUrl + "/pessoa/doenca/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Listar as Vacinas da Pessoa
+  useEffect(() => {    
+    fun_listar_vacina().then((response) =>{      
+      setVacina(response.data);
+  })      
+  }, [listar_vacina, excluido_vacina]);
+
+  async function fun_listar_vacina(){
+    return await Axios.get(apiUrl + "/pessoa/vacina/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Listar os Serviços de Saude da Pessoa
+  useEffect(() => {    
+    fun_listar_servico_saude().then((response) =>{      
+      setServicoSaude(response.data);
+  })      
+  }, [listar_servico_saude, excluido_servico_saude]);
+
+  async function fun_listar_servico_saude(){
+    return await Axios.get(apiUrl + "/pessoa/servico_saude/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Listar os Programas Sociais da Pessoa
+  useEffect(() => {    
+    fun_listar_programa_social().then((response) =>{      
+      setProgramaSocial(response.data);
+  })      
+  }, [listar_programa_social, excluido_programa_social]);
+
+  async function fun_listar_programa_social(){
+    return await Axios.get(apiUrl + "/pessoa/programa_social/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Abrindo os Combos Box
   useEffect(() => {
     fun_listar_contato_combo().then((response) =>{     
-      setListarContatoCombo(response.data); 
-  })      
+      setListarContatoCombo(response.data);
+    })
+    fun_listar_especialidade_medico_combo().then((response) =>{     
+      setListarEspecialidadeMedicoCombo(response.data);
+    })
+    fun_listar_doenca_combo().then((response) =>{     
+      setListarDoencaCombo(response.data);
+    })
+    fun_listar_vacina_combo().then((response) =>{     
+      setListarVacinaCombo(response.data);
+    })
+    fun_listar_servico_saude_combo().then((response) =>{     
+      setListarServicoSaudeCombo(response.data);
+    })
+    fun_listar_programa_social_combo().then((response) =>{     
+      setListarProgramaSocialCombo(response.data);
+    })         
   }, []);
-
-  const navigate = useNavigate();
 
   async function fun_listar_contato_combo(){
     return await Axios.get(apiUrl + "/contato/listar/" + localStorage.getItem("cod_conta"));
+  };
+
+  async function fun_listar_doenca_combo(){
+    return await Axios.get(apiUrl + "/doenca/listar/" + localStorage.getItem("cod_conta"));
+  };
+
+  async function fun_listar_especialidade_medico_combo(){
+    return await Axios.get(apiUrl + "/especialidade_medico/listar/" + localStorage.getItem("cod_conta"));
+  };
+
+  async function fun_listar_vacina_combo(){
+    return await Axios.get(apiUrl + "/vacina/listar/" + localStorage.getItem("cod_conta"));
+  };
+
+  async function fun_listar_servico_saude_combo(){
+    return await Axios.get(apiUrl + "/servico_saude/listar/" + localStorage.getItem("cod_conta"));
+  };
+
+  async function fun_listar_programa_social_combo(){
+    return await Axios.get(apiUrl + "/programa_social/listar/" + localStorage.getItem("cod_conta"));
   };
 
 //Excluir Contato  
@@ -244,6 +421,72 @@ function Pessoa_Edt(){
     return await Axios.delete(apiUrl + "/pessoa/contato/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_contato);
   };
 
+  //Excluir Tratamento  
+  function fun_excluirtratamento(fky_especialidade_medico){
+    let codigo = fky_especialidade_medico;
+        
+    fun_excluindotratamento(fky_especialidade_medico).then((response) =>{
+      setExcluidoTratamento(codigo);
+    });    
+  };
+
+  async function fun_excluindotratamento(fky_especialidade_medico){
+    return await Axios.delete(apiUrl + "/pessoa/tratamento/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_especialidade_medico);
+  };
+
+  //Excluir Doenca  
+  function fun_excluirdoenca(fky_doenca){
+    let codigo = fky_doenca;
+        
+    fun_excluindodoenca(fky_doenca).then((response) =>{
+      setExcluidoDoenca(codigo);
+    });    
+  };
+
+  async function fun_excluindodoenca(fky_doenca){
+    return await Axios.delete(apiUrl + "/pessoa/doenca/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_doenca);
+  };
+
+   //Excluir Vacina  
+   function fun_excluirvacina(fky_vacina){
+    let codigo = fky_vacina;
+        
+    fun_excluindovacina(fky_vacina).then((response) =>{
+      setExcluidoVacina(codigo);
+    });    
+  };
+
+  async function fun_excluindovacina(fky_vacina){
+    return await Axios.delete(apiUrl + "/pessoa/vacina/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_vacina);
+  };
+
+  //Excluir Servico Saude  
+  function fun_excluirservicosaude(fky_servico_saude){
+    let codigo = fky_servico_saude;
+        
+    fun_excluindoservicosaude(fky_servico_saude).then((response) =>{
+      setExcluidoServicoSaude(codigo);
+    });    
+  };
+
+  async function fun_excluindoservicosaude(fky_servico_saude){
+    return await Axios.delete(apiUrl + "/pessoa/servico_saude/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_servico_saude);
+  };
+
+  //Excluir Programa Social  
+  function fun_excluirprogramasocial(fky_programa_social){
+    let codigo = fky_programa_social;
+        
+    fun_excluindoprogramasocial(fky_programa_social).then((response) =>{
+      setExcluidoProgramaSocial(codigo);
+    });    
+  };
+
+  async function fun_excluindoprogramasocial(fky_programa_social){
+    return await Axios.delete(apiUrl + "/pessoa/programa_social/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_programa_social);
+  };
+
+//Inserir Contato
   function AdicionarContato(){
     AdicionandoContato().then((response)=>{      
       setListarContato(response); //Retornando o insertid    
@@ -266,6 +509,104 @@ function Pessoa_Edt(){
       flg_estado_civil:      con_flg_estado_civil 
     });
 
+    return response;
+  }
+
+//Inserir Tratamento
+  function AdicionarTratamento(){
+    AdicionandoTratamento().then((response)=>{
+      console.log(response);      
+      setListarTratamento(response); //Retornando o insertid    
+  });
+
+  return;
+  }  
+
+  async function AdicionandoTratamento(){    
+    let response = await Axios.post(apiUrl + "/pessoa/tratamento/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente:             cod_pessoa,
+      fky_especialidade_medico: fky_especialidade_medico
+    });
+
+    return response;
+  }
+
+//Inserir Doenca
+  function AdicionarDoenca(){
+    AdicionandoDoenca().then((response)=>{      
+      setListarDoenca(response); //Retornando o insertid    
+    });
+
+    return;
+  }
+
+  async function AdicionandoDoenca(){    
+    let response = await Axios.post(apiUrl + "/pessoa/doenca/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente:          cod_pessoa,
+      fky_doenca:            fky_doenca
+    });
+
+    return response;
+  }
+
+//Inserir Vacina
+  function AdicionarVacina(){
+    AdicionandoVacina().then((response)=>{      
+      setListarVacina(response); //Retornando o insertid    
+    });
+
+    return;
+  }
+
+  async function AdicionandoVacina(){    
+    let response = await Axios.post(apiUrl + "/pessoa/vacina/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente: cod_pessoa,
+      fky_vacina:   fky_vacina,
+      num_dose:     num_dose,
+      dat_dose:     dat_dose
+    });
+
+    return response;
+  }
+
+//Inserir Servico Saude
+  function AdicionarServicoSaude(){
+    AdicionandoServicoSaude().then((response)=>{      
+      setListarServicoSaude(response); //Retornando o insertid    
+    });
+
+    return;
+  }
+
+  async function AdicionandoServicoSaude(){    
+    let response = await Axios.post(apiUrl + "/pessoa/servico_saude/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente:      cod_pessoa,
+      fky_servico_saude: fky_servico_saude
+    });
+    
+    return response;
+  }
+
+//Inserir Programa Social
+  function AdicionarProgramaSocial(){
+    AdicionandoProgramaSocial().then((response)=>{      
+      setListarProgramaSocial(response); //Retornando o insertid    
+    });
+
+    return;
+  }
+
+  async function AdicionandoProgramaSocial(){
+    let response = await Axios.post(apiUrl + "/pessoa/programa_social/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente:        cod_pessoa,
+      fky_programa_social: fky_programa_social
+    });
+    
     return response;
   }
 
@@ -337,7 +678,28 @@ function Pessoa_Edt(){
       flg_paciente_interditado: flg_paciente_interditado,
       int_quant_filho:          int_quant_filho,
       int_quant_filho_vivo:     int_quant_filho_vivo,      
-      mem_dados_resguardado:    mem_dados_resguardado
+      mem_dados_resguardado:    mem_dados_resguardado,
+
+      dsc_plano_saude:           dsc_plano_saude,
+      dsc_paciente_lucido:       dsc_paciente_lucido,
+      dsc_cirurgia_feita:        dsc_cirurgia_feita,
+      dsc_obs_covid_19:          dsc_obs_covid_19,
+      dsc_usa_medicamento:       dsc_usa_medicamento,
+      dsc_usou_outra_instituicao:dsc_usou_outra_instituicao,
+      dsc_condicao_habitual:     dsc_condicao_habitual,
+      dbl_valor_medicamento:     dbl_valor_medicamento,
+      dat_teve_covid_19:         dat_teve_covid_19,
+      flg_medicamento_caro:      flg_medicamento_caro,
+      flg_auxilio_banho:         flg_auxilio_banho,
+      flg_auxilio_alimentacao:   flg_auxilio_alimentacao,
+      flg_auxilio_locomocao:     flg_auxilio_locomocao,
+      flg_auxilio_vestimenta:    flg_auxilio_vestimenta,
+      flg_auxilio_higiene:       flg_auxilio_higiene,
+      flg_usa_frauda:            flg_usa_frauda,
+      flg_paciente_lucido:       flg_paciente_lucido,
+      flg_fez_cirurgia:          flg_fez_cirurgia,
+      flg_teve_covid_19:         flg_teve_covid_19,
+      num_cartao_sus:            num_cartao_sus
     });
   }
 
@@ -345,10 +707,46 @@ function Pessoa_Edt(){
     setConfirmado(true);
   }
 
+//Combo Contato  
   function renderComboContato(){    
     return typeof listar_contato_combo !== 'undefined' &&
-                  listar_contato_combo.map(function (combo_contato){
-      return <option key={combo_contato.cod_pessoa} value={combo_contato.cod_pessoa}>{combo_contato.dsc_nome_pessoa}</option>
+                  listar_contato_combo.map(function (registro){
+      return <option key={registro.cod_pessoa} value={registro.cod_pessoa}>{registro.dsc_nome_pessoa}</option>
+  })}
+
+//Combo Especialidade Medico  
+  function renderComboEspecialidadeMedico(){    
+    return typeof listar_especialidade_medico_combo !== 'undefined' &&
+                  listar_especialidade_medico_combo.map(function (registro){
+      return <option key={registro.cod_especialidade_medico} value={registro.cod_especialidade_medico}>{registro.dsc_especialidade_medico}</option>
+  })}
+
+//Combo Doença  
+  function renderComboDoenca(){    
+    return typeof listar_doenca_combo !== 'undefined' &&
+                  listar_doenca_combo.map(function (registro){
+      return <option key={registro.cod_doenca} value={registro.cod_doenca}>{registro.dsc_doenca}</option>
+  })}
+
+//Combo Vacina
+  function renderComboVacina(){    
+    return typeof listar_vacina_combo !== 'undefined' &&
+                  listar_vacina_combo.map(function (registro){
+      return <option key={registro.cod_vacina} value={registro.cod_vacina}>{registro.dsc_vacina}</option>
+  })}
+
+//Combo Servico Saude  
+  function renderComboServicoSaude(){    
+    return typeof listar_servico_saude_combo !== 'undefined' &&
+                  listar_servico_saude_combo.map(function (registro){
+      return <option key={registro.cod_servico_saude} value={registro.cod_servico_saude}>{registro.dsc_servico_saude}</option>
+  })}
+  
+//Combo Programa Social  
+  function renderComboProgramaSocial(){    
+    return typeof listar_programa_social_combo !== 'undefined' &&
+                  listar_programa_social_combo.map(function (registro){
+      return <option key={registro.cod_programa_social} value={registro.cod_programa_social}>{registro.dsc_programa_social}</option>
   })}
 
   return <div>
@@ -435,7 +833,7 @@ function Pessoa_Edt(){
                 <label htmlFor="dsc_referencia" className="mt-margem">Referência :</label>
                 <input onChange={(e)=>setReferencia(e.target.value)} value={referencia} type="text" name="dsc_referencia" id="dsc_referencia" className="form-control mt-margem-input-ref"/>
               {/*Data Cadastro*/}  
-                <label htmlFor="dat_cadasro" className="mt-margem">Cadastro:</label>
+                <label htmlFor="dat_cadastro" className="mt-margem">Cadastro:</label>
                 <input onChange={(e)=>setDatCadastro(e.target.value)} value={datcadastro} type="date" name="dat_cadastro" id="dat_cadastro" className="form-control"/>
               {/*Data Nascimento*/}
                 <label htmlFor="dat_nascimento" className="mt-margem">Nascimento:</label>
@@ -740,31 +1138,296 @@ function Pessoa_Edt(){
 
             </div> {/*Fecha Aba - Resguardados*/}
 
-            {/*Aba - Social*/}    
+          {/*Aba - Social*/}    
             <div className="tab-pane fade" id="social-tab-pane" role="tabpanel" aria-labelledby="social-tab" tabIndex="5">
-              <div className="input-group mt-margem">              
-              {/*Cartão SUS*/}  
-                <label htmlFor="num_cartao_sus" className="mt-margem">nº:</label>
-                <input onChange={(e)=>setNumCartaoSus(e.target.value)} value={num_cartao_sus} type="text" name="num_cartao_sus" id="num_cartao_sus" className="form-control"/> 
+            {/*Page Vertical*/}
+              <div className="d-flex align-items-start">
+              {/*Page Titulos*/}
+                <div className="nav flex-column nav-pills me-3 mt-page" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <button className="nav-link active" id="v-pills-diversos-tab"   data-bs-toggle="pill" data-bs-target="#v-pills-diversos"   type="button" role="tab" aria-controls="v-pills-diversos"   aria-selected="true"> Diversos</button>
+                  <button className="nav-link"        id="v-pills-tratamento-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tratamento" type="button" role="tab" aria-controls="v-pills-tratamento" aria-selected="false">Tratamentos</button>
+                  <button className="nav-link"        id="v-pills-doenca-tab"     data-bs-toggle="pill" data-bs-target="#v-pills-doenca"     type="button" role="tab" aria-controls="v-pills-doenca"     aria-selected="false">Doenças</button>
+                  <button className="nav-link"        id="v-pills-vacina-tab"     data-bs-toggle="pill" data-bs-target="#v-pills-vacina"     type="button" role="tab" aria-controls="v-pills-vacina"     aria-selected="false">Vacinas</button>
+                  <button className="nav-link"        id="v-pills-servico-tab"    data-bs-toggle="pill" data-bs-target="#v-pills-servico"    type="button" role="tab" aria-controls="v-pills-servico"    aria-selected="false">Serviços</button>
+                  <button className="nav-link"        id="v-pills-programa-tab"   data-bs-toggle="pill" data-bs-target="#v-pills-programa"   type="button" role="tab" aria-controls="v-pills-programa"   aria-selected="false">Programas</button>
+                  <button className="nav-link"        id="v-pills-relato-tab"     data-bs-toggle="pill" data-bs-target="#v-pills-relato"     type="button" role="tab" aria-controls="v-pills-relato"     aria-selected="false">Relato</button>
+                </div>
+
+              {/*Page Dados*/}  
+                <div className="tab-content container-fluid" id="v-pills-tabContent">
+                {/*Aba - Diversos*/}                
+                  <div className="tab-pane fade show active" id="v-pills-diversos" role="tabpanel" aria-labelledby="v-pills-diversos-tab" tabindex="0">
+                    <div className="input-group mt-margem">              
+                    {/*Cartão SUS*/}  
+                      <label htmlFor="num_cartao_sus" className="mt-margem">Cartão SUS:</label>
+                      <input onChange={(e)=>setNumCartaoSus(e.target.value)} value={num_cartao_sus} type="text" name="num_cartao_sus" id="num_cartao_sus" className="form-control mt-margem-input-ref"/>                    
+                    {/*Uso de Medicamento*/}  
+                      <label htmlFor="dsc_usa_medicamento" className="mt-margem">Faz uso de algum tipo de medicamento? Quais?:</label>
+                      <input onChange={(e)=>setDscUsaMedicamento(e.target.value)} value={dsc_usa_medicamento} type="text" name="dsc_usa_medicamento" id="dsc_usa_medicamento" className="form-control"/>
+                    </div>
+
+                    <div className="input-group mt-margem">                      
+                     {/*Medicamento Caro ?*/}
+                      <label  htmlFor="flg_medicamento_caro" className="mt-margem">Apresentam-se de alto custo?</label>
+                      <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgMedicamentoCaro(e.target.value)} value={flg_medicamento_caro} name="flg_medicamento_caro" id="flg_medicamento_caro">
+                        <option key="S" value="S">Sim </option>
+                        <option key="N" value="N">Não </option>                  
+                      </select>
+                    {/*Valor Medicamento*/}
+                      <label htmlFor="dbl_valor_medicamento" className="mt-margem">Valor Medicamentos:</label>
+                      <input onChange={(e)=>setDblValorMedicamento(e.target.value)} value={dbl_valor_medicamento} type="text" name="dbl_valor_medicamento" id="dbl_valor_medicamento" className="form-control mt-margem-input-valor"/>
+                    {/*Plano de Saude, convênio, etc*/}
+                      <label htmlFor="dsc_plano_saude" className="mt-margem">Plano de Saude, convênio, etc:</label>
+                      <input onChange={(e)=>setDscPlanoSaude(e.target.value)} value={dsc_plano_saude} type="text" name="dsc_plano_saude" id="dsc_plano_saude" className="form-control"/>
+                    </div>
+
+                    <div className="mt-margem">                      
+                      <div className="mt-margem">
+                      <h6 >Paciente necessita de auxílio?</h6>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgAuxilioBanho(e.target.checked)} value="" name="flg_auxilio_banho" id="flg_auxilio_banho" checked={flg_auxilio_banho}/>
+                          <label className="form-check-label" for="flg_auxilio_banho">
+                            Banho
+                          </label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgAuxilioAlimentacao(e.target.checked)} value="" name="flg_auxilio_alimentacao" id="flg_auxilio_alimentacao" checked={flg_auxilio_alimentacao}/>
+                          <label className="form-check-label" for="flg_auxilio_alimentacao">
+                            Alimentação
+                          </label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgAuxilioLocomocao(e.target.checked)} value="" name="flg_auxilio_locomocao" id="flg_auxilio_locomocao" checked={flg_auxilio_locomocao}/>
+                          <label className="form-check-label" for="flg_auxilio_locomocao">
+                            Locomoção
+                          </label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgAuxilioVestimenta(e.target.checked)} value="" name="flg_auxilio_vestimenta" id="flg_auxilio_vestimenta" checked={flg_auxilio_vestimenta}/>
+                          <label className="form-check-label" for="flg_auxilio_vestimenta">
+                            Vestir-se
+                          </label>
+                        </div>                        
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgAuxilioHigiene(e.target.checked)} value="" name="flg_auxilio_higiene" id="flg_auxilio_higiene" checked={flg_auxilio_higiene}/>
+                          <label className="form-check-label" for="flg_auxilio_higiene">
+                            Higiene
+                          </label>
+                        </div>                        
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" type="checkbox" onChange={(e)=>setFlgUsaFrauda(e.target.checked)} value="" name="flg_usa_frauda" id="flg_usa_frauda" checked={flg_usa_frauda}/>
+                          <label className="form-check-label" for="flg_usa_frauda">
+                            Usa Fraldas
+                          </label>
+                        </div>
+                      </div>
+                    </div>                    
+                
+                    <div className="input-group mt-margem">                    
+                     {/*Paciente Lúcido?*/}
+                       <label  htmlFor="flg_paciente_lucido" className="mt-margem">Paciente Lúcido?</label>
+                      <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgPacienteLucido(e.target.value)} value={flg_paciente_lucido} name="flg_paciente_lucido" id="flg_paciente_lucido">
+                        <option key="S" value="S">Sim </option>
+                        <option key="N" value="N">Não </option>                  
+                      </select>
+                    {/*Obervacao Paciente Lúcido*/}
+                      <label htmlFor="dsc_paciente_lucido" className="mt-margem"></label>
+                      <input onChange={(e)=>setDscPacienteLucido(e.target.value)} value={dsc_paciente_lucido} type="text" name="dsc_paciente_lucido" id="dsc_paciente_lucido" className="form-control" placeholder='Observação quanto a lúcidez'/>
+                    </div>
+
+                    <div className="input-group mt-margem">
+                    {/*Fez Cirurgia?*/}
+                      <label  htmlFor="flg_fez_cirurgia" className="mt-margem">Já fez alguma cirurgia?</label>
+                      <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgFezCirurgia(e.target.value)} value={flg_fez_cirurgia} name="flg_fez_cirurgia" id="flg_fez_cirurgia">
+                        <option key="S" value="S">Sim </option>
+                        <option key="N" value="N">Não </option>                  
+                      </select>
+                    {/*Quais Cirurgias*/}
+                      <label htmlFor="dsc_cirurgia_feita" className="mt-margem"></label>
+                      <input onChange={(e)=>setDscCirurgiaFeita(e.target.value)} value={dsc_cirurgia_feita} type="text" name="dsc_cirurgia_feita" id="dsc_cirurgia_feita" className="form-control" placeholder='Quais cirurgias?'/>
+                    </div>
+
+                    <div className="input-group mt-margem">                    
+                    {/*Teve Covid-19?*/}
+                      <label  htmlFor="flg_teve_covid_19" className="mt-margem">Teve Covid-19?</label>
+                      <select className="form-control mt-margem-input-seq" onChange={(e)=>setFlgTeveCovid19(e.target.value)} value={flg_teve_covid_19} name="flg_teve_covid_19" id="flg_teve_covid_19">
+                        <option key="S" value="S">Sim </option>
+                        <option key="N" value="N">Não </option>                  
+                      </select>
+                    {/*Data Teve Covid-19*/}  
+                      <label htmlFor="dat_teve_covid_19" className="mt-margem">Data:</label>
+                      <input onChange={(e)=>setDatTeveCovid19(e.target.value)} value={dat_teve_covid_19} type="date" name="dat_teve_covid_19" id="dat_teve_covid_19" className="form-control mt-margem-input-ref"/>
+                    {/*Observações da Covid*/}
+                     <label htmlFor="dsc_obs_covid_19" className="mt-margem"></label>
+                      <input onChange={(e)=>setDscObsCovid19(e.target.value)} value={dsc_obs_covid_19} type="text" name="dsc_obs_covid_19" id="dsc_obs_covid_19" className="form-control" placeholder='Observações sobre a Covid.'/>
+                    </div>
+
+                    <div className="input-group mt-margem">
+                    {/*Acolhido Outra Instituição*/}
+                     <label htmlFor="dsc_usou_outra_instituicao" className="mt-margem">Já foi acolhido em outra instituição como: ilpi, casa de repouso ou outra instituição?</label>
+                     <input onChange={(e)=>setDscUsouOutraInstituicao(e.target.value)} value={dsc_usou_outra_instituicao} type="text" name="dsc_usou_outra_instituicao" id="dsc_usou_outra_instituicao" className="form-control"/>
+                    </div>
+
+                    <div className="input-group mt-margem">
+                    {/*Condições habitualiade*/}
+                     <label htmlFor="dsc_condicao_habitual" className="mt-margem">Quais são as condições de habitualidade/socialização do paciente: higiene, organização, convívio social, relacionamento familiar, com vizinhos, etc..</label>
+                     <input onChange={(e)=>setDscCondicaoHabitual(e.target.value)} value={dsc_condicao_habitual} type="text" name="dsc_condicao_habitual" id="dsc_condicao_habitual" className="form-control"/>
+                    </div>  
+                  </div>
+
+                {/*Aba - Tratamentos*/}  
+                  <div className="tab-pane fade" id="v-pills-tratamento" role="tabpanel" aria-labelledby="v-pills-tratamento-tab" tabindex="1">
+                  {/*titulo Pergunta*/}  
+                    <div className='input-group mt-margem'>
+                      <label htmlFor='fky_especialidade_medico' className='mt-margem'>Está realizando algum tipo de tratamento/ acompanhamento médico ou especialista, psiquiátrico, psicológico, neurologista, cardiologista, geriátrico, dermatologista, oftalmologista, ortopedista, neurologista, urologista, entre outros?</label>
+                    </div>
+
+                  {/*Especialidade do Médico*/}
+                    <div className="input-group mt-margem">                 
+                      <label  htmlFor="fky_especialidade_medico" className="mt-margem">Especialidade do Médico:</label>
+                      <select className="form-control" onChange={(e)=>setFkyEspecialidadeMedico(e.target.value)} name="fky_especialidade_medico"  id="fky_especialidade_medico">
+                      <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
+                        {renderComboEspecialidadeMedico()};
+                      </select>  
+                  
+                    {/*Botão Adicionar*/}    
+                      <button type='button' onClick={AdicionarTratamento} className="btn btn-light btn-adicionar">Adicionar</button>
+                    </div>
+
+                  {/*GridTratamento*/}  
+                    <div>                      
+                      <ListaRegistro registro={tratamento} clickExcluirRegistro={fun_excluirtratamento}/>              
+                    </div>
+                  </div>
+                  
+                {/*Aba - Doenças*/}  
+                  <div className="tab-pane fade" id="v-pills-doenca" role="tabpanel" aria-labelledby="v-pills-doenca-tab" tabindex="2">
+                  {/*titulo Pergunta*/}  
+                    <div className='input-group mt-margem'>
+                      <label htmlFor='fky_doenca' className='mt-margem'>Relatar as doenças que acometem o paciente:</label>
+                    </div>
+
+                  {/*Doenca*/}
+                    <div className="input-group mt-margem">                      
+                      <label  htmlFor="fky_doenca" className="mt-margem">Doença:</label>
+                      <select className="form-control" onChange={(e)=>setFkyDoenca(e.target.value)} name="fky_doenca"  id="fky_doenca">
+                      <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
+                        {renderComboDoenca()};
+                      </select>  
+                  
+                    {/*Botão Adicionar*/}    
+                      <button type='button' onClick={AdicionarDoenca} className="btn btn-light btn-adicionar">Adicionar</button>
+                    </div>
+
+                  {/*GridDoenca*/}  
+                    <div>
+                      <ListaRegistro registro={doenca} clickExcluirRegistro={fun_excluirdoenca}/>              
+                    </div>
+                  </div>
+
+                {/*Aba - Vacinas*/}  
+                  <div className="tab-pane fade" id="v-pills-vacina" role="tabpanel" aria-labelledby="v-pills-vacina-tab" tabindex="3">
+                  {/*titulo Pergunta*/}  
+                    <div className='input-group mt-margem'>
+                      <label htmlFor='fky_vacina' className='mt-margem'>Informe as vacinas que o paciente já tomou:</label>
+                    </div>
+
+                  {/*Vacina*/}
+                    <div className="input-group mt-margem">                      
+                      <label  htmlFor="fky_vacina" className="mt-margem">Vacina:</label>
+                      <select className="form-control" onChange={(e)=>setFkyVacina(e.target.value)} name="fky_vacina"  id="fky_vacina">
+                      <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
+                        {renderComboVacina()};
+                      </select>
+                    {/*Nº Dose*/}
+                      <label htmlFor="num_dose" className="mt-margem">Nº Dose:</label>
+                      <input onChange={(e)=>setNumDose(e.target.value)} value={num_dose} type="text" name="num_dose" id="num_dose" className="form-control mt-margem-input-seq"/>
+                    {/*Data Dose*/}  
+                      <label htmlFor="dat_dose" className="mt-margem">Data:</label>
+                      <input onChange={(e)=>setDatDose(e.target.value)} value={dat_dose} type="date" name="dat_dose" id="dat_dose" className="form-control mt-margem-input-ref"/>
+                    {/*Botão Adicionar*/}    
+                      <button type='button' onClick={AdicionarVacina} className="btn btn-light btn-adicionar">Adicionar</button>
+                    </div>
+
+                  {/*GridVacina*/}  
+                    <div>
+                      <ListaRegistro registro={vacina} clickExcluirRegistro={fun_excluirvacina}/>              
+                    </div>
+                  </div>
+
+                {/*Aba - Serviços*/}  
+                  <div className="tab-pane fade" id="v-pills-servico" role="tabpanel" aria-labelledby="v-pills-servico-tab" tabindex="4">
+                  {/*titulo Pergunta*/}  
+                    <div className='input-group mt-margem'>
+                      <label htmlFor='fky_servico_saude' className='mt-margem'>Paciente atendido pelos serviços de saúde do bairro/município?</label>
+                    </div>
+
+                  {/*Serviços*/}
+                    <div className="input-group mt-margem">                      
+                      <label  htmlFor="fky_servico_saude" className="mt-margem">Serviço de Saúde:</label>
+                      <select className="form-control" onChange={(e)=>setFkyServicoSaude(e.target.value)} name="fky_servico_saude" id="fky_servico_saude">
+                      <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
+                        {renderComboServicoSaude()};
+                      </select>  
+                  
+                    {/*Botão Adicionar*/}    
+                      <button type='button' onClick={AdicionarServicoSaude} className="btn btn-light btn-adicionar">Adicionar</button>
+                    </div>
+
+                  {/*GridServisosSaude*/}  
+                    <div>
+                      <ListaRegistro registro={servico_saude} clickExcluirRegistro={fun_excluirservicosaude}/>              
+                    </div>
+                  </div>
+
+                {/*Aba - Programas*/}
+                  <div className="tab-pane fade" id="v-pills-programa" role="tabpanel" aria-labelledby="v-pills-programa-tab" tabindex="5">
+                  {/*titulo Pergunta*/}  
+                    <div className='input-group mt-margem'>
+                        <label htmlFor='fky_programa_social' className='mt-margem'>Está inserido em algum programa social ou participa de alguma atividade/acompanhado por algum serviço da rede socioassistencial?</label>
+                    </div>
+
+                  {/*Programas*/}
+                    <div className="input-group mt-margem">                      
+                      <label  htmlFor="fky_programa_social" className="mt-margem">Programa Social:</label>
+                      <select className="form-control" onChange={(e)=>setFkyProgramaSocial(e.target.value)} name="fky_programa_social" id="fky_programa_social">
+                      <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
+                        {renderComboProgramaSocial()};
+                      </select>  
+                  
+                    {/*Botão Adicionar*/}    
+                      <button type='button' onClick={AdicionarProgramaSocial} className="btn btn-light btn-adicionar">Adicionar</button>
+                    </div>
+
+                  {/*GridProgramaSocial*/}  
+                    <div>
+                      <ListaRegistro registro={programa_social} clickExcluirRegistro={fun_excluirprogramasocial}/>              
+                    </div>
+                  </div>
+
+                {/*Aba - Relato*/}
+                  <div className="tab-pane fade" id="v-pills-relato" role="tabpanel" aria-labelledby="v-pills-relato-tab" tabindex="6">
+                  {/*Historia de vida*/}
+                    <label htmlFor="mem_relato_vida" className="mt-margem">Breve relato sobre a história de vida do idoso:</label>
+                    <textarea rows="12" onChange={(e)=>setMemDadosResguardado(e.target.value)} value={mem_dados_resguardado} name="mem_relato_vida" id="mem_relato_vida"
+                              className="form-control">
+                    </textarea>  
+                  </div>  
+                </div>
               </div>
             </div> {/*Fecha Aba - Social*/}
           </div>
-
         </form>
 
-      {/*Rodape*/}  
-        <footer>        
-          <div>
+      {/*Rodape*/}        
+        <div>
           {/*Btn Cancelar e Btn Confirmar*/}
             <div className="text-center mt-margem">          
               <button type='button' onClick={Cancelar} className="btn btn-primary btn-acao">Cancelar </button>
               <button type='button' onClick={Editar}   className="btn btn-primary btn-acao">Confirmar</button>            
             </div>
-
             <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
           </div>
-        </footer>
-
         {
           confirmado ?
             navigate('/pessoa') : null
