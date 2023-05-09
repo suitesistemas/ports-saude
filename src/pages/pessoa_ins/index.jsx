@@ -135,10 +135,10 @@ function Pessoa_Ins(){
           {/*Tipo (Paciente, Colaborador, etc)*/}
             <label htmlFor="flg_tipo_cadastro" className="mt-margem">Tipo:</label>
             <select className="form-control mt-margem-input-ref" onChange={(e)=>setFlgTipoCadastro(e.target.value)} value={flg_tipo_cadastro} name="flg_tipo_cadastro" id="flg_tipo_cadastro" autoFocus>
-              <option value="P">Paciente   </option>
+              <option value="P">Residente  </option>
               <option value="C">Colaborador</option>
               <option value="F">Fornecedor </option>
-              <option value="N">Contato    </option>
+              <option value="N">Familiar   </option>
             </select>
           {/*Referencia*/}  
             <label htmlFor="dsc_referencia" className="mt-margem">Referência:</label>

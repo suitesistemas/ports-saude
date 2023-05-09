@@ -61,7 +61,7 @@ function Pessoa(){
 
   // Pacientes
     else if (flg_tipo_pessoa === 'P'){
-      Axios.get(apiUrl + "/Paciente/listar/" + localStorage.getItem("cod_conta"))
+      Axios.get(apiUrl + "/paciente/listar/" + localStorage.getItem("cod_conta"))
       .then((response) =>{
         setPessoa(response.data);    
       });
@@ -115,10 +115,10 @@ function Pessoa(){
           {/*TipoPesso*/}
             <select className="form-control mt-margembutton mt-margembutton_30" onChange={(e)=>setFlgTipoPessoa(e.target.value)} onClick={Pesquisar} value={flg_tipo_pessoa} name="flg_tipo_pessoa" id="flg_tipo_pessoa">
               <option value="T">Todos         </option>
-              <option value="P">Pacientes     </option>
+              <option value="P">Residentes    </option>
               <option value="C">Colaboradores </option>
               <option value="F">Fornecedores  </option>
-              <option value="N">Contatos      </option>
+              <option value="N">Familiar      </option>
             </select>
 
             <input type="text" className="form-control mt-margembutton" placeholder="Nome"aria-label="Recipient's username" aria-describedby="button-addon2" autoFocus/>

@@ -430,7 +430,6 @@ function Pessoa_Edt(){
 
 //Listar os Contatos da Pessoa
   useEffect(() => {
-    console.log('entrou contato');
     fun_listar_contato().then((response) =>{     
       setContato(response.data);
   })      
@@ -984,7 +983,7 @@ function Pessoa_Edt(){
             {
               flg_tipo_cadastro === "P" ? //Paciente 
               <li className="nav-item" role="presentation">
-              <button className="nav-link" id="contato-tab" data-bs-toggle="tab" data-bs-target="#contato-tab-pane" type="button" role="tab" aria-controls="contato-tab-pane" aria-selected="false">Contatos</button>
+              <button className="nav-link" id="contato-tab" data-bs-toggle="tab" data-bs-target="#contato-tab-pane" type="button" role="tab" aria-controls="contato-tab-pane" aria-selected="false">Familiar</button>
               </li>
               : null
             }
@@ -1045,10 +1044,10 @@ function Pessoa_Edt(){
               {/*Pessoa (Paciente, Colaborador, etc)*/}
                 <label  htmlFor="flg_tipo_cadastro" className="mt-margem">Tipo:</label>
                 <select className="form-control mt-margem-input-ref" onChange={(e)=>setFlgTipoCadastro(e.target.value)} value={flg_tipo_cadastro} name="flg_tipo_cadastro" id="flg_tipo_cadastro" autoFocus>
-                  <option value="P">Paciente   </option>
+                  <option value="P">Residente  </option>
                   <option value="C">Colaborador</option>
                   <option value="F">Fornecedor </option>
-                  <option value="N">Contato    </option>
+                  <option value="N">Familiar   </option>
                 </select>
               {/*Referencia*/}  
                 <label htmlFor="dsc_referencia" className="mt-margem">Referência :</label>
@@ -1206,7 +1205,7 @@ function Pessoa_Edt(){
                   <option key="R" value="R">Curador </option>
                 </select>
               {/*Contato*/}
-                <label  htmlFor="fky_contato" className="mt-margem">Contato:</label>
+                <label  htmlFor="fky_contato" className="mt-margem">Familiar:</label>
                 <select className="form-control" onChange={(e)=>setFkyContato(e.target.value)} name="fky_contato"  id="fky_contato">
                 <option key="0" value="0"></option> {/*Insere uma linha vazia*/}
                   {renderComboContato()};
@@ -1491,7 +1490,7 @@ function Pessoa_Edt(){
 
                     <div className="input-group mt-margem">
                     {/*Condições habitualiade*/}
-                     <label htmlFor="dsc_condicao_habitual" className="mt-margem">Quais são as condições de habitualidade/socialização do paciente: higiene, organização, convívio social, relacionamento familiar, com vizinhos, etc..</label>
+                     <label htmlFor="dsc_condicao_habitual" className="mt-margem">Quais são as condições de habitualidade/socialização do residente: higiene, organização, convívio social, relacionamento familiar, com vizinhos, etc..</label>
                      <input onChange={(e)=>setDscCondicaoHabitual(e.target.value)} value={dsc_condicao_habitual} type="text" name="dsc_condicao_habitual" id="dsc_condicao_habitual" className="form-control"/>
                     </div>  
                   </div>
@@ -1525,7 +1524,7 @@ function Pessoa_Edt(){
                   <div className="tab-pane fade" id="v-pills-doenca" role="tabpanel" aria-labelledby="v-pills-doenca-tab" tabindex="2">
                   {/*titulo Pergunta*/}  
                     <div className='input-group mt-margem'>
-                      <label htmlFor='fky_doenca' className='mt-margem'>Relatar as doenças que acometem o paciente:</label>
+                      <label htmlFor='fky_doenca' className='mt-margem'>Relatar as doenças que acometem o residente:</label>
                     </div>
 
                   {/*Doenca*/}
@@ -1550,7 +1549,7 @@ function Pessoa_Edt(){
                   <div className="tab-pane fade" id="v-pills-vacina" role="tabpanel" aria-labelledby="v-pills-vacina-tab" tabindex="3">
                   {/*titulo Pergunta*/}  
                     <div className='input-group mt-margem'>
-                      <label htmlFor='fky_vacina' className='mt-margem'>Informe as vacinas que o paciente já tomou:</label>
+                      <label htmlFor='fky_vacina' className='mt-margem'>Informe as vacinas que o residente já tomou:</label>
                     </div>
 
                   {/*Vacina*/}

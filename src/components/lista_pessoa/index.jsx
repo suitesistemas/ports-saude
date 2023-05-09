@@ -26,7 +26,7 @@ function ListaPessoa(props){
             props.pessoa.map(function (pessoa){
     // Pacientes
       if      (pessoa.flg_tipo_cadastro === 'P'){
-        lDscTipo = 'Paciente';
+        lDscTipo = 'Residentes';
       }
       
     //Colaboradores  
@@ -41,7 +41,7 @@ function ListaPessoa(props){
       
     //Contatos  
       else if (pessoa.flg_tipo_cadastro === 'N'){
-        lDscTipo = 'Contato';
+        lDscTipo = 'Familiar';
       };
       
       return <tr key={pessoa.cod_pessoa}>

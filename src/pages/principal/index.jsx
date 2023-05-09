@@ -24,7 +24,7 @@ function Principal(){
         <div className="col-md-3">
           <div className="card">
             <div className="card-header">
-              Pessoas cadastrados
+              Pessoas cadastradas
             </div>
             <div className="card-body text-center">
               <h2 className="card-title">9</h2>
@@ -36,7 +36,7 @@ function Principal(){
         <div className="col-md-3">
           <div className="card">
             <div className="card-header">
-              Pacientes cadastrados
+              Residentes cadastrados
             </div>
             <div className="card-body text-center">
               <h2 className="card-title">131</h2>
