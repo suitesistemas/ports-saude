@@ -142,7 +142,8 @@ function Pessoa_Edt(){
   
 //Paciente - Aba Saude
   const[mem_diagnostico_medico,            setMemDiagnosticoMedico]           = useState('');
-  const[mem_diagnostico_fisioterapico,     setMemDiagnosticoFisioterapico]    = useState('');  
+  const[mem_diagnostico_fisioterapico,     setMemDiagnosticoFisioterapico]    = useState('');
+  const[mem_anamnese,                      setMemAnamnese]                    = useState('');   
   const[dsc_diagnostico_fisioterapico_qp,  setDscDiagnosticoFisioterapicoQp]  = useState('');
   const[dsc_diagnostico_fisioterapico_hma, setDscDiagnosticoFisioterapicoHma] = useState('');
   const[dsc_diagnostico_fisioterapico_hp,  setDscDiagnosticoFisioterapicoHp]  = useState('');
@@ -359,6 +360,7 @@ function Pessoa_Edt(){
       {/*Aba Saúde*/}
         setMemDiagnosticoMedico(          response.data[0].mem_diagnostico_medico);
         setMemDiagnosticoFisioterapico(   response.data[0].mem_diagnostico_fisioterapico);
+        setMemAnamnese(                   response.data[0].mem_anamnese);
         setDscDiagnosticoFisioterapicoQp( response.data[0].dsc_diagnostico_fisioterapico_qp);
         setDscDiagnosticoFisioterapicoHma(response.data[0].dsc_diagnostico_fisioterapico_hma);
         setDscDiagnosticoFisioterapicoHp( response.data[0].dsc_diagnostico_fisioterapico_hp);
@@ -837,6 +839,7 @@ function Pessoa_Edt(){
     //Aba Saude
       mem_diagnostico_medico:            mem_diagnostico_medico,
       mem_diagnostico_fisioterapico:     mem_diagnostico_fisioterapico,
+      mem_anamnese:                      mem_anamnese,
       dsc_diagnostico_fisioterapico_qp:  dsc_diagnostico_fisioterapico_qp,
       dsc_diagnostico_fisioterapico_hma: dsc_diagnostico_fisioterapico_hma,
       dsc_diagnostico_fisioterapico_hp:  dsc_diagnostico_fisioterapico_hp,
@@ -1641,13 +1644,17 @@ function Pessoa_Edt(){
             <div className="tab-pane fade" id="saude-tab-pane" role="tabpanel" aria-labelledby="saude-tab" tabIndex="6">
             {/*Page Vertical*/}
               <div className="d-flex align-items-start">
+
               {/*Page Titulos*/}
                 <div className="nav flex-column nav-pills me-3 mt-page" id="v-pills-saude-tab" role="tablist" aria-orientation="vertical">
                   <button className="nav-link active" id="v-pills-saude-medico-tab"        data-bs-toggle="pill" data-bs-target="#v-pills-saude-medico"        type="button" role="tab" aria-controls="v-pills-saude-medico"        aria-selected="true">Médico</button>
                   <button className="nav-link"        id="v-pills-saude-fisioterapico-tab" data-bs-toggle="pill" data-bs-target="#v-pills-saude-fisioterapico" type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Fisioterápico</button>
+                  <button className="nav-link"        id="v-pills-saude-anamnese-tab"      data-bs-toggle="pill" data-bs-target="#v-pills-saude-anamnese"      type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Anamnese</button>
                 </div>
+
               {/*Page Dados*/}  
                 <div className="tab-content container-fluid" id="v-pills-saude-tabContent">
+
                 {/*Aba - Medico*/}
                   <div className="tab-pane fade show active" id="v-pills-saude-medico" role="tabpanel" aria-labelledby="v-pills-saude-medico-tab" tabindex="0">                    
                   {/*Diagnóstico Médico*/}  
@@ -1676,7 +1683,16 @@ function Pessoa_Edt(){
                       <input onChange={(e)=>setDscDiagnosticoFisioterapicoHf(e.target.value)} value={dsc_diagnostico_fisioterapico_hf} type="text" name="dsc_diagnostico_fisioterapico_hf" id="dsc_diagnostico_fisioterapico_hf" className="form-control mt-margem-input-ref"/>                    
                     </div>
                   </div>
+
+                {/*Aba - Anamnese*/}
+                  <div className="tab-pane fade" id="v-pills-saude-anamnese" role="tabpanel" aria-labelledby="v-pills-saude-anamnese-tab" tabindex="2">
+                  {/*Anamnese*/}  
+                    <label htmlFor="mem_anamnese" className="mt-margem">Anamnese:</label>
+                    <textarea rows="13" onChange={(e)=>setMemAnamnese(e.target.value)} value={mem_anamnese} name="mem_anamnese" id="mem_anamnese" className="form-control"></textarea>
+                  </div>
+
                 </div>
+
               </div>
             </div> {/*Fecha Aba - Saude*/}
 
