@@ -1027,14 +1027,6 @@ function Pessoa_Edt(){
               :null
             }
 
-          {/*Aba Fisico*/} 
-            {
-              flg_tipo_cadastro === "P" ? //Paciente 
-              <li className="nav-item" role="presentation">
-              <button className="nav-link" id="fisico-tab" data-bs-toggle="tab" data-bs-target="#fisico-tab-pane" type="button" role="tab" aria-controls="fisico-tab-pane" aria-selected="false">Físico</button>
-              </li>
-              :null
-            }  
           </ul>
 
          {/*Page tabs - Conteudos Abas*/}  
@@ -1648,8 +1640,9 @@ function Pessoa_Edt(){
               {/*Page Titulos*/}
                 <div className="nav flex-column nav-pills me-3 mt-page" id="v-pills-saude-tab" role="tablist" aria-orientation="vertical">
                   <button className="nav-link active" id="v-pills-saude-medico-tab"        data-bs-toggle="pill" data-bs-target="#v-pills-saude-medico"        type="button" role="tab" aria-controls="v-pills-saude-medico"        aria-selected="true">Médico</button>
-                  <button className="nav-link"        id="v-pills-saude-fisioterapico-tab" data-bs-toggle="pill" data-bs-target="#v-pills-saude-fisioterapico" type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Fisioterápico</button>
-                  <button className="nav-link"        id="v-pills-saude-anamnese-tab"      data-bs-toggle="pill" data-bs-target="#v-pills-saude-anamnese"      type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Anamnese</button>
+                  <button className="nav-link"        id="v-pills-saude-fisioterapico-tab" data-bs-toggle="pill" data-bs-target="#v-pills-saude-fisioterapico" type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Fisioterápico</button>                  
+                  <button className="nav-link"        id="v-pills-saude-fisico-tab"        data-bs-toggle="pill" data-bs-target="#v-pills-saude-fisico"        type="button" role="tab" aria-controls="v-pills-saude-fisico"        aria-selected="false">Fisico</button>
+                  <button className="nav-link"        id="v-pills-saude-anamnese-tab"      data-bs-toggle="pill" data-bs-target="#v-pills-saude-anamnese"      type="button" role="tab" aria-controls="v-pills-saude-fisioterapico" aria-selected="false">Anamnese</button>                  
                 </div>
 
               {/*Page Dados*/}  
@@ -1684,39 +1677,11 @@ function Pessoa_Edt(){
                     </div>
                   </div>
 
-                {/*Aba - Anamnese*/}
-                  <div className="tab-pane fade" id="v-pills-saude-anamnese" role="tabpanel" aria-labelledby="v-pills-saude-anamnese-tab" tabindex="2">
-                  {/*Anamnese*/}  
-                    <label htmlFor="mem_anamnese" className="mt-margem">Anamnese:</label>
-                    <textarea rows="13" onChange={(e)=>setMemAnamnese(e.target.value)} value={mem_anamnese} name="mem_anamnese" id="mem_anamnese" className="form-control"></textarea>
-                  </div>
-
-                </div>
-
-              </div>
-            </div> {/*Fecha Aba - Saude*/}
-
-          {/*Aba - Físico*/}    
-            <div className="tab-pane fade" id="fisico-tab-pane" role="tabpanel" aria-labelledby="fisico-tab" tabIndex="7">
-            {/*Page Vertical*/}
-              <div className="d-flex align-items-start">
-              {/*Page Titulos*/}
-                <div className="nav flex-column nav-pills me-3 mt-page" id="v-pills-fisico-tab" role="tablist" aria-orientation="vertical">
-                  <button className="nav-link active" id="v-pills-fisico-vital-tab"       data-bs-toggle="pill" data-bs-target="#v-pills-fisico-vital"       type="button" role="tab" aria-controls="v-pills-fisico-vital"       aria-selected="true">Dados Vitais              </button>
-                  <button className="nav-link"        id="v-pills-fisico-postura-tab"     data-bs-toggle="pill" data-bs-target="#v-pills-fisico-postura"     type="button" role="tab" aria-controls="v-pills-fisico-postura"     aria-selected="false">Postura                  </button>
-                  <button className="nav-link"        id="v-pills-fisico-osteo-tab"       data-bs-toggle="pill" data-bs-target="#v-pills-fisico-osteo"       type="button" role="tab" aria-controls="v-pills-fisico-osteo"       aria-selected="false">Sistema Osteomioarticular</button>
-                  <button className="nav-link"        id="v-pills-fisico-tonus-tab"       data-bs-toggle="pill" data-bs-target="#v-pills-fisico-tonus"       type="button" role="tab" aria-controls="v-pills-fisico-tonus"       aria-selected="false">Tônus Muscular           </button>
-                  <button className="nav-link"        id="v-pills-fisico-forca-tab"       data-bs-toggle="pill" data-bs-target="#v-pills-fisico-forca"       type="button" role="tab" aria-controls="v-pills-fisico-forca"       aria-selected="false">Força Muscular           </button>
-                  <button className="nav-link"        id="v-pills-fisico-tegumentar-tab"  data-bs-toggle="pill" data-bs-target="#v-pills-fisico-tegumentar"  type="button" role="tab" aria-controls="v-pills-fisico-tegumentar"  aria-selected="false">Sistema Tegumentar       </button>
-                  <button className="nav-link"        id="v-pills-fisico-equilibrio-tab"  data-bs-toggle="pill" data-bs-target="#v-pills-fisico-equilibrio"  type="button" role="tab" aria-controls="v-pills-fisico-equilibrio"  aria-selected="false">Equilibrio Funcional     </button>
-                  <button className="nav-link"        id="v-pills-fisico-coordenacao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fisico-coordenacao" type="button" role="tab" aria-controls="v-pills-fisico-coordenacao" aria-selected="false">Coordenação              </button>
-                </div>
-
-              {/*Page Dados*/}  
-                <div className="tab-content container-fluid" id="v-pills-fisico-tabContent">
-                
-                {/*Aba - Dados Vitais*/}
-                  <div className="tab-pane fade mt-margem show active" id="v-pills-fisico-vital" role="tabpanel" aria-labelledby="v-pills-fisico-vital-tab" tabindex="0">                    
+                {/*Aba - Fisico*/}
+                  <div className="tab-pane fade" id="v-pills-saude-fisico" role="tabpanel" aria-labelledby="v-pills-saude-fisico-tab" tabindex="2">
+                  {/*SubAba - Dados Vitais*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Dados Vitais</h6></center>
                   {/*PA (Pressão Arterial)*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_pressao_arterial" className="mt-margem">PA (Pressão Arterial):</label>
@@ -1742,741 +1707,700 @@ function Pessoa_Edt(){
                       <label htmlFor="dsc_temperatura_corporal" className="mt-margem">TC (Temperatura Corporal):</label>
                       <input onChange={(e)=>setDscTemperaturaCorporal(e.target.value)} value={dsc_temperatura_corporal} type="text" name="dsc_temperatura_corporal" id="dsc_temperatura_corporal" className="form-control mt-margem-input-ref"/>
                     </div>
-                  </div> {/*Fecha Aba - Dados Vitais*/}
-                
-                {/*Aba - Postura*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-postura" role="tabpanel" aria-labelledby="v-pills-fisico-postura-tab" tabindex="1">
+
+                  {/*SubAba - Postura*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Postura</h6></center>
                   {/*Postura da Cabeça*/}
                     <div className="mt-margem">
                       <h6 >Cabeça:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('A')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_a" checked={flg_postura_cabeca=='A'}/>
-                          <label className="form-check-label" for="flg_postura_cabeca_a">
-                            Alinhada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('R')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_r" checked={flg_postura_cabeca=='R'}/>
-                          <label className="form-check-label" for="flg_postura_cabeca_r">
-                            Rodada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('I')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_i" checked={flg_postura_cabeca=='I'}/>
-                          <label className="form-check-label" for="flg_postura_cabeca_i">
-                            Inclinada
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('A')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_a" checked={flg_postura_cabeca=='A'}/>
+                        <label className="form-check-label" for="flg_postura_cabeca_a">
+                        Alinhada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('R')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_r" checked={flg_postura_cabeca=='R'}/>
+                        <label className="form-check-label" for="flg_postura_cabeca_r">
+                        Rodada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCabeca('I')} value="" name="flg_postura_cabeca" id="flg_postura_cabeca_i" checked={flg_postura_cabeca=='I'}/>
+                        <label className="form-check-label" for="flg_postura_cabeca_i">
+                        Inclinada
+                        </label>
+                      </div>                        
                     </div>
-
-                   {/*Postura da Ombro*/}
+                  {/*Postura da Ombro*/}
                     <div className="mt-margem">
                       <h6 >Ombro:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('A')} value="" name="flg_postura_ombro" id="flg_postura_ombro_a" checked={flg_postura_ombro=='A'}/>
-                          <label className="form-check-label" for="flg_postura_ombro_a">
-                            Alinhado
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('E')} value="" name="flg_postura_ombro" id="flg_postura_ombro_e" checked={flg_postura_ombro=='E'}/>
-                          <label className="form-check-label" for="flg_postura_ombro_e">
-                            Elevado D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('D')} value="" name="flg_postura_ombro" id="flg_postura_ombro_d" checked={flg_postura_ombro=='D'}/>
-                          <label className="form-check-label" for="flg_postura_ombro_d">
-                            Deprimido D/E
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('A')} value="" name="flg_postura_ombro" id="flg_postura_ombro_a" checked={flg_postura_ombro=='A'}/>
+                        <label className="form-check-label" for="flg_postura_ombro_a">
+                        Alinhado
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('E')} value="" name="flg_postura_ombro" id="flg_postura_ombro_e" checked={flg_postura_ombro=='E'}/>
+                        <label className="form-check-label" for="flg_postura_ombro_e">
+                        Elevado D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaOmbro('D')} value="" name="flg_postura_ombro" id="flg_postura_ombro_d" checked={flg_postura_ombro=='D'}/>
+                        <label className="form-check-label" for="flg_postura_ombro_d">
+                        Deprimido D/E
+                        </label>
+                      </div>                        
                     </div>
-
                   {/*Postura da Clavícula*/}
                     <div className="mt-margem">
                       <h6 >Clavícula:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('A')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_a" checked={flg_postura_clavicula=='A'}/>
-                          <label className="form-check-label" for="flg_postura_clavicula_a">
-                            Alinhada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('E')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_e" checked={flg_postura_clavicula=='E'}/>
-                          <label className="form-check-label" for="flg_postura_clavicula_e">
-                            Elevada D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('S')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_s" checked={flg_postura_clavicula=='S'}/>
-                          <label className="form-check-label" for="flg_postura_clavicula_s">
-                            Saliente D/E
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('A')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_a" checked={flg_postura_clavicula=='A'}/>
+                        <label className="form-check-label" for="flg_postura_clavicula_a">
+                        Alinhada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('E')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_e" checked={flg_postura_clavicula=='E'}/>
+                        <label className="form-check-label" for="flg_postura_clavicula_e">
+                        Elevada D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaClavicula('S')} value="" name="flg_postura_clavicula" id="flg_postura_clavicula_s" checked={flg_postura_clavicula=='S'}/>
+                        <label className="form-check-label" for="flg_postura_clavicula_s">
+                        Saliente D/E
+                        </label>
+                      </div>                        
                     </div>
-
                   {/*Postura do Cotovelo*/}
                     <div className="mt-margem">
                       <h6 >Cotovelo:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCotovelo('A')} value="" name="flg_postura_cotovelo" id="flg_postura_cotovelo_a" checked={flg_postura_cotovelo=='A'}/>
-                          <label className="form-check-label" for="flg_postura_cotovelo_a">
-                            Alinhado
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCotovelo('V')} value="" name="flg_postura_cotovelo" id="flg_postura_cotovelo_v" checked={flg_postura_cotovelo=='V'}/>
-                          <label className="form-check-label" for="flg_postura_cotovelo_v">
-                            Valgo D/E
-                          </label>
-                        </div>                                                
-                    </div>  
-
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCotovelo('A')} value="" name="flg_postura_cotovelo" id="flg_postura_cotovelo_a" checked={flg_postura_cotovelo=='A'}/>
+                        <label className="form-check-label" for="flg_postura_cotovelo_a">
+                        Alinhado
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaCotovelo('V')} value="" name="flg_postura_cotovelo" id="flg_postura_cotovelo_v" checked={flg_postura_cotovelo=='V'}/>
+                        <label className="form-check-label" for="flg_postura_cotovelo_v">
+                        Valgo D/E
+                        </label>
+                      </div>                                                
+                    </div> 
                   {/*Postura do Antebraço*/}
                     <div className="mt-margem">
                       <h6 >Antebraço:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaAntebraco('N')} value="" name="flg_postura_antebraco" id="flg_postura_antebraco_n" checked={flg_postura_antebraco=='N'}/>
-                          <label className="form-check-label" for="flg_postura_antebraco_n">
-                            Neutros
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaAntebraco('P')} value="" name="flg_postura_antebraco" id="flg_postura_antebraco_p" checked={flg_postura_antebraco=='P'}/>
-                          <label className="form-check-label" for="flg_postura_antebraco_p">
-                            Pronados D/E
-                          </label>
-                        </div>                                                
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaAntebraco('N')} value="" name="flg_postura_antebraco" id="flg_postura_antebraco_n" checked={flg_postura_antebraco=='N'}/>
+                        <label className="form-check-label" for="flg_postura_antebraco_n">
+                        Neutros
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaAntebraco('P')} value="" name="flg_postura_antebraco" id="flg_postura_antebraco_p" checked={flg_postura_antebraco=='P'}/>
+                        <label className="form-check-label" for="flg_postura_antebraco_p">
+                        Pronados D/E
+                        </label>
+                      </div>                                                
                     </div>
-
                   {/*Postura EIAS*/}
                     <div className="mt-margem">
                       <h6 >EIAS:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaEias('A')} value="" name="flg_postura_eias" id="flg_postura_eias_a" checked={flg_postura_eias=='A'}/>
-                          <label className="form-check-label" for="flg_postura_eias_a">
-                            Alinhada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaEias('M')} value="" name="flg_postura_eias" id="flg_postura_eias_m" checked={flg_postura_eias=='M'}/>
-                          <label className="form-check-label" for="flg_postura_eias_m">
-                            Mais baixa D/E
-                          </label>
-                        </div>                                                
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaEias('A')} value="" name="flg_postura_eias" id="flg_postura_eias_a" checked={flg_postura_eias=='A'}/>
+                        <label className="form-check-label" for="flg_postura_eias_a">
+                        Alinhada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaEias('M')} value="" name="flg_postura_eias" id="flg_postura_eias_m" checked={flg_postura_eias=='M'}/>
+                        <label className="form-check-label" for="flg_postura_eias_m">
+                        Mais baixa D/E
+                        </label>
+                      </div>                                                
                     </div>
-
                   {/*Postura Joelhos*/}
                     <div className="mt-margem">
                       <h6 >Joelhos:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('A')} value="" name="flg_postura_joelho" id="flg_postura_joelho_a" checked={flg_postura_joelho=='A'}/>
-                          <label className="form-check-label" for="flg_postura_joelho_a">
-                            Alinhados
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('V')} value="" name="flg_postura_joelho" id="flg_postura_joelho_v" checked={flg_postura_joelho=='V'}/>
-                          <label className="form-check-label" for="flg_postura_joelho_v">
-                            Valgos
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('R')} value="" name="flg_postura_joelho" id="flg_postura_joelho_r" checked={flg_postura_joelho=='R'}/>
-                          <label className="form-check-label" for="flg_postura_joelho_r">
-                            Varo
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('M')} value="" name="flg_postura_joelho" id="flg_postura_joelho_m" checked={flg_postura_joelho=='M'}/>
-                          <label className="form-check-label" for="flg_postura_joelho_m">
-                            R. Medial
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('L')} value="" name="flg_postura_joelho" id="flg_postura_joelho_l" checked={flg_postura_joelho=='L'}/>
-                          <label className="form-check-label" for="flg_postura_joelho_l">
-                            R. Lateral
-                          </label>
-                        </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('A')} value="" name="flg_postura_joelho" id="flg_postura_joelho_a" checked={flg_postura_joelho=='A'}/>
+                        <label className="form-check-label" for="flg_postura_joelho_a">
+                        Alinhados
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('V')} value="" name="flg_postura_joelho" id="flg_postura_joelho_v" checked={flg_postura_joelho=='V'}/>
+                        <label className="form-check-label" for="flg_postura_joelho_v">
+                        Valgos
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('R')} value="" name="flg_postura_joelho" id="flg_postura_joelho_r" checked={flg_postura_joelho=='R'}/>
+                        <label className="form-check-label" for="flg_postura_joelho_r">
+                        Varo
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('M')} value="" name="flg_postura_joelho" id="flg_postura_joelho_m" checked={flg_postura_joelho=='M'}/>
+                        <label className="form-check-label" for="flg_postura_joelho_m">
+                        R. Medial
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaJoelho('L')} value="" name="flg_postura_joelho" id="flg_postura_joelho_l" checked={flg_postura_joelho=='L'}/>
+                        <label className="form-check-label" for="flg_postura_joelho_l">
+                        R. Lateral
+                        </label>
+                      </div>
                     </div>
-
                   {/*Postura Patela*/}
                     <div className="mt-margem">
                       <h6 >Patela:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('A')} value="" name="flg_postura_patela" id="flg_postura_patela_a" checked={flg_postura_patela=='A'}/>
-                          <label className="form-check-label" for="flg_postura_patela_a">
-                            Alinhadas
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('L')} value="" name="flg_postura_patela" id="flg_postura_patela_l" checked={flg_postura_patela=='L'}/>
-                          <label className="form-check-label" for="flg_postura_patela_l">
-                            Lateralizadas D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('M')} value="" name="flg_postura_patela" id="flg_postura_patela_m" checked={flg_postura_patela=='M'}/>
-                          <label className="form-check-label" for="flg_postura_patela_m">
-                            Medializadas D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('E')} value="" name="flg_postura_patela" id="flg_postura_patela_e" checked={flg_postura_patela=='E'}/>
-                          <label className="form-check-label" for="flg_postura_patela_e">
-                            Elevada D/E
-                          </label>
-                        </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('A')} value="" name="flg_postura_patela" id="flg_postura_patela_a" checked={flg_postura_patela=='A'}/>
+                        <label className="form-check-label" for="flg_postura_patela_a">
+                        Alinhadas
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('L')} value="" name="flg_postura_patela" id="flg_postura_patela_l" checked={flg_postura_patela=='L'}/>
+                        <label className="form-check-label" for="flg_postura_patela_l">
+                        Lateralizadas D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('M')} value="" name="flg_postura_patela" id="flg_postura_patela_m" checked={flg_postura_patela=='M'}/>
+                        <label className="form-check-label" for="flg_postura_patela_m">
+                        Medializadas D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPatela('E')} value="" name="flg_postura_patela" id="flg_postura_patela_e" checked={flg_postura_patela=='E'}/>
+                        <label className="form-check-label" for="flg_postura_patela_e">
+                        Elevada D/E
+                        </label>
+                      </div>
                     </div>
-
                   {/*Postura Pé*/}
                     <div className="mt-margem">
                       <h6 >Pé:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('A')} value="" name="flg_postura_pe" id="flg_postura_pe_a" checked={flg_postura_pe=='A'}/>
-                          <label className="form-check-label" for="flg_postura_pe_a">
-                            Alinhados
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('V')} value="" name="flg_postura_pe" id="flg_postura_pe_v" checked={flg_postura_pe=='V'}/>
-                          <label className="form-check-label" for="flg_postura_pe_v">
-                            Valgo D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('R')} value="" name="flg_postura_pe" id="flg_postura_pe_r" checked={flg_postura_pe=='R'}/>
-                          <label className="form-check-label" for="flg_postura_pe_r">
-                            Varo D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('P')} value="" name="flg_postura_pe" id="flg_postura_pe_p" checked={flg_postura_pe=='P'}/>
-                          <label className="form-check-label" for="flg_postura_pe_p">
-                            Plano
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('C')} value="" name="flg_postura_pe" id="flg_postura_pe_c" checked={flg_postura_pe=='C'}/>
-                          <label className="form-check-label" for="flg_postura_pe_c">
-                            Cavo
-                          </label>
-                        </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('A')} value="" name="flg_postura_pe" id="flg_postura_pe_a" checked={flg_postura_pe=='A'}/>
+                        <label className="form-check-label" for="flg_postura_pe_a">
+                        Alinhados
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('V')} value="" name="flg_postura_pe" id="flg_postura_pe_v" checked={flg_postura_pe=='V'}/>
+                        <label className="form-check-label" for="flg_postura_pe_v">
+                        Valgo D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('R')} value="" name="flg_postura_pe" id="flg_postura_pe_r" checked={flg_postura_pe=='R'}/>
+                        <label className="form-check-label" for="flg_postura_pe_r">
+                        Varo D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('P')} value="" name="flg_postura_pe" id="flg_postura_pe_p" checked={flg_postura_pe=='P'}/>
+                        <label className="form-check-label" for="flg_postura_pe_p">
+                        Plano
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaPe('C')} value="" name="flg_postura_pe" id="flg_postura_pe_c" checked={flg_postura_pe=='C'}/>
+                        <label className="form-check-label" for="flg_postura_pe_c">
+                        Cavo
+                        </label>
+                      </div>
                     </div>
-
                   {/*Postura da Tornozelo*/}
                     <div className="mt-margem">
                       <h6 >Tornozelo:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('A')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_a" checked={flg_postura_tornozelo=='A'}/>
-                          <label className="form-check-label" for="flg_postura_tornozelo_a">
-                            Alinhado
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('V')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_v" checked={flg_postura_tornozelo=='V'}/>
-                          <label className="form-check-label" for="flg_postura_tornozelo_v">
-                            Valgo D/E
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('R')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_r" checked={flg_postura_tornozelo=='R'}/>
-                          <label className="form-check-label" for="flg_postura_tornozelo_r">
-                            Varo D/E
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('A')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_a" checked={flg_postura_tornozelo=='A'}/>
+                        <label className="form-check-label" for="flg_postura_tornozelo_a">
+                        Alinhado
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('V')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_v" checked={flg_postura_tornozelo=='V'}/>
+                        <label className="form-check-label" for="flg_postura_tornozelo_v">
+                        Valgo D/E
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaTornozelo('R')} value="" name="flg_postura_tornozelo" id="flg_postura_tornozelo_r" checked={flg_postura_tornozelo=='R'}/>
+                        <label className="form-check-label" for="flg_postura_tornozelo_r">
+                        Varo D/E
+                        </label>
+                      </div>                        
                     </div>
-
                   {/*Postura da Coluna Cervical*/}
                     <div className="mt-margem">
                       <h6 >Coluna Cervical:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('R')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_r" checked={flg_postura_coluna_cervical=='R'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_cervical_r">
-                            Retificada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('N')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_n" checked={flg_postura_coluna_cervical=='N'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_cervical_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('H')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_h" checked={flg_postura_coluna_cervical=='H'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_cervical_h">
-                            Hiperlordose
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('R')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_r" checked={flg_postura_coluna_cervical=='R'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_cervical_r">
+                        Retificada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('N')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_n" checked={flg_postura_coluna_cervical=='N'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_cervical_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaCervical('H')} value="" name="flg_postura_coluna_cervical" id="flg_postura_coluna_cervical_h" checked={flg_postura_coluna_cervical=='H'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_cervical_h">
+                        Hiperlordose
+                        </label>
+                      </div>                        
                     </div>
-
                   {/*Postura da Coluna Torácica*/}
                     <div className="mt-margem">
                       <h6 >Coluna Torácica:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('R')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_r" checked={flg_postura_coluna_toracica=='R'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_toracica_r">
-                            Retificada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('N')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_n" checked={flg_postura_coluna_toracica=='N'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_toracica_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('H')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_h" checked={flg_postura_coluna_toracica=='H'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_toracica_h">
-                            Hipercifose
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('R')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_r" checked={flg_postura_coluna_toracica=='R'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_toracica_r">
+                        Retificada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('N')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_n" checked={flg_postura_coluna_toracica=='N'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_toracica_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaToracica('H')} value="" name="flg_postura_coluna_toracica" id="flg_postura_coluna_toracica_h" checked={flg_postura_coluna_toracica=='H'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_toracica_h">
+                        Hipercifose
+                        </label>
+                      </div>                        
                     </div>
-
                   {/*Postura da Coluna Lombar*/}
                     <div className="mt-margem">
                       <h6 >Coluna Lombar:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('R')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_r" checked={flg_postura_coluna_lombar=='R'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_lombar_r">
-                            Retificada
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('N')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_n" checked={flg_postura_coluna_lombar=='N'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_lombar_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('H')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_h" checked={flg_postura_coluna_lombar=='H'}/>
-                          <label className="form-check-label" for="flg_postura_coluna_lombar_h">
-                            Hiperlordose
-                          </label>
-                        </div>                        
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('R')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_r" checked={flg_postura_coluna_lombar=='R'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_lombar_r">
+                        Retificada
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('N')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_n" checked={flg_postura_coluna_lombar=='N'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_lombar_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgPosturaColunaLombar('H')} value="" name="flg_postura_coluna_lombar" id="flg_postura_coluna_lombar_h" checked={flg_postura_coluna_lombar=='H'}/>
+                        <label className="form-check-label" for="flg_postura_coluna_lombar_h">
+                        Hiperlordose
+                        </label>
+                      </div>                        
                     </div>
-                  </div> {/*Fecha Aba - Postura*/}
 
-                {/*Aba - Sistema Osteomioarticular*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-osteo" role="tabpanel" aria-labelledby="v-pills-fisico-osteo-tab" tabindex="2">
+                  {/*SubAba - Sistema Osteomioarticular*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Sistema Osteomioarticular</h6></center>
                   {/*Sistema Osteomioarticular*/}
-                    <div className="mt-margem">
-                      <h6 >Sistema Osteomioarticular:</h6>
+                    <div className="mt-margem">                      
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('V')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_v" checked={flg_sistema_osteomioarticular=='V'}/>
-                        <label className="form-check-label" for="flg_sistema_osteomioarticular_v">
-                          Voluntário
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('V')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_v" checked={flg_sistema_osteomioarticular=='V'}/>
+                      <label className="form-check-label" for="flg_sistema_osteomioarticular_v">
+                        Voluntário
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('I')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_i" checked={flg_sistema_osteomioarticular=='I'}/>
-                        <label className="form-check-label" for="flg_sistema_osteomioarticular_i">
-                          Involuntário
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('I')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_i" checked={flg_sistema_osteomioarticular=='I'}/>
+                      <label className="form-check-label" for="flg_sistema_osteomioarticular_i">
+                        Involuntário
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('P')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_p" checked={flg_sistema_osteomioarticular=='P'}/>
-                        <label className="form-check-label" for="flg_sistema_osteomioarticular_p">
-                          Plégia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('P')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_p" checked={flg_sistema_osteomioarticular=='P'}/>
+                      <label className="form-check-label" for="flg_sistema_osteomioarticular_p">
+                        Plégia
+                      </label>
                       </div>                        
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('A')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_a" checked={flg_sistema_osteomioarticular=='A'}/>
-                        <label className="form-check-label" for="flg_sistema_osteomioarticular_a">
-                          Paresia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgSistemaOsteomioarticular('A')} value="" name="flg_sistema_osteomioarticular" id="flg_sistema_osteomioarticular_a" checked={flg_sistema_osteomioarticular=='A'}/>
+                      <label className="form-check-label" for="flg_sistema_osteomioarticular_a">
+                        Paresia
+                      </label>
                       </div>  
                     </div>
-                  </div> {/*Fecha Aba - Sistema Osteomioarticular*/}
 
-                {/*Aba - Tônus Muscular*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-tonus" role="tabpanel" aria-labelledby="v-pills-fisico-tonus-tab" tabindex="3">
-                  {/*Tônus Muscular*/}
-                    <div className="mt-margem">
-                      <h6 >Tônus Muscular:</h6>
+                  {/*SubAba - Tônus Muscular*/}
+                     <br></br>
+                     <center><h6 className="mt-margem align_center">Tônus Muscular</h6></center>  
+                  {/*Tônus Muscular*/}                    
+                    <div className="mt-margem">                      
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('H')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_h" checked={flg_tonus_muscular=='H'}/>
-                        <label className="form-check-label" for="flg_tonus_muscular_h">
-                          Hipertrofia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('H')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_h" checked={flg_tonus_muscular=='H'}/>
+                      <label className="form-check-label" for="flg_tonus_muscular_h">
+                        Hipertrofia
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('E')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_e" checked={flg_tonus_muscular=='E'}/>
-                        <label className="form-check-label" for="flg_tonus_muscular_e">
-                          Espaticidade
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('E')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_e" checked={flg_tonus_muscular=='E'}/>
+                      <label className="form-check-label" for="flg_tonus_muscular_e">
+                        Espaticidade
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('R')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_r" checked={flg_tonus_muscular=='R'}/>
-                        <label className="form-check-label" for="flg_tonus_muscular_r">
-                          Rigidez
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('R')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_r" checked={flg_tonus_muscular=='R'}/>
+                      <label className="form-check-label" for="flg_tonus_muscular_r">
+                        Rigidez
+                      </label>
                       </div>                        
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('I')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_i" checked={flg_tonus_muscular=='I'}/>
-                        <label className="form-check-label" for="flg_tonus_muscular_i">
-                          Hipotomia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('I')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_i" checked={flg_tonus_muscular=='I'}/>
+                      <label className="form-check-label" for="flg_tonus_muscular_i">
+                        Hipotomia
+                      </label>
                       </div>  
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('A')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_a" checked={flg_tonus_muscular=='A'}/>
-                        <label className="form-check-label" for="flg_tonus_muscular_a">
-                          Atrofia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTonusMuscular('A')} value="" name="flg_tonus_muscular" id="flg_tonus_muscular_a" checked={flg_tonus_muscular=='A'}/>
+                      <label className="form-check-label" for="flg_tonus_muscular_a">
+                        Atrofia
+                      </label>
                       </div>
                     </div>
-                  </div> {/*Fecha Aba - Sistema Osteomioarticular*/}
 
-                {/*Aba - Força Muscular*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-forca" role="tabpanel" aria-labelledby="v-pills-fisico-forca-tab" tabindex="4">
-                 
+                  {/*SubAba - Força Muscular*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Força Muscular</h6></center>
                   {/*MMSS*/}
                     <div className="mt-margem">
                       <h6 >MMSS:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmss('N')} value="" name="flg_forca_muscular_mmss" id="flg_forca_muscular_mmss_n" checked={flg_forca_muscular_mmss=='N'}/>
-                          <label className="form-check-label" for="flg_forca_muscular_mmss_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmss('D')} value="" name="flg_forca_muscular_mmss" id="flg_forca_muscular_mmss_d" checked={flg_forca_muscular_mmss=='D'}/>
-                          <label className="form-check-label" for="flg_forca_muscular_mmss_d">
-                            Diminuída
-                          </label>
-                        </div>                                                
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmss('N')} value="" name="flg_forca_muscular_mmss" id="flg_forca_muscular_mmss_n" checked={flg_forca_muscular_mmss=='N'}/>
+                        <label className="form-check-label" for="flg_forca_muscular_mmss_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmss('D')} value="" name="flg_forca_muscular_mmss" id="flg_forca_muscular_mmss_d" checked={flg_forca_muscular_mmss=='D'}/>
+                        <label className="form-check-label" for="flg_forca_muscular_mmss_d">
+                        Diminuída
+                        </label>
+                      </div>                                                
                     </div>
-
                   {/*MMII*/}
                     <div className="mt-margem">
                       <h6 >MMII:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmii('N')} value="" name="flg_forca_muscular_mmii" id="flg_forca_muscular_mmii_n" checked={flg_forca_muscular_mmii=='N'}/>
-                          <label className="form-check-label" for="flg_forca_muscular_mmii_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmii('D')} value="" name="flg_forca_muscular_mmii" id="flg_forca_muscular_mmii_d" checked={flg_forca_muscular_mmii=='D'}/>
-                          <label className="form-check-label" for="flg_forca_muscular_mmii_d">
-                            Diminuída
-                          </label>
-                        </div>                                                
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmii('N')} value="" name="flg_forca_muscular_mmii" id="flg_forca_muscular_mmii_n" checked={flg_forca_muscular_mmii=='N'}/>
+                        <label className="form-check-label" for="flg_forca_muscular_mmii_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgForcaMuscularMmii('D')} value="" name="flg_forca_muscular_mmii" id="flg_forca_muscular_mmii_d" checked={flg_forca_muscular_mmii=='D'}/>
+                        <label className="form-check-label" for="flg_forca_muscular_mmii_d">
+                        Diminuída
+                        </label>
+                      </div>                                                
                     </div>
-
                   {/*Amplitude Muscular*/}
                     <div className="mt-margem">
                       <h6 >Amplitude Muscular:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('N')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_n" checked={flg_amplitude_muscular=='N'}/>
-                          <label className="form-check-label" for="flg_amplitude_muscular_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('D')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_d" checked={flg_amplitude_muscular=='D'}/>
-                          <label className="form-check-label" for="flg_amplitude_muscular_d">
-                            Diminuída
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('R')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_r" checked={flg_amplitude_muscular=='R'}/>
-                          <label className="form-check-label" for="flg_amplitude_muscular_r">
-                            Rigidez
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('F')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_f" checked={flg_amplitude_muscular=='F'}/>
-                          <label className="form-check-label" for="flg_amplitude_muscular_f">
-                            Fratura
-                          </label>
-                        </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('N')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_n" checked={flg_amplitude_muscular=='N'}/>
+                        <label className="form-check-label" for="flg_amplitude_muscular_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('D')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_d" checked={flg_amplitude_muscular=='D'}/>
+                        <label className="form-check-label" for="flg_amplitude_muscular_d">
+                        Diminuída
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('R')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_r" checked={flg_amplitude_muscular=='R'}/>
+                        <label className="form-check-label" for="flg_amplitude_muscular_r">
+                        Rigidez
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgAmplitudeMuscular('F')} value="" name="flg_amplitude_muscular" id="flg_amplitude_muscular_f" checked={flg_amplitude_muscular=='F'}/>
+                        <label className="form-check-label" for="flg_amplitude_muscular_f">
+                        Fratura
+                        </label>
+                      </div>
                     </div>
-
                   {/*ADM Passiva MMSS*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_adm_passiva_mmss" className="mt-margem">ADM Passiva MMSS:</label>
                       <input onChange={(e)=>setDscAdmPassivaMmss(e.target.value)} value={dsc_adm_passiva_mmss} type="text" name="dsc_adm_passiva_mmss" id="dsc_adm_passiva_mmss" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*ADM Passiva MMII*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_adm_passiva_mmii" className="mt-margem">ADM Passiva MMII:</label>
                       <input onChange={(e)=>setDscAdmPassivaMmii(e.target.value)} value={dsc_adm_passiva_mmii} type="text" name="dsc_adm_passiva_mmii" id="dsc_adm_passiva_mmii" className="form-control mt-margem-input-ref"/>
-                    </div>
-                  
+                    </div>                    
                   {/*ADM Ativa MMSS*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_adm_ativa_mmss" className="mt-margem">ADM Ativa MMSS:</label>
                       <input onChange={(e)=>setDscAdmAtivaMmss(e.target.value)} value={dsc_adm_ativa_mmss} type="text" name="dsc_adm_ativa_mmss" id="dsc_adm_ativa_mmss" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*ADM Ativa MMII*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_adm_ativa_mmii" className="mt-margem">ADM Ativa MMII:</label>
                       <input onChange={(e)=>setDscAdmAtivaMmii(e.target.value)} value={dsc_adm_ativa_mmii} type="text" name="dsc_adm_ativa_mmii" id="dsc_adm_ativa_mmii" className="form-control mt-margem-input-ref"/>
                     </div>
-                  
-                  </div> {/*Fecha Aba - Força Muscular*/}
 
-                {/*Aba - Sistema Tegumentar*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-tegumentar" role="tabpanel" aria-labelledby="v-pills-fisico-tegumentar-tab" tabindex="5">
-                  
+                  {/*SubAba - Sistema Tegumentar*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Sistema Tegumentar</h6></center>
                   {/*Pele*/}
-                    <div className="input-group mt-margem"> 
+                    <div className="input-group"> 
                       <label htmlFor="dsc_tegumentar_pele" className="mt-margem">Pele:</label>
                       <input onChange={(e)=>setDscTegumentarPele(e.target.value)} value={dsc_tegumentar_pele} type="text" name="dsc_tegumentar_pele" id="dsc_tegumentar_pele" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Elastidade*/}
                     <div className="mt-margem">
                       <h6 >Elastidade:</h6>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarElasticidade('N')} value="" name="flg_tegumentar_elasticidade" id="flg_tegumentar_elasticidade_n" checked={flg_tegumentar_elasticidade=='N'}/>
-                          <label className="form-check-label" for="flg_tegumentar_elasticidade_n">
-                            Normal
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarElasticidade('D')} value="" name="flg_tegumentar_elasticidade" id="flg_tegumentar_elasticidade_d" checked={flg_tegumentar_elasticidade=='D'}/>
-                          <label className="form-check-label" for="flg_tegumentar_elasticidade_d">
-                            Diminuída
-                          </label>
-                        </div>                                                
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarElasticidade('N')} value="" name="flg_tegumentar_elasticidade" id="flg_tegumentar_elasticidade_n" checked={flg_tegumentar_elasticidade=='N'}/>
+                        <label className="form-check-label" for="flg_tegumentar_elasticidade_n">
+                        Normal
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarElasticidade('D')} value="" name="flg_tegumentar_elasticidade" id="flg_tegumentar_elasticidade_d" checked={flg_tegumentar_elasticidade=='D'}/>
+                        <label className="form-check-label" for="flg_tegumentar_elasticidade_d">
+                        Diminuída
+                        </label>
+                      </div>                                                
                     </div>
-
                   {/*Desidratação*/}
                     <div className="mt-margem">
                       <h6 >Desidratação:</h6>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarDesidratacao('S')} value="" name="flg_tegumentar_desidratacao" id="flg_tegumentar_desidratacao_s" checked={flg_tegumentar_desidratacao=='S'}/>
-                        <label className="form-check-label" for="flg_tegumentar_desidratacao_s">
-                          Sim
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarDesidratacao('S')} value="" name="flg_tegumentar_desidratacao" id="flg_tegumentar_desidratacao_s" checked={flg_tegumentar_desidratacao=='S'}/>
+                      <label className="form-check-label" for="flg_tegumentar_desidratacao_s">
+                        Sim
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarDesidratacao('N')} value="" name="flg_tegumentar_desidratacao" id="flg_tegumentar_desidratacao_n" checked={flg_tegumentar_desidratacao=='N'}/>
-                        <label className="form-check-label" for="flg_tegumentar_desidratacao_n">
-                          Não
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarDesidratacao('N')} value="" name="flg_tegumentar_desidratacao" id="flg_tegumentar_desidratacao_n" checked={flg_tegumentar_desidratacao=='N'}/>
+                      <label className="form-check-label" for="flg_tegumentar_desidratacao_n">
+                        Não
+                      </label>
                       </div>                                                
                     </div>
-
                   {/*Manchas*/}
                     <div className="mt-margem">
                       <h6 >Manchas:</h6>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarMancha('S')} value="" name="flg_tegumentar_mancha" id="flg_tegumentar_mancha_s" checked={flg_tegumentar_mancha=='S'}/>
-                        <label className="form-check-label" for="flg_tegumentar_mancha_s">
-                          Sim
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarMancha('S')} value="" name="flg_tegumentar_mancha" id="flg_tegumentar_mancha_s" checked={flg_tegumentar_mancha=='S'}/>
+                      <label className="form-check-label" for="flg_tegumentar_mancha_s">
+                        Sim
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarMancha('N')} value="" name="flg_tegumentar_mancha" id="flg_tegumentar_mancha_n" checked={flg_tegumentar_mancha=='N'}/>
-                        <label className="form-check-label" for="flg_tegumentar_mancha_n">
-                          Não
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarMancha('N')} value="" name="flg_tegumentar_mancha" id="flg_tegumentar_mancha_n" checked={flg_tegumentar_mancha=='N'}/>
+                      <label className="form-check-label" for="flg_tegumentar_mancha_n">
+                        Não
+                      </label>
                       </div>                                                
                     </div>
-
                   {/*Local manchas*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_local_mancha" className="mt-margem">Local manchas:</label>
                       <input onChange={(e)=>setDscLocalMancha(e.target.value)} value={dsc_local_mancha} type="text" name="dsc_local_mancha" id="dsc_local_mancha" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Coloração*/}
                     <div className="mt-margem">
                       <h6 >Coloração:</h6>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('H')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_h" checked={flg_tegumentar_coloracao=='H'}/>
-                        <label className="form-check-label" for="flg_tegumentar_coloracao_h">
-                          Hiperemia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('H')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_h" checked={flg_tegumentar_coloracao=='H'}/>
+                      <label className="form-check-label" for="flg_tegumentar_coloracao_h">
+                        Hiperemia
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('P')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_p" checked={flg_tegumentar_coloracao=='P'}/>
-                        <label className="form-check-label" for="flg_tegumentar_coloracao_p">
-                          Pálido
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('P')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_p" checked={flg_tegumentar_coloracao=='P'}/>
+                      <label className="form-check-label" for="flg_tegumentar_coloracao_p">
+                        Pálido
+                      </label>
                       </div>                                                
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('C')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_c" checked={flg_tegumentar_coloracao=='C'}/>
-                        <label className="form-check-label" for="flg_tegumentar_coloracao_c">
-                          Cianótico
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarColoracao('C')} value="" name="flg_tegumentar_coloracao" id="flg_tegumentar_coloracao_c" checked={flg_tegumentar_coloracao=='C'}/>
+                      <label className="form-check-label" for="flg_tegumentar_coloracao_c">
+                        Cianótico
+                      </label>
                       </div>
                     </div>
-
                   {/*Local Coloração*/}
-                  <div className="input-group mt-margem"> 
+                    <div className="input-group mt-margem"> 
                     <label htmlFor="dsc_local_coloracao" className="mt-margem">Local Coloração:</label>
                     <input onChange={(e)=>setDscLocalColoracao(e.target.value)} value={dsc_local_coloracao} type="text" name="dsc_local_coloracao" id="dsc_local_coloracao" className="form-control mt-margem-input-ref"/>
-                  </div>
-
+                    </div>
                   {/*Temperatura*/}
                     <div className="mt-margem">
                       <h6 >Temperatura:</h6>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('H')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_h" checked={flg_tegumentar_temperatura=='H'}/>
-                        <label className="form-check-label" for="flg_tegumentar_temperatura_h">
-                          Hiperemia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('H')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_h" checked={flg_tegumentar_temperatura=='H'}/>
+                      <label className="form-check-label" for="flg_tegumentar_temperatura_h">
+                        Hiperemia
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('I')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_i" checked={flg_tegumentar_temperatura=='I'}/>
-                        <label className="form-check-label" for="flg_tegumentar_temperatura_i">
-                          Hipotermia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('I')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_i" checked={flg_tegumentar_temperatura=='I'}/>
+                      <label className="form-check-label" for="flg_tegumentar_temperatura_i">
+                        Hipotermia
+                      </label>
                       </div>                                                
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('P')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_p" checked={flg_tegumentar_temperatura=='P'}/>
-                        <label className="form-check-label" for="flg_tegumentar_temperatura_p">
-                          Hipertemia
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarTemperatura('P')} value="" name="flg_tegumentar_temperatura" id="flg_tegumentar_temperatura_p" checked={flg_tegumentar_temperatura=='P'}/>
+                      <label className="form-check-label" for="flg_tegumentar_temperatura_p">
+                        Hipertemia
+                      </label>
                       </div>
                     </div>
-
                   {/*Local Temperatura*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_local_temperatura" className="mt-margem">Local Temperatura:</label>
                       <input onChange={(e)=>setDscLocalTemperatura(e.target.value)} value={dsc_local_temperatura} type="text" name="dsc_local_temperatura" id="dsc_local_temperatura" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Sensibilidade*/}
                     <div className="mt-margem">
                       <h6 >Sensibilidade:</h6>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarSensibilidade('N')} value="" name="flg_tegumentar_sensibilidade" id="flg_tegumentar_sensibilidade_n" checked={flg_tegumentar_sensibilidade=='N'}/>
-                        <label className="form-check-label" for="flg_tegumentar_sensibilidade_n">
-                          Normal
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarSensibilidade('N')} value="" name="flg_tegumentar_sensibilidade" id="flg_tegumentar_sensibilidade_n" checked={flg_tegumentar_sensibilidade=='N'}/>
+                      <label className="form-check-label" for="flg_tegumentar_sensibilidade_n">
+                        Normal
+                      </label>
                       </div>
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarSensibilidade('D')} value="" name="flg_tegumentar_sensibilidade" id="flg_tegumentar_sensibilidade_d" checked={flg_tegumentar_sensibilidade=='D'}/>
-                        <label className="form-check-label" for="flg_tegumentar_sensibilidade_d">
-                          Diminuida
-                        </label>
+                      <input className="form-check-input" type="radio" onChange={(e)=>setFlgTegumentarSensibilidade('D')} value="" name="flg_tegumentar_sensibilidade" id="flg_tegumentar_sensibilidade_d" checked={flg_tegumentar_sensibilidade=='D'}/>
+                      <label className="form-check-label" for="flg_tegumentar_sensibilidade_d">
+                        Diminuida
+                      </label>
                       </div>                                                
                     </div>
-
                   {/*Local Sensibilidade*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_local_sensibilidade" className="mt-margem">Local Sensibilidade:</label>
                       <input onChange={(e)=>setDscLocalSensibilidade(e.target.value)} value={dsc_local_sensibilidade} type="text" name="dsc_local_sensibilidade" id="dsc_local_sensibilidade" className="form-control mt-margem-input-ref"/>
                     </div>
 
-                  </div>
-
-                {/*Aba - Equilíbrio Funcional*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-equilibrio" role="tabpanel" aria-labelledby="v-pills-fisico-equilibrio-tab" tabindex="6">
-                  
+                  {/*SubAba - Equilíbrio Funcional*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Equilíbrio Funcional</h6></center>
                   {/*Mão na Cabeça*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_equilibrio_mao_cabeca" className="mt-margem">Mão na cabeça:</label>
                       <input onChange={(e)=>setDscEquilibrioMaoCabeca(e.target.value)} value={dsc_equilibrio_mao_cabeca} type="text" name="dsc_equilibrio_mao_cabeca" id="dsc_equilibrio_mao_cabeca" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Mão no Ombro (Cruzada)*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_equilibrio_mao_ombro" className="mt-margem">Mão no ombro (Cruzada):</label>
                       <input onChange={(e)=>setDscEquilibrioMaoOmbro(e.target.value)} value={dsc_equilibrio_mao_ombro} type="text" name="dsc_equilibrio_mao_ombro" id="dsc_equilibrio_mao_ombro" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Cruzar Pernas*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_equilibrio_cruzar_perna" className="mt-margem">Cruzar pernas:</label>
                       <input onChange={(e)=>setDscEquilibrioCruzarPerna(e.target.value)} value={dsc_equilibrio_cruzar_perna} type="text" name="dsc_equilibrio_cruzar_perna" id="dsc_equilibrio_cruzar_perna" className="form-control mt-margem-input-ref"/>
                     </div>
 
-                  </div>
-                
-                {/*Aba - Coordenação*/}
-                  <div className="tab-pane fade mt-margem" id="v-pills-fisico-coordenacao" role="tabpanel" aria-labelledby="v-pills-fisico-coordenacao-tab" tabindex="7">
-                  
+                  {/*SubAba - Coordenação*/}
+                    <br></br>
+                    <center><h6 className="mt-margem align_center">Coordenação</h6></center>
                   {/*MSD*/}
-                     <div className="input-group mt-margem"> 
+                    <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_msd" className="mt-margem">MSD:</label>
                       <input onChange={(e)=>setDscCoordenacaoMsd(e.target.value)} value={dsc_coordenacao_msd} type="text" name="dsc_coordenacao_msd" id="dsc_coordenacao_msd" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*MSE*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_mse" className="mt-margem">MSE:</label>
                       <input onChange={(e)=>setDscCoordenacaoMse(e.target.value)} value={dsc_coordenacao_mse} type="text" name="dsc_coordenacao_mse" id="dsc_coordenacao_mse" className="form-control mt-margem-input-ref"/>
-                    </div>  
-
+                    </div>
                   {/*Index Nariz - MSD*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_nariz_msd" className="mt-margem">Index Nariz - MSD:</label>
                       <input onChange={(e)=>setDscCoordenacaoNarizMsd(e.target.value)} value={dsc_coordenacao_nariz_msd} type="text" name="dsc_coordenacao_nariz_msd" id="dsc_coordenacao_nariz_msd" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Index Nariz - MSE*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_nariz_mse" className="mt-margem">Index Nariz - MSE:</label>
                       <input onChange={(e)=>setDscCoordenacaoNarizMse(e.target.value)} value={dsc_coordenacao_nariz_mse} type="text" name="dsc_coordenacao_nariz_mse" id="dsc_coordenacao_nariz_mse" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Motricidade Fina*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_motricidade_fina" className="mt-margem">Motricidade Fina:</label>
                       <input onChange={(e)=>setDscCoordenacaoMotricidadeFina(e.target.value)} value={dsc_coordenacao_motricidade_fina} type="text" name="dsc_coordenacao_motricidade_fina" id="dsc_coordenacao_motricidade_fina" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Alcance*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_alcance" className="mt-margem">Alcance:</label>
                       <input onChange={(e)=>setDscCoordenacaoAlcance(e.target.value)} value={dsc_coordenacao_alcance} type="text" name="dsc_coordenacao_alcance" id="dsc_coordenacao_alcance" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Preensão*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_preensao" className="mt-margem">Preensão:</label>
                       <input onChange={(e)=>setDscCoordenacaoPreensao(e.target.value)} value={dsc_coordenacao_preensao} type="text" name="dsc_coordenacao_preensao" id="dsc_coordenacao_preensao" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Manipulação*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_manipulacao" className="mt-margem">Manipulação:</label>
                       <input onChange={(e)=>setDscCoordenacaoManipulacao(e.target.value)} value={dsc_coordenacao_manipulacao} type="text" name="dsc_coordenacao_manipulacao" id="dsc_coordenacao_manipulacao" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Cognitivo*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_cognitivo" className="mt-margem">Cognitivo:</label>
                       <input onChange={(e)=>setDscCoordenacaoCognitivo(e.target.value)} value={dsc_coordenacao_cognitivo} type="text" name="dsc_coordenacao_cognitivo" id="dsc_coordenacao_cognitivo" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Tratamento psiquiátrico*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_psiquiatrico" className="mt-margem">Tratamento psiquiátrico:</label>
                       <input onChange={(e)=>setDscCoordenacaoPsiquiatrico(e.target.value)} value={dsc_coordenacao_psiquiatrico} type="text" name="dsc_coordenacao_psiquiatrico" id="dsc_coordenacao_psiquiatrico" className="form-control mt-margem-input-ref"/>
                     </div>
-
                   {/*Tratamento psicológico*/}
                     <div className="input-group mt-margem"> 
                       <label htmlFor="dsc_coordenacao_psicologico" className="mt-margem">Tratamento psicológico:</label>
                       <input onChange={(e)=>setDscCoordenacaoPsicologico(e.target.value)} value={dsc_coordenacao_psicologico} type="text" name="dsc_coordenacao_psicologico" id="dsc_coordenacao_psicologico" className="form-control mt-margem-input-ref"/>
                     </div>
                   </div>
-                
+
+                {/*Aba - Anamnese*/}
+                  <div className="tab-pane fade" id="v-pills-saude-anamnese" role="tabpanel" aria-labelledby="v-pills-saude-anamnese-tab" tabindex="3">
+                  {/*Anamnese*/}  
+                    <label htmlFor="mem_anamnese" className="mt-margem">Anamnese:</label>
+                    <textarea rows="13" onChange={(e)=>setMemAnamnese(e.target.value)} value={mem_anamnese} name="mem_anamnese" id="mem_anamnese" className="form-control"></textarea>
+
+                  {/*Rodape - Botoes Confirmar e Cancelar*/}        
+                    <div>
+                      {/*Btn Cancelar e Btn Confirmar*/}
+                        <div className="text-center mt-margem">          
+                          <button type='button' onClick={Cancelar} className="btn btn-primary btn-acao">Cancelar </button>
+                          <button type='button' onClick={Editar}   className="btn btn-primary btn-acao">Confirmar</button>            
+                        </div>
+                        <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div> {/*Fecha Aba - Físico*/}
+            </div> {/*Fecha Aba - Saude*/}
           </div>
         </form>
 
-      {/*Rodape*/}        
-        <div>
-          {/*Btn Cancelar e Btn Confirmar*/}
-            <div className="text-center mt-margem">          
-              <button type='button' onClick={Cancelar} className="btn btn-primary btn-acao">Cancelar </button>
-              <button type='button' onClick={Editar}   className="btn btn-primary btn-acao">Confirmar</button>            
-            </div>
-            <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
-        </div>
+      
         {
           confirmado ?
             navigate('/pessoa') : null
