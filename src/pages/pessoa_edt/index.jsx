@@ -2398,9 +2398,22 @@ function Pessoa_Edt(){
               </div>
             </div> {/*Fecha Aba - Saude*/}
           </div>
+
+         {/*Rodape - Botoes Confirmar e Cancelar*/}        
+          {
+            flg_tipo_cadastro != "P" ? //Paciente 
+              <div className="footer">          
+                <div className="text-center mt-margem">          
+                  <button type='button' onClick={Cancelar} className="btn btn-primary btn-acao">Cancelar </button>
+                  <button type='button' onClick={Editar}   className="btn btn-primary btn-acao">Confirmar</button>            
+                </div>
+                <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
+              </div>
+            : null
+          }
+
         </form>
 
-      
         {
           confirmado ?
             navigate('/pessoa') : null

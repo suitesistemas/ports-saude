@@ -30,6 +30,18 @@ function Login(){
   }
 
   function ProcessaLogin(){
+    if (!dsc_conta) {
+      setMensagem('A conta deve ser informada!');
+    }
+
+    else if (!dsc_usuario) {
+      setMensagem('O Usuário deve ser informado!');
+    }
+
+    else if (!dsc_senha) {
+      setMensagem('A Senha deve ser informada!');
+    }
+
     fun_login_conta(dsc_conta).then((response) =>{      
       if (response.data.length > 0) { //Encontrou conta
         localStorage.setItem("cod_conta", response.data[0].cod_conta);
@@ -71,19 +83,19 @@ function Login(){
 
       {/*Conta*/}
         <div className="form-floating">
-          <input onChange={(e)=>setDscConta(e.target.value)} type="txt" className="form-control" name="flg_dsc_conta" id="flg_dsc_conta" placeholder="Conta" autoFocus/>
+          <input onChange={(e)=>[setDscConta(e.target.value), setMensagem('')]} type="txt" className="form-control" name="flg_dsc_conta" id="flg_dsc_conta" placeholder="Conta" autoFocus/>
           <label htmlFor="floatingInput">Conta</label>
         </div>
 
       {/*Usuário*/}
         <div className="form-floating">
-          <input onChange={(e)=>setDscUsuario(e.target.value)} type="txt" className="form-control" name="dsc_usuario" id="dsc_usuario" placeholder="Usuário" autoFocus/>
+          <input onChange={(e)=>[setDscUsuario(e.target.value), setMensagem('')]} type="txt" className="form-control" name="dsc_usuario" id="dsc_usuario" placeholder="Usuário" autoFocus/>
           <label htmlFor="floatingInput">Usuário</label>
         </div>
 
       {/*Senha*/}
         <div className="form-floating">
-          <input onChange={(e)=>setDscSenha(e.target.value)} type="password" name="dsc_senha" id="dsc_senha" className="form-control" placeholder="Senha"/>
+          <input onChange={(e)=>[setDscSenha(e.target.value), setMensagem('')]} type="password" name="dsc_senha" id="dsc_senha" className="form-control" placeholder="Senha"/>
           <label htmlFor="floatingInput">Senha</label>
         </div>
 

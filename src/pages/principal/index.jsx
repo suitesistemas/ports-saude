@@ -82,7 +82,7 @@ function Principal(){
     {/*Rodape*/}
       <div>
         <br/ >
-        <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas</small>
+        <small className="d-flex justify-content-center align-items-center text-secondary"> &copy; Desenvolvido por Suíte Sistemas - Versão 1.001</small>
       </div>
       </div>
     :null}

@@ -82,36 +82,42 @@ function Pessoa_Ins(){
 
 //Dados Pessoa - Inserindo um registro
   const Cadastrar = async e =>{
-    Axios.post(apiUrl + "/pessoa/inserir/" + localStorage.getItem("cod_conta"),
-    {
-      dsc_referencia:       referencia,
-      dsc_nome_pessoa:      nomepessoa,
-      dsc_nome_fantasia:    nomefantasia,
-      dsc_cpf_cnpj:         cpfcnpj,
-      dsc_rg_insc_estadual: rginscestadual,
-      dsc_ddd_01:           ddd01,
-      dsc_fone_01:          fone01,
-      dsc_ddd_celular_01:   dddcelular01,
-      dsc_celular_01:       celular01,
-      dsc_cep:              cep,
-      dsc_bairro:           bairro,
-      dsc_cidade:           cidade,
-      dsc_cidade_natal:     '', //sendo preenchida no editar pessoa
-      dsc_logradouro:       logradouro,
-      dat_cadastro:         datcadastro,
-      dat_nascimento:       datnascimento,
-      flg_tipo_pessoa:      flg_tipo_pessoa,
-      flg_tipo_cadastro:    flg_tipo_cadastro,    
-      flg_usuario:          flg_usuario,      
-      flg_sexo:             flgsexo,
-      flg_uf:               flguf,
-      num_logradouro:       numlogradouro      
-    })
-    
-    .then((response)=>{      
-    });
+    if (!nomepessoa) {
+      alert('O Nome Pessoa deve ser informado!');
+    }
 
-    setConfirmado(true);    
+    else{
+      Axios.post(apiUrl + "/pessoa/inserir/" + localStorage.getItem("cod_conta"),
+      {
+        dsc_referencia:       referencia,
+        dsc_nome_pessoa:      nomepessoa,
+        dsc_nome_fantasia:    nomefantasia,
+        dsc_cpf_cnpj:         cpfcnpj,
+        dsc_rg_insc_estadual: rginscestadual,
+        dsc_ddd_01:           ddd01,
+        dsc_fone_01:          fone01,
+        dsc_ddd_celular_01:   dddcelular01,
+        dsc_celular_01:       celular01,
+        dsc_cep:              cep,
+        dsc_bairro:           bairro,
+        dsc_cidade:           cidade,
+        dsc_cidade_natal:     '', //sendo preenchida no editar pessoa
+        dsc_logradouro:       logradouro,
+        dat_cadastro:         datcadastro,
+        dat_nascimento:       datnascimento,
+        flg_tipo_pessoa:      flg_tipo_pessoa,
+        flg_tipo_cadastro:    flg_tipo_cadastro,    
+        flg_usuario:          flg_usuario,      
+        flg_sexo:             flgsexo,
+        flg_uf:               flguf,
+        num_logradouro:       numlogradouro      
+      })
+      
+      .then((response)=>{      
+      });
+
+      setConfirmado(true);
+    }
   }
 
   function Cancelar(){
