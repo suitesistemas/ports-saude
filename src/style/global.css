@@ -56,6 +56,10 @@ body{
   max-width: 200px;
 }
 
+.coluna_grid_40 {
+  width: 40px;
+}
+
 .coluna_grid_80 {
   width: 80px;
 }

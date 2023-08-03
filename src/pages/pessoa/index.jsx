@@ -4,11 +4,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate }                            from 'react-router-dom';
 import Axios                                      from "axios";
 import { AuthContext }                            from "../../context/auth.jsx";
-import dns_api                       from '../../config/constante';
+import dns_api                                    from '../../config/constante';
 
-//const apiUrl = process.env.REACT_APP_API_URL; /*variavel de ambiente, tem que iniciar com REAC_APP_ e restante eh de livre digitacao*/
-//const apiUrl = "http://localhost:5000";
-//const apiUrl = "https://portsonline.com.br";
 const apiUrl = dns_api();
 
 function Pessoa(){

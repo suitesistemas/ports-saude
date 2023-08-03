@@ -4,8 +4,10 @@ import { useNavigate, useParams }                 from 'react-router-dom';
 import Axios                                      from "axios";
 import ListaContato                               from '../../components/lista_contato/index.jsx';
 import ListaRegistro                              from '../../components/lista_registro/index.jsx';
+import ListaAnamnese                              from '../../components/lista_anamnese/index.jsx';
 import { AuthContext }                            from "../../context/auth.jsx";
 import dns_api                                    from '../../config/constante';
+import anamnesePDF                                from '../../relatorios/paciente/anamnese.jsx';
 
 //const apiUrl = "http://localhost:5000";
 //const apiUrl = "https://portsonline.com.br";
@@ -117,18 +119,22 @@ function Pessoa_Edt(){
   //SubAba Programas
   const[programa_social,     setProgramaSocial]    = useState();
   const[fky_programa_social, setFkyProgramaSocial] = useState();
+  //SubAba Anamnese
+  const[anamnese, setAnamnese] = useState();
 
   const[excluido_tratamento,      setExcluidoTratamento]     = useState();
   const[excluido_doenca,          setExcluidoDoenca]         = useState();
   const[excluido_vacina,          setExcluidoVacina]         = useState();
   const[excluido_servico_saude,   setExcluidoServicoSaude]   = useState();
   const[excluido_programa_social, setExcluidoProgramaSocial] = useState();
+  const[excluido_anamnese,        setExcluidoAnamnese]       = useState();
 
   const[listar_tratamento,      setListarTratamento]     = useState();
   const[listar_doenca,          setListarDoenca]         = useState();
   const[listar_vacina,          setListarVacina]         = useState();
   const[listar_servico_saude,   setListarServicoSaude]   = useState();
   const[listar_programa_social, setListarProgramaSocial] = useState();
+  const[listar_anamnese,        setListarAnamnese]       = useState();
 
   const[listar_especialidade_medico_combo, setListarEspecialidadeMedicoCombo] = useState();
   const[listar_doenca_combo,               setListarDoencaCombo]              = useState();
@@ -434,7 +440,7 @@ function Pessoa_Edt(){
   useEffect(() => {
     fun_listar_contato().then((response) =>{     
       setContato(response.data);
-  })      
+    })      
   }, [listar_contato, excluido_contato]);
 
   async function fun_listar_contato(){
@@ -445,7 +451,7 @@ function Pessoa_Edt(){
   useEffect(() => {    
     fun_listar_tratamento().then((response) =>{      
       setTratamento(response.data);
-  })      
+    })      
   }, [listar_tratamento, excluido_tratamento]);
 
   async function fun_listar_tratamento(){
@@ -456,7 +462,7 @@ function Pessoa_Edt(){
   useEffect(() => {    
     fun_listar_doenca().then((response) =>{      
       setDoenca(response.data);
-  })      
+    })      
   }, [listar_doenca, excluido_doenca]);
 
   async function fun_listar_doenca(){
@@ -467,7 +473,7 @@ function Pessoa_Edt(){
   useEffect(() => {    
     fun_listar_vacina().then((response) =>{      
       setVacina(response.data);
-  })      
+    })      
   }, [listar_vacina, excluido_vacina]);
 
   async function fun_listar_vacina(){
@@ -478,7 +484,7 @@ function Pessoa_Edt(){
   useEffect(() => {    
     fun_listar_servico_saude().then((response) =>{      
       setServicoSaude(response.data);
-  })      
+    })      
   }, [listar_servico_saude, excluido_servico_saude]);
 
   async function fun_listar_servico_saude(){
@@ -489,11 +495,22 @@ function Pessoa_Edt(){
   useEffect(() => {    
     fun_listar_programa_social().then((response) =>{      
       setProgramaSocial(response.data);
-  })      
+    })      
   }, [listar_programa_social, excluido_programa_social]);
 
   async function fun_listar_programa_social(){
     return await Axios.get(apiUrl + "/pessoa/programa_social/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
+  };
+
+//Listar as Anamneses da Pessoa
+  useEffect(() => {    
+    fun_listar_anamnese().then((response) =>{
+      setAnamnese(response.data);
+    })      
+  }, [listar_anamnese, excluido_anamnese]);
+
+  async function fun_listar_anamnese(){
+    return await Axios.get(apiUrl + "/pessoa/anamnese/listar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa);
   };
 
 //Abrindo os Combos Box
@@ -620,6 +637,24 @@ function Pessoa_Edt(){
     return await Axios.delete(apiUrl + "/pessoa/programa_social/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + fky_programa_social);
   };
 
+  //Imprimir Anamnese  
+  function fun_imprimiranamnese(mem_anamnese){
+    anamnesePDF(mem_anamnese, nomepessoa);    
+  };
+
+  //Excluir Anamnese - Nao sendo usando por enquanto  
+  function fun_excluiranamnese(cod_seq_anamnese){
+    let codigo = cod_seq_anamnese;
+        
+    fun_excluindoanamnese(cod_seq_anamnese).then((response) =>{
+      setExcluidoAnamnese(codigo);
+    });    
+  };
+
+  async function fun_excluindoanamnese(cod_seq_anamnese){
+    return await Axios.delete(apiUrl + "/pessoa/anamnese/excluir/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa + '/' + cod_seq_anamnese);
+  };
+
 //Inserir Contato
   function AdicionarContato(){
     AdicionandoContato().then((response)=>{      
@@ -651,9 +686,8 @@ function Pessoa_Edt(){
     AdicionandoTratamento().then((response)=>{
       console.log(response);      
       setListarTratamento(response); //Retornando o insertid    
-  });
-
-  return;
+    });
+    return;
   }  
 
   async function AdicionandoTratamento(){    
@@ -734,6 +768,26 @@ function Pessoa_Edt(){
     return;
   }
 
+//Inserir Anamnese
+  function AdicionarAnamnese(){
+    AdicionandoAnamnese().then((response)=>{
+      console.log(response);      
+      setListarAnamnese(response); //Retornando o insertid    
+    });
+
+    return;
+  }
+
+  async function AdicionandoAnamnese(){    
+    let response = await Axios.post(apiUrl + "/pessoa/anamnese/inserir/" + localStorage.getItem("cod_conta"),
+    {
+      fky_paciente: cod_pessoa,
+      mem_anamnese: mem_anamnese
+    });
+
+    return response;
+  }
+
   async function AdicionandoProgramaSocial(){
     let response = await Axios.post(apiUrl + "/pessoa/programa_social/inserir/" + localStorage.getItem("cod_conta"),
     {
@@ -744,7 +798,7 @@ function Pessoa_Edt(){
     return response;
   }
 
-//*Dados Pessoa
+//Dados Pessoa
   function Editar(){
     Axios.put(apiUrl + "/pessoa/editar/" + localStorage.getItem("cod_conta") + '/' + cod_pessoa,
     {
@@ -2382,7 +2436,17 @@ function Pessoa_Edt(){
                   <div className="tab-pane fade" id="v-pills-saude-anamnese" role="tabpanel" aria-labelledby="v-pills-saude-anamnese-tab" tabindex="3">
                   {/*Anamnese*/}  
                     <label htmlFor="mem_anamnese" className="mt-margem">Anamnese:</label>
-                    <textarea rows="13" onChange={(e)=>setMemAnamnese(e.target.value)} value={mem_anamnese} name="mem_anamnese" id="mem_anamnese" className="form-control"></textarea>
+                    <textarea rows="10" onChange={(e)=>setMemAnamnese(e.target.value)} value={mem_anamnese} name="mem_anamnese" id="mem_anamnese" className="form-control"></textarea>
+                  
+                  {/*Botão Adicionar*/}
+                    <div className="mt-margem">
+                      <button type='button'onClick={AdicionarAnamnese} className="btn btn-light btn-adicionar mt-margem">Adicionar</button>
+                    </div>
+
+                  {/*GridAnamnese*/}  
+                    <div>                      
+                      <ListaAnamnese registro={anamnese} clickImprimirRegistro={fun_imprimiranamnese} clickExcluirRegistro={fun_excluiranamnese}/>              
+                    </div>
 
                   {/*Rodape - Botoes Confirmar e Cancelar*/}        
                     <div>
